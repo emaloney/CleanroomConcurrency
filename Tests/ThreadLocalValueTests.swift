@@ -9,62 +9,65 @@
 import XCTest
 import CleanroomConcurrency
 
+private var counter = 0
+private var remainingThreads = 0
+
 class ThreadLocalValueTests: XCTestCase
 {
-//    class TestThread: NSThread
-//    {
-//        let lock: ReadWriteCoordinator
-//        let signal: NSCondition
-//
-//        init(lock: ReadWriteCoordinator, signal: NSCondition)
-//        {
-//            self.lock = lock
-//            self.signal = signal
-//        }
-//
-//        override func main()
-//        {
-//            lock.enqueueWrite {
-//                var curVal = counter
-//                curVal++
-//                counter = curVal
-//            }
-//
-//            signal.lock()
-//            remainingThreads--
-//            signal.signal()
-//            signal.unlock()
-//        }
-//    }
-//
-//    func testThreadLocalValue()
-//    {
-//        let NumberOfThreads = 100
-//
-//        let lock = ReadWriteCoordinator()
-//        let signal = NSCondition()
-//
-//        remainingThreads = NumberOfThreads
-//        for _ in 0..<NumberOfThreads {
-//            TestThread(lock: lock, signal: signal).start()
-//        }
-//
-//        signal.lock()
-//        while remainingThreads > 0 {
-//            signal.wait()
-//
-//            var curVal: Int?
-//            lock.read {
-//                curVal = counter
-//            }
-//
-//            XCTAssert(remainingThreads == NumberOfThreads - counter)
-//
-//        }
-//        signal.unlock()
-//        
-//        XCTAssert(counter == NumberOfThreads)
-//    }
+    class TestThread: NSThread
+    {
+        let lock: ReadWriteCoordinator
+        let signal: NSCondition
+
+        init(lock: ReadWriteCoordinator, signal: NSCondition)
+        {
+            self.lock = lock
+            self.signal = signal
+        }
+
+        override func main()
+        {
+            lock.enqueueWrite {
+                var curVal = counter
+                curVal++
+                counter = curVal
+            }
+
+            signal.lock()
+            remainingThreads--
+            signal.signal()
+            signal.unlock()
+        }
+    }
+
+    func testThreadLocalValue()
+    {
+        let NumberOfThreads = 100
+
+        let lock = ReadWriteCoordinator()
+        let signal = NSCondition()
+
+        remainingThreads = NumberOfThreads
+        for _ in 0..<NumberOfThreads {
+            TestThread(lock: lock, signal: signal).start()
+        }
+
+        signal.lock()
+        while remainingThreads > 0 {
+            signal.wait()
+
+            var curVal: Int?
+            lock.read {
+                curVal = counter
+            }
+            XCTAssert(curVal != nil)
+            XCTAssert(remainingThreads == NumberOfThreads - counter)
+
+        }
+        signal.unlock()
+        
+        XCTAssert(counter == NumberOfThreads)
+    }
 
     func testNamespacing()
     {
