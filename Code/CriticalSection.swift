@@ -37,17 +37,9 @@ public struct CriticalSection
     */
     public func execute(fn: () -> Void)
     {
-        var exception: NSException?
-
         lock.lock()
-//        ExceptionTrap.try(fn, catch: { ex in
-//            exception = ex
-//        })
+        fn()
         lock.unlock()
-
-//        if let ex = exception {
-//            ExceptionTrap.throwException(ex)
-//        }
     }
 
     /**
@@ -70,17 +62,8 @@ public struct CriticalSection
         -> Bool
     {
         if lock.lockBeforeDate(NSDate().dateByAddingTimeInterval(timeout)) {
-            var exception: NSException?
-
-//            ExceptionTrap.try(fn, catch: { ex in
-//                exception = ex
-//            })
+            fn()
             lock.unlock()
-
-//            if let ex = exception {
-//                ExceptionTrap.throwException(ex)
-//            }
-
             return true
         }
 
