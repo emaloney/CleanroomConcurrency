@@ -9,8 +9,9 @@
 import XCTest
 import CleanroomConcurrency
 
-private var counter = 0             // a global value to protect with a ReadWriteCoordinator
+private var protect = 0             // a global value to protect with a ReadWriteCoordinator
 private var remainingThreads = 0    // used with an NSCondition signal to keep track of our threads
+private var executions = 0          // count the number of times the
 
 private let ShortWaitTimeout        = NSTimeInterval(1.0)
 private let LongWaitTimeout         = NSTimeInterval(100.0)
@@ -34,17 +35,17 @@ class CriticalSectionTests: XCTestCase
         override func main()
         {
             let fn = { () -> Void in
-
                 // this also tests re-entrancy
                 let gotLock = self.lock.executeWithTimeout(LongWaitTimeout) {
-                    XCTAssertTrue(counter == 0)
-                    counter++
-                    XCTAssertTrue(counter == 1)
-                    counter--
-                    XCTAssertTrue(counter == 0)
+                    executions++
+
+                    XCTAssertTrue(protect == 0)
+                    protect++
+                    XCTAssertTrue(protect == 1)
+                    protect--
+                    XCTAssertTrue(protect == 0)
                 }
                 XCTAssertTrue(gotLock)
-
             }
 
             for _ in 0..<TestThreadIterations {
@@ -83,7 +84,8 @@ class CriticalSectionTests: XCTestCase
         }
         signal.unlock()
 
-        XCTAssert(counter == 0)
+        XCTAssert(protect == 0)
+        XCTAssert(executions == NumberOfThreads * TestThreadIterations)
         XCTAssert(remainingThreads == 0)
     }
 
@@ -134,7 +136,7 @@ class CriticalSectionTests: XCTestCase
             signal.unlock()
         }
 
-        XCTAssert(counter == 0)
+        XCTAssert(protect == 0)
         XCTAssert(remainingThreads == 0)
     }
 
@@ -157,11 +159,11 @@ class CriticalSectionTests: XCTestCase
 //
 //                // this also tests re-entrancy
 //                let gotLock = self.lock.executeWithTimeout(LongWaitTimeout) {
-//                    XCTAssertTrue(counter == 0)
-//                    counter++
-//                    XCTAssertTrue(counter == 1)
-//                    counter--
-//                    XCTAssertTrue(counter == 0)
+//                    XCTAssertTrue(protect == 0)
+//                    protect++
+//                    XCTAssertTrue(protect == 1)
+//                    protect--
+//                    XCTAssertTrue(protect == 0)
 //
 //                    ExceptionTrap.throwExceptionWithName("try to break the locks")
 //                }
@@ -207,7 +209,7 @@ class CriticalSectionTests: XCTestCase
 //        }
 //        signal.unlock()
 //
-//        XCTAssert(counter == 0)
+//        XCTAssert(protect == 0)
 //        XCTAssert(remainingThreads == 0)
 //    }
 }
