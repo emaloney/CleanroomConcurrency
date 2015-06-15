@@ -120,7 +120,7 @@ class ThreadLocalValueTests: XCTestCase
                 }
 
                 var result = false
-                let threadName = NSThread.currentThread().name
+                let threadName = NSThread.currentThread().name!
                 if let value = tlv.value() as? String {
                     result = value == threadName
                 }

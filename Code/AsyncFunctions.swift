@@ -31,7 +31,7 @@ concurrent GCD queue.
 
 :param:     fn The function to execute asynchronously.
 */
-public func async(#delay: NSTimeInterval, fn: () -> Void)
+public func async(delay delay: NSTimeInterval, _ fn: () -> Void)
 {
     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * NSTimeInterval(NSEC_PER_SEC)))
     dispatch_after(time, AsyncQueue.instance.queue)  {
@@ -77,7 +77,7 @@ Asynchronously executes the specified function on the main thread.
 
 :param:     fn The function to execute on the main thread.
 */
-public func mainThread(#delay: NSTimeInterval, fn: () -> Void)
+public func mainThread(delay delay: NSTimeInterval, _ fn: () -> Void)
 {
     let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * NSTimeInterval(NSEC_PER_SEC)))
     dispatch_after(time, dispatch_get_main_queue())  {

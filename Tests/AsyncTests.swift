@@ -65,7 +65,7 @@ class AsyncTests: XCTestCase
 
         let semaphore = NSCondition()
 
-        for i in 0..<IterationsForDelayedTests {
+        for _ in 0..<IterationsForDelayedTests {
             let delay = NSTimeInterval(Double(arc4random() % 1000) / 1000)
             testDelay(delay, withSemaphore: semaphore)
         }
@@ -94,7 +94,7 @@ class AsyncTests: XCTestCase
         {
             XCTAssertTrue(NSThread.isMainThread())  // we expect tests to run on the main thread
 
-            for i in 0..<IterationsPerBarrierStage {
+            for _ in 0..<IterationsPerBarrierStage {
                 async {
                     XCTAssertTrue(!NSThread.isMainThread())
 
@@ -110,7 +110,7 @@ class AsyncTests: XCTestCase
                 }
             }
 
-            for i in 0..<IterationsPerBarrierStage {
+            for _ in 0..<IterationsPerBarrierStage {
                 asyncBarrier {
                     XCTAssertTrue(!NSThread.isMainThread())
 
@@ -126,7 +126,7 @@ class AsyncTests: XCTestCase
                 }
             }
 
-            for i in 0..<IterationsPerBarrierStage {
+            for _ in 0..<IterationsPerBarrierStage {
                 async {
                     XCTAssertTrue(!NSThread.isMainThread())
 
@@ -143,7 +143,7 @@ class AsyncTests: XCTestCase
             }
         }
 
-        for i in 0..<IterationsOfBarrierTest {
+        for _ in 0..<IterationsOfBarrierTest {
             let semaphore = NSCondition()
 
             testBarrierWithSemaphore(semaphore)
