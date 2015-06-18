@@ -61,7 +61,7 @@ class ThreadLocalValueTests: XCTestCase
                 curVal = counter
             }
             XCTAssert(curVal != nil)
-            XCTAssert(remainingThreads == NumberOfThreads - counter)
+            XCTAssert(remainingThreads == NumberOfThreads - curVal!)
 
         }
         signal.unlock()
