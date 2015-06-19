@@ -16,7 +16,7 @@ Note that CleanroomConcurrency is built as a *Swift framework*. This has several
 
 ### Requirements
 
-CleanroomConcurrency requires a **mimimum Xcode version of 6.3** to be built, and the resulting binary can be used on **iOS 8.1 and higher**.
+CleanroomConcurrency requires **Xcode 7 or higher** to be built, and the resulting binary can be used on **iOS 8.0 and higher**.
 
 We'll also be using the `git` command in the Terminal for installing the CleanroomConcurrency repo in your codebase. These steps have been tested with **git 2.3.2 (Apple Git-55)**, although they should be compatible with a wide range of git versions.
 
