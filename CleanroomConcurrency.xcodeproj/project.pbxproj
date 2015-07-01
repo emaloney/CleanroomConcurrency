@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B0168251B4482A400E330CA /* AsyncFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B92C6431B276BBE00555D7C /* AsyncFunctions.swift */; };
+		3B0168261B4482A400E330CA /* CriticalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B92C6441B276BBE00555D7C /* CriticalSection.swift */; };
+		3B0168271B4482A400E330CA /* ReadWriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B92C6451B276BBE00555D7C /* ReadWriteCoordinator.swift */; };
+		3B0168281B4482A400E330CA /* ThreadLocalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B92C6461B276BBE00555D7C /* ThreadLocalValue.swift */; };
 		3B92C60C1B2768F000555D7C /* CleanroomConcurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B92C6001B2768F000555D7C /* CleanroomConcurrency.framework */; };
 		3B92C6471B276BBE00555D7C /* AsyncFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B92C6431B276BBE00555D7C /* AsyncFunctions.swift */; };
 		3B92C6481B276BBE00555D7C /* CriticalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B92C6441B276BBE00555D7C /* CriticalSection.swift */; };
@@ -29,11 +33,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3B0693451B328F900040CDF3 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
-		3B0693461B328F900040CDF3 /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
-		3B0693471B328F900040CDF3 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
-		3B0693481B328F900040CDF3 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
-		3B0693491B328F900040CDF3 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
+		3B01680E1B44827900E330CA /* CleanroomConcurrency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleanroomConcurrency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B0168291B44834F00E330CA /* Debug-iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-iOS.xcconfig"; sourceTree = "<group>"; };
+		3B01682A1B44834F00E330CA /* Debug-OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Debug-OSX.xcconfig"; sourceTree = "<group>"; };
+		3B01682B1B44834F00E330CA /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		3B01682C1B44834F00E330CA /* Framework.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Framework.xcconfig; sourceTree = "<group>"; };
+		3B01682D1B44834F00E330CA /* iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = iOS.xcconfig; sourceTree = "<group>"; };
+		3B01682E1B44834F00E330CA /* OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = OSX.xcconfig; sourceTree = "<group>"; };
+		3B01682F1B44834F00E330CA /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		3B0168301B44834F00E330CA /* Release-iOS.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-iOS.xcconfig"; sourceTree = "<group>"; };
+		3B0168311B44834F00E330CA /* Release-OSX.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Release-OSX.xcconfig"; sourceTree = "<group>"; };
+		3B0168321B44834F00E330CA /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		3B0168331B44834F00E330CA /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
 		3B06934A1B328F900040CDF3 /* Info-Framework.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Framework.plist"; sourceTree = "<group>"; };
 		3B06934B1B328F900040CDF3 /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
 		3B92C6001B2768F000555D7C /* CleanroomConcurrency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleanroomConcurrency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +60,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3B01680A1B44827900E330CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3B92C5FC1B2768F000555D7C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -80,11 +98,17 @@
 		3B0693441B328F900040CDF3 /* config */ = {
 			isa = PBXGroup;
 			children = (
-				3B0693451B328F900040CDF3 /* Debug.xcconfig */,
-				3B0693461B328F900040CDF3 /* Framework.xcconfig */,
-				3B0693471B328F900040CDF3 /* Project.xcconfig */,
-				3B0693481B328F900040CDF3 /* Release.xcconfig */,
-				3B0693491B328F900040CDF3 /* Tests.xcconfig */,
+				3B0168291B44834F00E330CA /* Debug-iOS.xcconfig */,
+				3B01682A1B44834F00E330CA /* Debug-OSX.xcconfig */,
+				3B01682B1B44834F00E330CA /* Debug.xcconfig */,
+				3B01682C1B44834F00E330CA /* Framework.xcconfig */,
+				3B01682D1B44834F00E330CA /* iOS.xcconfig */,
+				3B01682E1B44834F00E330CA /* OSX.xcconfig */,
+				3B01682F1B44834F00E330CA /* Project.xcconfig */,
+				3B0168301B44834F00E330CA /* Release-iOS.xcconfig */,
+				3B0168311B44834F00E330CA /* Release-OSX.xcconfig */,
+				3B0168321B44834F00E330CA /* Release.xcconfig */,
+				3B0168331B44834F00E330CA /* Tests.xcconfig */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -104,6 +128,7 @@
 			children = (
 				3B92C6001B2768F000555D7C /* CleanroomConcurrency.framework */,
 				3B92C60B1B2768F000555D7C /* CleanroomConcurrencyTests.xctest */,
+				3B01680E1B44827900E330CA /* CleanroomConcurrency.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +158,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3B01680B1B44827900E330CA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3B92C5FD1B2768F000555D7C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,9 +175,27 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3B92C5FF1B2768F000555D7C /* CleanroomConcurrency */ = {
+		3B01680D1B44827900E330CA /* CleanroomConcurrency OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3B92C6161B2768F000555D7C /* Build configuration list for PBXNativeTarget "CleanroomConcurrency" */;
+			buildConfigurationList = 3B01681F1B44827A00E330CA /* Build configuration list for PBXNativeTarget "CleanroomConcurrency OSX" */;
+			buildPhases = (
+				3B0168091B44827900E330CA /* Sources */,
+				3B01680A1B44827900E330CA /* Frameworks */,
+				3B01680B1B44827900E330CA /* Headers */,
+				3B01680C1B44827900E330CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CleanroomConcurrency OSX";
+			productName = CleanroomConcurrency;
+			productReference = 3B01680E1B44827900E330CA /* CleanroomConcurrency.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		3B92C5FF1B2768F000555D7C /* CleanroomConcurrency iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B92C6161B2768F000555D7C /* Build configuration list for PBXNativeTarget "CleanroomConcurrency iOS" */;
 			buildPhases = (
 				3B92C5FB1B2768F000555D7C /* Sources */,
 				3B92C5FC1B2768F000555D7C /* Frameworks */,
@@ -156,7 +206,7 @@
 			);
 			dependencies = (
 			);
-			name = CleanroomConcurrency;
+			name = "CleanroomConcurrency iOS";
 			productName = CleanroomConcurrency;
 			productReference = 3B92C6001B2768F000555D7C /* CleanroomConcurrency.framework */;
 			productType = "com.apple.product-type.framework";
@@ -189,6 +239,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Gilt Groupe";
 				TargetAttributes = {
+					3B01680D1B44827900E330CA = {
+						CreatedOnToolsVersion = 7.0;
+					};
 					3B92C5FF1B2768F000555D7C = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
@@ -209,13 +262,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3B92C5FF1B2768F000555D7C /* CleanroomConcurrency */,
+				3B92C5FF1B2768F000555D7C /* CleanroomConcurrency iOS */,
+				3B01680D1B44827900E330CA /* CleanroomConcurrency OSX */,
 				3B92C60A1B2768F000555D7C /* CleanroomConcurrencyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3B01680C1B44827900E330CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3B92C5FE1B2768F000555D7C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,6 +294,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3B0168091B44827900E330CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B0168261B4482A400E330CA /* CriticalSection.swift in Sources */,
+				3B0168281B4482A400E330CA /* ThreadLocalValue.swift in Sources */,
+				3B0168251B4482A400E330CA /* AsyncFunctions.swift in Sources */,
+				3B0168271B4482A400E330CA /* ReadWriteCoordinator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3B92C5FB1B2768F000555D7C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,15 +332,48 @@
 /* Begin PBXTargetDependency section */
 		3B92C60E1B2768F000555D7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3B92C5FF1B2768F000555D7C /* CleanroomConcurrency */;
+			target = 3B92C5FF1B2768F000555D7C /* CleanroomConcurrency iOS */;
 			targetProxy = 3B92C60D1B2768F000555D7C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		3B0168201B44827A00E330CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B01682A1B44834F00E330CA /* Debug-OSX.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gilt.cleanroom.CleanroomConcurrency;
+				PRODUCT_NAME = CleanroomConcurrency;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3B0168211B44827A00E330CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3B0168311B44834F00E330CA /* Release-OSX.xcconfig */;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.gilt.cleanroom.CleanroomConcurrency;
+				PRODUCT_NAME = CleanroomConcurrency;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		3B92C6141B2768F000555D7C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B0693471B328F900040CDF3 /* Project.xcconfig */;
+			baseConfigurationReference = 3B01682F1B44834F00E330CA /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -319,7 +424,7 @@
 		};
 		3B92C6151B2768F000555D7C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B0693471B328F900040CDF3 /* Project.xcconfig */;
+			baseConfigurationReference = 3B01682F1B44834F00E330CA /* Project.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -362,35 +467,35 @@
 		};
 		3B92C6171B2768F000555D7C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B0693451B328F900040CDF3 /* Debug.xcconfig */;
+			baseConfigurationReference = 3B0168291B44834F00E330CA /* Debug-iOS.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gilt.cleanroom.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CleanroomConcurrency;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
 		3B92C6181B2768F000555D7C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B0693481B328F900040CDF3 /* Release.xcconfig */;
+			baseConfigurationReference = 3B0168301B44834F00E330CA /* Release-iOS.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gilt.cleanroom.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CleanroomConcurrency;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
 		3B92C61A1B2768F000555D7C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B0693491B328F900040CDF3 /* Tests.xcconfig */;
+			baseConfigurationReference = 3B0168331B44834F00E330CA /* Tests.xcconfig */;
 			buildSettings = {
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -405,7 +510,7 @@
 		};
 		3B92C61B1B2768F000555D7C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B0693491B328F900040CDF3 /* Tests.xcconfig */;
+			baseConfigurationReference = 3B0168331B44834F00E330CA /* Tests.xcconfig */;
 			buildSettings = {
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
@@ -417,6 +522,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3B01681F1B44827A00E330CA /* Build configuration list for PBXNativeTarget "CleanroomConcurrency OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B0168201B44827A00E330CA /* Debug */,
+				3B0168211B44827A00E330CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		3B92C5FA1B2768F000555D7C /* Build configuration list for PBXProject "CleanroomConcurrency" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -426,7 +539,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3B92C6161B2768F000555D7C /* Build configuration list for PBXNativeTarget "CleanroomConcurrency" */ = {
+		3B92C6161B2768F000555D7C /* Build configuration list for PBXNativeTarget "CleanroomConcurrency iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3B92C6171B2768F000555D7C /* Debug */,

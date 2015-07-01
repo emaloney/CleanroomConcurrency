@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3B92C5FF1B2768F000555D7C"
                BuildableName = "CleanroomConcurrency.framework"
-               BlueprintName = "CleanroomConcurrency"
+               BlueprintName = "CleanroomConcurrency iOS"
                ReferencedContainer = "container:CleanroomConcurrency.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -58,7 +58,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B92C5FF1B2768F000555D7C"
             BuildableName = "CleanroomConcurrency.framework"
-            BlueprintName = "CleanroomConcurrency"
+            BlueprintName = "CleanroomConcurrency iOS"
             ReferencedContainer = "container:CleanroomConcurrency.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -80,7 +80,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B92C5FF1B2768F000555D7C"
             BuildableName = "CleanroomConcurrency.framework"
-            BlueprintName = "CleanroomConcurrency"
+            BlueprintName = "CleanroomConcurrency iOS"
             ReferencedContainer = "container:CleanroomConcurrency.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -98,7 +98,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3B92C5FF1B2768F000555D7C"
             BuildableName = "CleanroomConcurrency.framework"
-            BlueprintName = "CleanroomConcurrency"
+            BlueprintName = "CleanroomConcurrency iOS"
             ReferencedContainer = "container:CleanroomConcurrency.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

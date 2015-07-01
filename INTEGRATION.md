@@ -11,7 +11,7 @@ CleanroomConcurrency is built as a *Swift framework*, and as such, it has the fo
 Platform|Minimum version
 --------|------------------------
 iOS|iOS 8.0
-
+Mac|OS X 10.10
 
 CleanroomConcurrency is **Swift 2.0**-compliant and requires **Xcode 7 beta 2 or higher** to be built.
 
@@ -124,9 +124,9 @@ Then, open your application in Xcode, and drag `CleanroomConcurrency.xcodeproj` 
 
 Before we can add `CleanroomConcurrency.framework` to your app, we have to build it, so Xcode has more information about the framework.
 
-**Important:** The next step will only work when the framework is built for a **device-based run destination**. That means that you must either select the “iOS Device” run destination before building, or you must select an actual external device (an option that’s only available when such a device is connected to your development machine).
+**Important:** The next step will only work when the framework is built for a **device-based run destination**. That means that you must either select the “My Mac” or “iOS Device” run destination before building, or you must select an actual external device (an option that’s only available when such a device is connected to your development machine).
 
-Once a device-based run destination has been selected, select the “CleanroomConcurrency” build scheme.
+Once a device-based run destination has been selected, select the appropriate build scheme for the target platform: “CleanroomConcurrency iOS” or “CleanroomConcurrency OSX”.
 
 Then, select *Build* (⌘B) from the *Product* menu.
 
@@ -201,7 +201,7 @@ Carthage integration is a little simpler than manual integration:
 1. Update the `Cartfile` with an entry for CleanroomConcurrency
 2. Download and build CleanroomConcurrency
 3. Add `CleanroomConcurrency.framework` to your application target
-4. Create a build phase to strip the extra processor architectures from the Carthage framework 
+4. Create a build phase to strip the extra processor architectures from the Carthage framework (not necessary for Mac OS X builds)
 
 ### Getting Started
 
@@ -237,7 +237,13 @@ Once Carthage is done building CleanroomConcurrency, you can use the `open` comm
 open Carthage/Build/iOS
 ```
 
-If all went well, the Carthage build directory should contain the file `CleanroomConcurrency.framework`. If that file isn’t present, something went wrong with the build.
+The command above opens the directory containing the iOS framework binary; to locate the Mac OS X binary, execute:
+
+```bash
+open Carthage/Build/Mac
+```
+
+If all went well, the Carthage build directories should contain the file `CleanroomConcurrency.framework`. If that file isn’t present, something went wrong with the build.
 
 ### 3. Add the necessary framework to your app target
 
@@ -248,6 +254,8 @@ Go back to Finder, select the file `CleanroomConcurrency.framework`, and then dr
 If successful, you should see `CleanroomConcurrency.framework` listed under both the *Embedded Binaries* and *Linked Frameworks and Libraries* sections.
 
 ### 4. Create a build phase to strip the Carthage framework
+
+> **Note:** You do *not* need to perform this step when building for Mac OS X. This step is only necessary when building for targets that can be run in a simulator.
 
 In Xcode, select the *Build Phases* tab in the build settings for your application target.
 
