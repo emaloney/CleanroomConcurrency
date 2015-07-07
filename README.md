@@ -2,11 +2,41 @@
 
 # CleanroomConcurrency
 
-CleanroomConcurrency is a Swift-based framework containing utilities for simplifying access to resources in a concurrent execution environment.
+CleanroomConcurrency provides utilities for simplifying asynchronous code execution and coordinating concurrent access to shared resources.
 
-CleanroomConcurrency is part of [the Cleanroom Project](http://github.com/gilt/Cleanroom) from [Gilt Tech](http://tech.gilt.com) and is distributed under [the MIT license](https://github.com/emaloney/CleanroomConcurrency/blob/master/LICENSE). CleanroomConcurrency is provided for your use, free-of-charge and on an as-is basis. We make no guarantees, promises or apologies. *Caveat developer.*
+CleanroomConcurrency is part of [the Cleanroom Project](https://github.com/gilt/Cleanroom) from [Gilt Tech](http://tech.gilt.com).
 
-## What it provides
+
+### Swift 2.0 compatibility
+
+The `master` branch of this project is Swift 2.0 compliant and therefore **requires Xcode 7 beta 2 or higher to compile**.
+
+
+### License
+
+CleanroomConcurrency is distributed under [the MIT license](/blob/master/LICENSE).
+
+CleanroomConcurrency is provided for your use—free-of-charge—on an as-is basis. We make no guarantees, promises or apologies. *Caveat developer.*
+
+
+### Adding CleanroomConcurrency to your project
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+You'll need to [integrate CleanroomConcurrency into your project](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md) in order to use [the API](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/index.html) it provides. You can choose:
+
+- [Manual integration](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md#manual-integration), wherein you embed CleanroomConcurrency's Xcode project within your own, **_or_**
+- [Using the Carthage dependency manager](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
+ 
+Once integrated, just add the following `import` statement to any Swift file where you want to use CleanroomConcurrency:
+
+```swift
+import CleanroomConcurrency
+```
+
+## Using CleanroomConcurrency
+
+CleanroomConcurrency provides:
 
 - A small set of global [asynchronous dispatching functions](#asyncfunctions) that declare a simplified interface for executing code asynchronously.
 
@@ -16,34 +46,13 @@ CleanroomConcurrency is part of [the Cleanroom Project](http://github.com/gilt/C
 
 - [`ThreadLocalValue`](#threadlocalvalue) — Simplifies access to thread-local values stored in the `threadDictionary` of the calling `NSThread`.
 
-#### Contributing
-
-CleanroomConcurrency is in active development, and we welcome your contributions.
-
-If you’d like to contribute to this or any other Cleanroom Project repo, please read [the contribution guidelines](https://github.com/gilt/Cleanroom#contributing-to-the-cleanroom-project).
-
-## Adding CleanroomConcurrency to your project
-
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-
-You'll need to [integrate CleanroomConcurrency into your project](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md) in order to use [the API](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/index.html) it provides. You can choose:
-
-- [Manual integration](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md#manual-integration), wherein you embed CleanroomASL's Xcode project within your own, **_or_**
-- [Using the Carthage dependency manager](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md#carthage-integration) to build a framework that you then embed in your application.
- 
-Once integrated, just add the following `import` statement to any Swift file where you want to use CleanroomConcurrency:
-
-```swift
-import CleanroomConcurrency
-```
-
-## AsyncFunctions
+### AsyncFunctions
 
 The [`AsyncFunctions.swift`](AsyncFunctions.swift) file contains top-level functions that declare a simplified interface for executing code asynchronously.
 
 Under the hood, these functions all rely on a single, privately-maintained concurrent Grand Central Dispatch (GCD) queue.
 
-### async
+#### async
 
 The `async` function provides a simple notation for specifying that a block of code should be executed asynchronously.
 
@@ -57,7 +66,7 @@ async {
 
 The operation specified by the closure—the `println()` call above—will be executed asynchronously.
  
-### async with delay
+#### async with delay
 
 A variation on the `async` function takes a `delay` parameter, an `NSTimeInterval` value specifying the *minimum* number of seconds to wait before asynchronously executing the closure:
 
@@ -69,7 +78,7 @@ async(delay: 0.35) {
 
 Note that this function does not perform real-time scheduling, so the asynchronous operation is **not** guaranteed to execute immediately once `delay` number of seconds has elapsed; instead, it will execute after *at least* `delay` number of seconds has elapsed.
 
-### mainThread
+#### mainThread
 
 The `mainThread` function enqueues an operation for eventual execution on the main `NSThread` of the application.
 
@@ -85,7 +94,7 @@ mainThread {
 
 The notation above ensures that the `rootViewController` is changed only on the main thread.
 
-### mainThread with delay
+#### mainThread with delay
 
 As with the `async` function, a variation of the `mainThread` function takes a `delay` parameter:
 
@@ -98,7 +107,7 @@ mainThread(delay: 0.35) {
 
 In the example above, the closure will be executed on the main thread after *at least* `0.35` seconds have elapsed.
 
-### asyncBarrier
+#### asyncBarrier
 
 The `asyncBarrier` function submits a barrier operation for asynchronous execution.
 
@@ -124,7 +133,7 @@ asyncBarrier {
 
 If you do not need an application-wide barrier, it may be best to maintain your own queue and use the `dispatch_barrier_async` GCD function instead.
 
-## CriticalSection
+### CriticalSection
 
 A `CriticalSection` provides a simple way to synchronize the execution of code across multiple threads.
 
@@ -132,7 +141,7 @@ A `CriticalSection` provides a simple way to synchronize the execution of code a
 
 In this way, `CriticalSection`s are similar to `@synchronized` blocks in Objective-C.
 
-### Using a CriticalSection
+#### Using a CriticalSection
 
 With a `CriticalSection`, any code inside the `execute` closure (shown below as the "`// code to execute`" comment) is executed only after exclusive access to the critical section has been acquired by the calling thread.
 
@@ -168,13 +177,13 @@ If exclusive access to the critical section `cs` can't be acquired within `1.0` 
 
 **Note:** It is best to design your implementation to avoid the potential for a deadlock. However, sometimes this is not possible, which is why the `executeWithTimeout()` function is provided.
 
-### Implementation Details
+#### Implementation Details
 
 The `CriticalSection` implementation uses an `NSRecursiveLock` internally, which enables `CriticalSection`s to be re-entrant. This means that a thread can't deadlock on a `CriticalSection` it already holds.
 
 In addition, the `CriticalSection` implementation also performs internal exception trapping to ensure that the lock state remains consistent.
 
-## ReadWriteCoordinator
+### ReadWriteCoordinator
 
 `ReadWriteCoordinator` instances can be used to coordinate access to a mutable resource shared across multiple threads.
 
@@ -196,7 +205,7 @@ You can think of the `ReadWriteCoordinator` as a dual read/write lock having the
 
 > The term *lock* is used in this document for conceptual clarity. In reality, the implementation uses Grand Central Dispatch and not a traditional lock.
 
-### Usage
+#### Usage
 
 For any given shared resource that needs to be protected by a read/write lock, you can create a `ReadWriteCoordinator` instance to manage access to that resource.
 
@@ -206,7 +215,7 @@ let lock = ReadWriteCoordinator()
 
 You would then hold a reference to that `ReadWriteCoordinator` for the lifetime of the shared resource.
 
-### Reading
+#### Reading
 
 Whenever you need read-only access to the shared resource, you wrap your access within a call to the `ReadWriteCoordinator`'s `read()` function, which is typically called with a trailing closure:
 
@@ -230,7 +239,7 @@ var globalCount: Int {
 }
 ```
 
-### Writing
+#### Writing
 
 Whenever you need to modify the state of the shared resource, you do so using the `enqueueWrite()` function of the `ReadWriteCoordinator`.
 
@@ -250,7 +259,7 @@ When a write operation is enqueued, any already-pending read operations will be 
 
 Under the hood, writes are submitted as asynchronous barrier operations to the receiver's GCD queue, ensuring that reads are always consistent with the order of writes.
 
-## ThreadLocalValue
+### ThreadLocalValue
 
 `ThreadLocalValue` provides a mechanism for accessing thread-local values stored in the `threadDictionary` of the calling `NSThread`.
 
@@ -263,7 +272,7 @@ This implementation provides three main advantages over using the
 
 - **Use thread-local storage as a lockless cache** — `ThreadLocalValue`s can be constructed with an optional `instantiator` that is used to construct values when the underlying `threadDictionary` doesn't have a value for the given key.
 
-### Namespacing
+#### Namespacing
 
 Namespacing can prevent key clashes when multiple subsystems need to share thread-local storage.
 
@@ -285,7 +294,7 @@ Because only the `fullKey` is used when accessing the underlying `threadDictiona
 
 > Regardless of whether a `ThreadLocalValue` uses a namespace, the key used to access the `threadDictionary` is always available via the `fullKey` property.
 
-### Thread-local caching
+#### Thread-local caching
 
 `ThreadLocalValue` instances can also be used to treat thread-local storage as a lockless cache.
 
@@ -314,3 +323,29 @@ let df = ThreadLocalValue<NSDateFormatter>(namespace: "Events", key: "dateFormat
 In the example above, `df` is constructed with an `instantiator` closure. If `df.value()` is called when there is no `NSDateFormatter` associated with the key "`Events.dateFormatter`" in the calling thread's `theadDictionary`, the `instantiator` will be invoked to create a new `NSDateFormatter`.
 
 Using thread-local storage as a cheap cache is best suited for cases where the long-term expense of acquiring read locks every time the object is accessed is greater than the expense of creating a new instance multiplied by the number of unique threads that will access the value.
+
+
+
+### API documentation
+
+For detailed information on using CleanroomConcurrency, [API documentation](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/index.html) is available.
+
+
+## About
+
+The Cleanroom Project is an experiment in re-imagining Gilt's iOS codebase in a legacy-free incarnation that embraces the latest Apple technology.
+
+We'll be tracking the most up-to-date releases of Swift, iOS and Xcode, and we'll be [open-sourcing major portions of our code](https://github.com/gilt/Cleanroom#open-source-by-default) as we go.
+
+
+### Contributing
+
+CleanroomConcurrency is in active development, and we welcome your contributions.
+
+If you’d like to contribute to this or any other Cleanroom Project repo, please read [the contribution guidelines](https://github.com/gilt/Cleanroom#contributing-to-the-cleanroom-project).
+
+
+### Acknowledgements
+
+[API documentation for CleanroomConcurrency](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/index.html) is generated using [Realm](http://realm.io)'s [jazzy](https://github.com/realm/jazzy/) project, maintained by [JP Simard](https://github.com/jpsim) and [Samuel E. Giddins](https://github.com/segiddins).
+
