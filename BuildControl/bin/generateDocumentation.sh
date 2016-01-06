@@ -12,9 +12,9 @@ fi
 
 pushd "`dirname $0`/../.." > /dev/null
 
-PUBLIC_GITHUB_URL="https://github.com/emaloney/CleanroomConcurrency.git"
+PUBLIC_GITHUB_URL="https://github.com/emaloney/CleanroomConcurrency"
 if [[ -z "$PUBLIC_GITHUB_URL" ]]; then
-	PUBLIC_GITHUB_URL=$(git remote -v | grep fetch | awk '{ print $2 }' | sed s/.git\$// | sed s/^ssh/https/)
+	PUBLIC_GITHUB_URL=$(git remote -v | grep fetch | awk '{ print $2 }' | sed s/.git\$// | sed s/^ssh/https/ | sed s#git@github.com:#https://github.com/# )
 fi
 MODULE_NAME=`basename $PUBLIC_GITHUB_URL`
 AUTHOR_GITHUB_URL=`dirname $PUBLIC_GITHUB_URL`
@@ -24,9 +24,10 @@ if [[ "$COPYRIGHT_YEAR" != "$CURRENT_YEAR" ]]; then
 	COPYRIGHT_YEAR="${COPYRIGHT_YEAR}-${CURRENT_YEAR}"
 fi
 
-"$JAZZY_EXECUTABLE" -o Documentation \
+"$JAZZY_EXECUTABLE" -o Documentation/API \
 	-m "$MODULE_NAME" \
-	--readme Code/README.md \
+	--swift-version 2.1.1 \
+	--readme Sources/README.md \
 	--github_url "$PUBLIC_GITHUB_URL" \
 	--author "Evan Maloney, Gilt Groupe" \
 	--author_url "$AUTHOR_GITHUB_URL" \
