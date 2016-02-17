@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ThreadLocalValue Struct Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/ThreadLocalValue" class="dashAnchor"></a>
+    <a title="ThreadLocalValue Struct Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">CleanroomConcurrency Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/emaloney/CleanroomConcurrency"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">CleanroomConcurrency Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ThreadLocalValue Struct Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F20CleanroomConcurrency5asyncFFT_T_T_">async(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F20CleanroomConcurrency5asyncFT5delaySdFT_T__T_">async(delay:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F20CleanroomConcurrency12asyncBarrierFFT_T_T_">asyncBarrier(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F20CleanroomConcurrency10mainThreadFFT_T_T_">mainThread(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F20CleanroomConcurrency10mainThreadFT5delaySdFT_T__T_">mainThread(delay:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/CriticalSection.html">CriticalSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ReadWriteCoordinator.html">ReadWriteCoordinator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/ThreadLocalValue.html">ThreadLocalValue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ThreadLocalValue</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p>Provides a mechanism for accessing thread-local values stored in the
+<code>threadDictionary</code> associated with the <code>NSThread</code> of the caller.</p>
+
+<p>As the class name implies, values set using <code>ThreadLocalValue</code> are only visible
+to the thread that set those values.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV20CleanroomConcurrency16ThreadLocalValue9namespaceGSqSS_"></a>
+                    <a name="//apple_ref/swift/Property/namespace" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV20CleanroomConcurrency16ThreadLocalValue9namespaceGSqSS_">namespace</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If the receiver was instantiated with a <code>namespace</code>, this property
+will contain that value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">namespace</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV20CleanroomConcurrency16ThreadLocalValue3keySS"></a>
+                    <a name="//apple_ref/swift/Property/key" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV20CleanroomConcurrency16ThreadLocalValue3keySS">key</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>key</code> that was originally passed to the receiver&rsquo;s constructor.
+If the receiver was constructed with a <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue9namespaceGSqSS_">namespace</a></code>, this value
+will not include the namespace; <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code> will include the namespace.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS"></a>
+                    <a name="//apple_ref/swift/Property/fullKey" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Contains the key that will be used to access the underlying
+<code>threadDictionary</code>. Unless the receiver was constructed with a
+<code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue9namespaceGSqSS_">namespace</a></code>, this value will be the same as <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue3keySS">key</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">fullKey</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV20CleanroomConcurrency16ThreadLocalValuecFT3keySS12instantiatorGSqFGS0_x_GSqx___GS0_x_"></a>
+                    <a name="//apple_ref/swift/Method/init(key:instantiator:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV20CleanroomConcurrency16ThreadLocalValuecFT3keySS12instantiatorGSqFGS0_x_GSqx___GS0_x_">init(key:instantiator:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new instance referencing the thread-local value associated
+with the specified key.</p>
+
+<p>:param:     key The key used to access the value associated with the 
+            receiver in the <code>threadDictionary</code>.</p>
+
+<p>:param:     instantiator An optional function that will be called to provide
+            a value when the underlying <code>threadDictionary</code> does not
+            contain a value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">instantiator</span><span class="p">:</span> <span class="p">((</span><span class="kt">ThreadLocalValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValueType</span><span class="p">?)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV20CleanroomConcurrency16ThreadLocalValuecFT9namespaceSS3keySS12instantiatorGSqFGS0_x_GSqx___GS0_x_"></a>
+                    <a name="//apple_ref/swift/Method/init(namespace:key:instantiator:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV20CleanroomConcurrency16ThreadLocalValuecFT9namespaceSS3keySS12instantiatorGSqFGS0_x_GSqx___GS0_x_">init(namespace:key:instantiator:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a new instance referencing the thread-local value associated
+with the specified namespace and key.</p>
+
+<p>:param:     namespace The name of the code module that will own the
+            receiver. This is used in constructing the <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code>.</p>
+
+<p>:param:     key The key within the namespace. Used to construct the
+            <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code> associated with the receiver.</p>
+
+<p>:param:     instantiator An optional function that will be called to provide
+            a value when the underlying <code>threadDictionary</code> does not
+            contain a value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">namespace</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">instantiator</span><span class="p">:</span> <span class="p">((</span><span class="kt">ThreadLocalValue</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ValueType</span><span class="p">?)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV20CleanroomConcurrency16ThreadLocalValue5valueFT_GSqx_"></a>
+                    <a name="//apple_ref/swift/Method/value()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV20CleanroomConcurrency16ThreadLocalValue5valueFT_GSqx_">value()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the <code>threadDictionary</code> value currently associated with the
+receiver&rsquo;s <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code>. If there is currently no value for <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code> or
+if the underlying value is not of the type specified by <code>ValueType</code>,
+the receiver&rsquo;s <code>instantiator</code> (if any) will be used to construct a new
+value that will be associated with <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code> in the <code>threadDictionary</code>
+which will then be returned.</p>
+
+<p>:returns:   The thread-local value. Will be <code>nil</code> if there is no
+            value associated with <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code>, if the underlying
+            value is not of the type specified by <code>ValueType</code>, and
+            if the receiver has no <code>instantiator</code> or if the
+            <code>instantiator</code> returned <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">value</span><span class="p">()</span>
+        <span class="o">-&gt;</span> <span class="kt">ValueType</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV20CleanroomConcurrency16ThreadLocalValue11cachedValueFT_GSqx_"></a>
+                    <a name="//apple_ref/swift/Method/cachedValue()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV20CleanroomConcurrency16ThreadLocalValue11cachedValueFT_GSqx_">cachedValue()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Retrieves the <code>threadDictionary</code> value currently associated with the
+receiver&rsquo;s <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code>.</p>
+
+<p>:returns:   The thread-local value. Will be <code>nil</code> if there is no
+            value associated with <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code> or if the underlying
+            value is not of the type specified by <code>ValueType</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cachedValue</span><span class="p">()</span>
+        <span class="o">-&gt;</span> <span class="kt">ValueType</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV20CleanroomConcurrency16ThreadLocalValue8setValueFGSqx_T_"></a>
+                    <a name="//apple_ref/swift/Method/setValue(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV20CleanroomConcurrency16ThreadLocalValue8setValueFGSqx_T_">setValue(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sets a new value in the calling thread&rsquo;s <code>threadDictionary</code> for the key
+specified by the receiver&rsquo;s <code><a href="../Structs/ThreadLocalValue.html#/s:vV20CleanroomConcurrency16ThreadLocalValue7fullKeySS">fullKey</a></code> property.</p>
+
+<p>:param:     newValue The new thread-local value.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">setValue</span><span class="p">(</span><span class="nv">newValue</span><span class="p">:</span> <span class="kt">ValueType</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2015-2016 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a></p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

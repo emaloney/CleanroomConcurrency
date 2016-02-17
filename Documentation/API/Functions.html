@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Functions  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="Functions  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">CleanroomConcurrency Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/emaloney/CleanroomConcurrency"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">CleanroomConcurrency Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Functions  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency5asyncFFT_T_T_">async(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency5asyncFT5delaySdFT_T__T_">async(delay:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency12asyncBarrierFFT_T_T_">asyncBarrier(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency10mainThreadFFT_T_T_">mainThread(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency10mainThreadFT5delaySdFT_T__T_">mainThread(delay:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/CriticalSection.html">CriticalSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ReadWriteCoordinator.html">ReadWriteCoordinator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ThreadLocalValue.html">ThreadLocalValue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Functions</h1>
+            <p>The following functions are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F20CleanroomConcurrency5asyncFFT_T_T_"></a>
+                    <a name="//apple_ref/swift/Function/async(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F20CleanroomConcurrency5asyncFFT_T_T_">async(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously executes the passed-in function on a concurrent GCD queue.</p>
+
+<p>:param:     fn The function to execute asynchronously.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">async</span><span class="p">(</span><span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F20CleanroomConcurrency5asyncFT5delaySdFT_T__T_"></a>
+                    <a name="//apple_ref/swift/Function/async(delay:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F20CleanroomConcurrency5asyncFT5delaySdFT_T__T_">async(delay:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>After a specified delay, asynchronously executes the passed-in function on a
+concurrent GCD queue.</p>
+
+<p>:param:     delay The number of seconds to wait before executing <code>fn</code>
+            asynchronously. This is not real-time scheduling, so the function is
+            guaranteed to execute after <em>at least</em> this amount of time, not 
+            after <em>exactly</em> this amount of time.</p>
+
+<p>:param:     fn The function to execute asynchronously.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">async</span><span class="p">(</span><span class="n">delay</span> <span class="nv">delay</span><span class="p">:</span> <span class="kt">NSTimeInterval</span><span class="p">,</span> <span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F20CleanroomConcurrency12asyncBarrierFFT_T_T_"></a>
+                    <a name="//apple_ref/swift/Function/asyncBarrier(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F20CleanroomConcurrency12asyncBarrierFFT_T_T_">asyncBarrier(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously executes the passed-in function on a concurrent GCD queue,
+treating it as a barrier. Functions submitted to the queue prior to the barrier
+are guaranteed to execute before the barrier, while functions submitted after
+the barrier are guaranteed to execute after the passed-in function has
+executed.</p>
+
+<p>:param:     fn The function to execute asynchronously.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">asyncBarrier</span><span class="p">(</span><span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F20CleanroomConcurrency10mainThreadFFT_T_T_"></a>
+                    <a name="//apple_ref/swift/Function/mainThread(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F20CleanroomConcurrency10mainThreadFFT_T_T_">mainThread(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously executes the specified function on the main thread.</p>
+
+<p>:param:     fn The function to execute on the main thread.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mainThread</span><span class="p">(</span><span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F20CleanroomConcurrency10mainThreadFT5delaySdFT_T__T_"></a>
+                    <a name="//apple_ref/swift/Function/mainThread(delay:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F20CleanroomConcurrency10mainThreadFT5delaySdFT_T__T_">mainThread(delay:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Asynchronously executes the specified function on the main thread.</p>
+
+<p>:param:     delay The number of seconds to wait before executing <code>fn</code>
+            asynchronously. This is not real-time scheduling, so the function is
+            guaranteed to execute after <em>at least</em> this amount of time, not 
+            after <em>exactly</em> this amount of time.</p>
+
+<p>:param:     fn The function to execute on the main thread.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mainThread</span><span class="p">(</span><span class="n">delay</span> <span class="nv">delay</span><span class="p">:</span> <span class="kt">NSTimeInterval</span><span class="p">,</span> <span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2015-2016 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a></p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

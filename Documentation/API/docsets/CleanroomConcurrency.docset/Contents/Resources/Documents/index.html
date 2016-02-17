@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CleanroomConcurrency  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="CleanroomConcurrency  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">CleanroomConcurrency Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/emaloney/CleanroomConcurrency"><img src="img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">CleanroomConcurrency Reference</a>
+        <img id="carat" src="img/carat.png" />
+        CleanroomConcurrency  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency5asyncFFT_T_T_">async(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency5asyncFT5delaySdFT_T__T_">async(delay:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency12asyncBarrierFFT_T_T_">asyncBarrier(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency10mainThreadFFT_T_T_">mainThread(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F20CleanroomConcurrency10mainThreadFT5delaySdFT_T__T_">mainThread(delay:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/CriticalSection.html">CriticalSection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ReadWriteCoordinator.html">ReadWriteCoordinator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ThreadLocalValue.html">ThreadLocalValue</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <a href='#using_cleanroomconcurrency' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='using_cleanroomconcurrency'>Using CleanroomConcurrency</h2>
+
+<p>CleanroomConcurrency provides:</p>
+
+<ul>
+<li><p>A small set of global <a href="#asyncfunctions">asynchronous dispatching functions</a> that declare a simplified interface for executing code asynchronously.</p></li>
+<li><p><a href="#criticalsection"><code>CriticalSection</code></a> — A simple way to synchronize the execution of code across multiple threads.</p></li>
+<li><p><a href="#readwritecoordinator"><code>ReadWriteCoordinator</code></a> — A mechanism to coordinate access to mutable resources shared across multiple threads.</p></li>
+<li><p><a href="#threadlocalvalue"><code>ThreadLocalValue</code></a> — Simplifies access to thread-local values stored in the <code>threadDictionary</code> of the calling <code>NSThread</code>.</p></li>
+</ul>
+<a href='#asyncfunctions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='asyncfunctions'>AsyncFunctions</h3>
+
+<p>The <a href="AsyncFunctions.swift"><code>AsyncFunctions.swift</code></a> file contains top-level functions that declare a simplified interface for executing code asynchronously.</p>
+
+<p>Under the hood, these functions all rely on a single, privately-maintained concurrent Grand Central Dispatch (GCD) queue.</p>
+<a href='#async' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='async'>async</h4>
+
+<p>The <code>async</code> function provides a simple notation for specifying that a block of code should be executed asynchronously.</p>
+
+<p><code>async</code> takes as a parameter a no-argument function returning <code>Void</code>, and is typically invoked with a closure:</p>
+<pre class="highlight swift"><code><span class="k">as</span><span class="n">ync</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"This will execute asynchronously"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The operation specified by the closure—the <code>println()</code> call above—will be executed asynchronously.</p>
+<a href='#async_with_delay' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='async_with_delay'>async with delay</h4>
+
+<p>A variation on the <code>async</code> function takes a <code>delay</code> parameter, an <code>NSTimeInterval</code> value specifying the <em>minimum</em> number of seconds to wait before asynchronously executing the closure:</p>
+<pre class="highlight swift"><code><span class="nf">async</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"This will execute asynchronously after at least 0.35 seconds"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Note that this function does not perform real-time scheduling, so the asynchronous operation is <strong>not</strong> guaranteed to execute immediately once <code>delay</code> number of seconds has elapsed; instead, it will execute after <em>at least</em> <code>delay</code> number of seconds has elapsed.</p>
+<a href='#mainthread' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='mainthread'>mainThread</h4>
+
+<p>The <code>mainThread</code> function enqueues an operation for eventual execution on the main <code>NSThread</code> of the application.</p>
+
+<p>This is useful because certain operations are only allowed to be executed on the main thread, such as view hierarchy manipulations. This is why the main thread is sometimes called <em>the user interface thread</em>.</p>
+
+<p>The <code>mainThread</code> function is typically invoked with a closure as follows:</p>
+<pre class="highlight swift"><code><span class="n">mainThread</span> <span class="p">{</span>
+    <span class="kt">UIApplication</span><span class="o">.</span><span class="nf">sharedApplication</span><span class="p">()</span><span class="o">.</span><span class="n">keyWindow</span><span class="o">!.</span><span class="n">rootViewController</span> <span class="o">=</span> <span class="k">self</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The notation above ensures that the <code>rootViewController</code> is changed only on the main thread.</p>
+<a href='#mainthread_with_delay' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='mainthread_with_delay'>mainThread with delay</h4>
+
+<p>As with the <code>async</code> function, a variation of the <code>mainThread</code> function takes a <code>delay</code> parameter:</p>
+<pre class="highlight swift"><code><span class="nf">mainThread</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">hidden</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="n">view</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>In the example above, the closure will be executed on the main thread after <em>at least</em> <code>0.35</code> seconds have elapsed.</p>
+<a href='#asyncbarrier' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='asyncbarrier'>asyncBarrier</h4>
+
+<p>The <code>asyncBarrier</code> function submits a barrier operation for asynchronous execution.</p>
+
+<p>Barriers make it possible to create a synchronization point for operations:</p>
+
+<ul>
+<li><p>Operations submitted prior to the submission of the barrier operation are guaranteed to execute <em>before</em> the barrier.</p></li>
+<li><p>After all operations submitted prior to the barrier have been executed, <em>then</em> the barrier operation is executed. </p></li>
+<li><p>While the barrier operation is executing, no other operations in the queue will execute.</p></li>
+<li><p>Once the barrier operation finishes executing, normal concurrent behavior resumes; operations submitted after the barrier will then be executed.</p></li>
+</ul>
+
+<p>Barrier operations are submitted for eventual execution using the notation:</p>
+<pre class="highlight swift"><code><span class="k">as</span><span class="n">yncBarrier</span> <span class="p">{</span>
+    <span class="nf">println</span><span class="p">(</span><span class="s">"When this executes, no other operations will be executing"</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p><strong>Important:</strong> Because these functions all rely on a single shared GCD queue, use of the <code>asyncBarrier</code> function can have application-wide impact. As a result, the function should be used sparingly, and only in situations where an application-wide barrier is truly needed.</p>
+
+<p>If you do not need an application-wide barrier, it may be best to maintain your own queue and use the <code>dispatch_barrier_async</code> GCD function instead.</p>
+<a href='#criticalsection' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='criticalsection'>CriticalSection</h3>
+
+<p>A <code>CriticalSection</code> provides a simple way to synchronize the execution of code across multiple threads.</p>
+
+<p><code>CriticalSection</code>s are a form of a <em>mutex</em> (or <em>mutual exclusion</em>) lock: when one thread is executing code within a given critical section, it is guaranteed that no other thread will be executing within the same instance.</p>
+
+<p>In this way, <code>CriticalSection</code>s are similar to <code>@synchronized</code> blocks in Objective-C.</p>
+<a href='#using_a_criticalsection' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='using_a_criticalsection'>Using a CriticalSection</h4>
+
+<p>With a <code>CriticalSection</code>, any code inside the <code>execute</code> closure (shown below as the <q>`// code to execute`</q> comment) is executed only after exclusive access to the critical section has been acquired by the calling thread.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cs</span> <span class="o">=</span> <span class="kt">CriticalSection</span><span class="p">()</span>
+
+<span class="n">cs</span><span class="o">.</span><span class="n">execute</span> <span class="p">{</span>
+    <span class="c1">// code to execute</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Because it is possible for a <code>CriticalSection</code> to be used in a way where <code>execute</code> could block forever—resulting in a thread dealock—a variation is provided that allows a timeout to be specified:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cs</span> <span class="o">=</span> <span class="kt">CriticalSection</span><span class="p">()</span>
+
+<span class="k">let</span> <span class="nv">success</span> <span class="o">=</span> <span class="n">cs</span><span class="o">.</span><span class="nf">executeWithTimeout</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// code to execute</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="o">!</span><span class="n">success</span> <span class="p">{</span>
+    <span class="c1">// handle the fact that `executeWithTimeout()` timed out</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The timeout is an <code>NSTimeInterval</code> value specifying the number of seconds to wait for access to the critical section before giving up.</p>
+
+<p>In the example above, the calling thread may block for up to <code>1.0</code> seconds waiting for the critical section represented by <code>cs</code> to be acquired.</p>
+
+<p>If <code>cs</code> can be acquired within that time, <q>`// code to execute`</q> will execute and <code>executeWithTimeout()</code> will return <code>true</code>.</p>
+
+<p>If exclusive access to the critical section <code>cs</code> can&rsquo;t be acquired within <code>1.0</code> seconds, nothing will be executed and <code>executeWithTimeout()</code> will return <code>false</code>.</p>
+
+<p><strong>Note:</strong> It is best to design your implementation to avoid the potential for a deadlock. However, sometimes this is not possible, which is why the <code>executeWithTimeout()</code> function is provided.</p>
+<a href='#implementation_details' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='implementation_details'>Implementation Details</h4>
+
+<p>The <code>CriticalSection</code> implementation uses an <code>NSRecursiveLock</code> internally, which enables <code>CriticalSection</code>s to be re-entrant. This means that a thread can&rsquo;t deadlock on a <code>CriticalSection</code> it already holds.</p>
+
+<p>In addition, the <code>CriticalSection</code> implementation also performs internal exception trapping to ensure that the lock state remains consistent.</p>
+<a href='#readwritecoordinator' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='readwritecoordinator'>ReadWriteCoordinator</h3>
+
+<p><code>ReadWriteCoordinator</code> instances can be used to coordinate access to a mutable resource shared across multiple threads.</p>
+
+<p>You can think of the <code>ReadWriteCoordinator</code> as a dual read/write lock having the following properties:</p>
+
+<ul>
+<li><p>The <em>read lock</em> allows any number of <em>readers</em> to execute concurrently.</p></li>
+<li><p>The <em>write lock</em> allows one and only one <em>writer</em> to execute at a time.</p></li>
+<li><p>As long as there is at least one reader executing, the write lock cannot be acquired.</p></li>
+<li><p>As long as the write lock is held, no readers can execute.</p></li>
+<li><p>All reads execute synchronously; that is, they block the calling thread until they complete.</p></li>
+<li><p>All writes execute asynchronously.</p></li>
+<li><p>Any read submitted before a write is guaranteed to be executed before that write, while any write submitted before a read is guaranteed to be executed before that read. This ensures a consistent view of shared resource&rsquo;s state.</p></li>
+</ul>
+
+<blockquote>
+<p>The term <em>lock</em> is used in this document for conceptual clarity. In reality, the implementation uses Grand Central Dispatch and not a traditional lock.</p>
+</blockquote>
+<a href='#usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='usage'>Usage</h4>
+
+<p>For any given shared resource that needs to be protected by a read/write lock, you can create a <code>ReadWriteCoordinator</code> instance to manage access to that resource.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">lock</span> <span class="o">=</span> <span class="kt">ReadWriteCoordinator</span><span class="p">()</span>
+</code></pre>
+
+<p>You would then hold a reference to that <code>ReadWriteCoordinator</code> for the lifetime of the shared resource.</p>
+<a href='#reading' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='reading'>Reading</h4>
+
+<p>Whenever you need read-only access to the shared resource, you wrap your access within a call to the <code>ReadWriteCoordinator</code>&rsquo;s <code>read()</code> function, which is typically called with a trailing closure:</p>
+<pre class="highlight swift"><code><span class="n">lock</span><span class="o">.</span><span class="n">read</span> <span class="p">{</span>
+    <span class="c1">// read some data from the shared resource</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Because reads are executed synchronously, the <code>ReadWriteCoordinator</code> can be used within property getters, eg.:</p>
+<pre class="highlight swift"><code><span class="k">var</span> <span class="nv">globalCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="k">get</span> <span class="p">{</span>
+        <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span><span class="p">?</span>
+        <span class="n">lock</span><span class="o">.</span><span class="n">read</span> <span class="p">{</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="c1">// get a count from the shared resource</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">count</span><span class="o">!</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+<a href='#writing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='writing'>Writing</h4>
+
+<p>Whenever you need to modify the state of the shared resource, you do so using the <code>enqueueWrite()</code> function of the <code>ReadWriteCoordinator</code>.</p>
+
+<p>As with <code>read()</code>, this function is typically invoked with a closure:</p>
+<pre class="highlight swift"><code><span class="n">lock</span><span class="o">.</span><span class="n">enqueueWrite</span> <span class="p">{</span>
+    <span class="c1">// modify the shared resource</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Unlike <code>read()</code>, however, the <code>enqueueWrite()</code> function is asynchronous, as its name implies. </p>
+
+<p>Write operations are submitted to the underlying GCD queue, and <code>enqueueWrite()</code> returns immediately.</p>
+
+<p>When a write operation is enqueued, any already-pending read operations will be allowed to finish. Once the write lock can be acquired, the function passed to <code>enqueueWrite()</code> will be executed.</p>
+
+<p>Under the hood, writes are submitted as asynchronous barrier operations to the receiver&rsquo;s GCD queue, ensuring that reads are always consistent with the order of writes.</p>
+<a href='#threadlocalvalue' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='threadlocalvalue'>ThreadLocalValue</h3>
+
+<p><code>ThreadLocalValue</code> provides a mechanism for accessing thread-local values stored in the <code>threadDictionary</code> of the calling <code>NSThread</code>.</p>
+
+<p>This implementation provides three main advantages over using the
+<code>threadDictionary</code> directly:</p>
+
+<ul>
+<li><p><strong>Type-safety</strong> — <code>ThreadLocalValue</code> is implemented as a Swift generic, allowing it to enforce type safety.</p></li>
+<li><p><strong>Namespacing to avoid key clashes</strong> — To prevent clashes between different code modules using thread-local storage, <code>ThreadLocalValue</code>s can be instantiated with a <code>namespace</code> used to construct the underlying <code>threadDictionary</code> key.</p></li>
+<li><p><strong>Use thread-local storage as a lockless cache</strong> — <code>ThreadLocalValue</code>s can be constructed with an optional <code>instantiator</code> that is used to construct values when the underlying <code>threadDictionary</code> doesn&rsquo;t have a value for the given key.</p></li>
+</ul>
+<a href='#namespacing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='namespacing'>Namespacing</h4>
+
+<p>Namespacing can prevent key clashes when multiple subsystems need to share thread-local storage.</p>
+
+<p>For example, two different subsystems may wish to store an <code>NSDateFormatter</code> instance in thread-local storage. If they were each to store their <code>NSDateFormatter</code>s using the key <q>`dateFormatter`</q>, for example, there would be a clash. The first value set for the <q>`dateFormatter`</q> key would always be overwritten by the second value set for that key.</p>
+
+<p>Constructing your <code>ThreadLocalValue</code> with a <code>namespace</code> can prevent that:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">loggerDateFormatter</span> <span class="o">=</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">NSDateFormatter</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">namespace</span><span class="p">:</span> <span class="s">"Logger"</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="s">"dateFormatter"</span><span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">saleDateFormatter</span> <span class="o">=</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">NSDateFormatter</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">namespace</span><span class="p">:</span> <span class="s">"SaleViewModel"</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="s">"dateFormatter"</span><span class="p">)</span>
+</code></pre>
+
+<p>When a namespace is used, the <code>ThreadLocalValue</code> implementation constructs a value for its <code>fullKey</code> property by concatenating the values passed to the <code>namespace</code> and <code>key</code> parameters in the format <q>*namespace*.*key*</q>.</p>
+
+<p>In the example above, the <code>loggerDateFormatter</code> uses the <code>fullKey</code> <q>`Logger.dateFormatter`</q> while the <code>saleDateFormatter</code> uses <q>`SaleViewModel.dateFormatter`</q>.</p>
+
+<p>Because only the <code>fullKey</code> is used when accessing the underlying <code>threadDictionary</code>, these two <code>ThreadLocalValue</code> instances can each be used independently without their underlying values conflicting.</p>
+
+<blockquote>
+<p>Regardless of whether a <code>ThreadLocalValue</code> uses a namespace, the key used to access the <code>threadDictionary</code> is always available via the <code>fullKey</code> property.</p>
+</blockquote>
+<a href='#thread_local_caching' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='thread_local_caching'>Thread-local caching</h4>
+
+<p><code>ThreadLocalValue</code> instances can also be used to treat thread-local storage as a lockless cache.</p>
+
+<p>Objects that are expensive to create, such as <code>NSDateFormatter</code> instances, can be cached in thread-local storage without incurring the locking overhead that would be required by an object cache shared among multiple threads.</p>
+
+<p>This capability is available to <code>ThreadLocalValue</code>s created with an <code>instantiator</code> function, and it works as follows:</p>
+
+<ul>
+<li><p>If the <code>value()</code> function is called when the underlying <code>threadDictionary</code> doesn&rsquo;t have a value associated with the receiver&rsquo;s <code>fullKey</code>, the <code>instantiator</code> will be invoked to create a value.</p></li>
+<li><p>If the <code>instantiator</code> returns a non-<code>nil</code> value, this value will be stored in the <code>threadDictionary</code> of the calling thread using the key <code>fullKey</code> of the <code>ThreadLocalValue</code> instance.</p></li>
+<li><p>Future calls to the <code>ThreadLocalValue</code>&rsquo;s <code>value()</code> or <code>cachedValue()</code> functions will return the value created by the <code>instantiator</code> until the underlying value is changed.</p></li>
+</ul>
+
+<p>Using a <code>ThreadLocalValue</code> instance to cache an <code>NSDateFormatter</code> would look like:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">df</span> <span class="o">=</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">NSDateFormatter</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">namespace</span><span class="p">:</span> <span class="s">"Events"</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="s">"dateFormatter"</span><span class="p">)</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="nv">fmt</span> <span class="o">=</span> <span class="kt">NSDateFormatter</span><span class="p">()</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">locale</span> <span class="o">=</span> <span class="kt">NSLocale</span><span class="p">(</span><span class="nv">localeIdentifier</span><span class="p">:</span> <span class="s">"en_US"</span><span class="p">)</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">timeZone</span> <span class="o">=</span> <span class="kt">NSTimeZone</span><span class="p">(</span><span class="nv">forSecondsFromGMT</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">dateFormat</span> <span class="o">=</span> <span class="s">"yyyyMMdd_HHmmss"</span>
+    <span class="k">return</span> <span class="n">fmt</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>In the example above, <code>df</code> is constructed with an <code>instantiator</code> closure. If <code>df.value()</code> is called when there is no <code>NSDateFormatter</code> associated with the key <q>`Events.dateFormatter`</q> in the calling thread&rsquo;s <code>theadDictionary</code>, the <code>instantiator</code> will be invoked to create a new <code>NSDateFormatter</code>.</p>
+
+<p>Using thread-local storage as a cheap cache is best suited for cases where the long-term expense of acquiring read locks every time the object is accessed is greater than the expense of creating a new instance multiplied by the number of unique threads that will access the value.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>© 2015-2016 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a></p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
