@@ -15,9 +15,7 @@ Apple Watch|watchOS 2.0
 iPhone/iPad|iOS 8.0
 Mac|OS X 10.10
 
-CleanroomConcurrency is **Swift 2.1 compliant** and therefore **requires Xcode 7.1 or higher** to compile.
-
-It is also known to work with Swift 2.1.1 in Xcode 7.2.
+CleanroomConcurrency is **Swift 2.2 compliant** and therefore **requires Xcode 7.3 or higher** to compile.
 
 ### Contents
 
@@ -29,7 +27,7 @@ It is also known to work with Swift 2.1.1 in Xcode 7.2.
 
 Some familiarity with the Terminal application, the bash command line, and the `git` command is assumed.
 
-The steps below have been tested with **git 2.5.4 (Apple Git-61)**, although they should be compatible with a wide range of recent git versions.
+The steps below have been tested with **git 2.6.4 (Apple Git-63)**, although they should be compatible with a wide range of recent git versions.
 
 
 ### Of Frameworks and Simulators
