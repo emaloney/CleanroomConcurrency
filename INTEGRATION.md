@@ -66,7 +66,7 @@ carthage version
 
 If Carthage is available, the version you have installed will be shown.
 
-> As of this writing, the current version of Carthage is 0.11.
+> As of this writing, the current version of Carthage is 0.15.2.
 
 If Carthage is not present, you will see an error that looks like:
 
