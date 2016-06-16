@@ -17,13 +17,13 @@ class AsyncTests: XCTestCase
 
     func testAsyncFunction()
     {
-        XCTAssertTrue(NSThread.isMainThread())  // we expect tests to run on the main thread
+        XCTAssertTrue(Thread.isMainThread())  // we expect tests to run on the main thread
 
-        let semaphore = NSCondition()
+        let semaphore = Condition()
         var completed = false
 
         async {
-            XCTAssertTrue(!NSThread.isMainThread())
+            XCTAssertTrue(!Thread.isMainThread())
 
             semaphore.lock()
             completed = true
@@ -33,7 +33,7 @@ class AsyncTests: XCTestCase
 
         semaphore.lock()
         if !completed {
-            semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.0))
+            semaphore.wait(until: Date().addingTimeInterval(1.0))
         }
         semaphore.unlock()
 
@@ -44,17 +44,17 @@ class AsyncTests: XCTestCase
     {
         var completed = 0
 
-        func testDelay(delay: NSTimeInterval, withSemaphore semaphore: NSCondition)
+        func testDelay(_ delay: TimeInterval, withSemaphore semaphore: Condition)
         {
-            XCTAssertTrue(NSThread.isMainThread())  // we expect tests to run on the main thread
+            XCTAssertTrue(Thread.isMainThread())  // we expect tests to run on the main thread
 
-            let endTime = NSDate().dateByAddingTimeInterval(delay)
+            let endTime = Date().addingTimeInterval(delay)
 
             async(delay: delay) {
-                XCTAssertTrue(!NSThread.isMainThread())
+                XCTAssertTrue(!Thread.isMainThread())
 
-                let now = NSDate()
-                XCTAssertTrue(endTime.laterDate(now) == now)
+                let now = Date()
+                XCTAssertTrue((endTime as NSDate).laterDate(now) == now)
 
                 semaphore.lock()
                 completed++
@@ -63,17 +63,17 @@ class AsyncTests: XCTestCase
             }
         }
 
-        let semaphore = NSCondition()
+        let semaphore = Condition()
 
         for _ in 0..<IterationsForDelayedTests {
-            let delay = NSTimeInterval(Double(arc4random() % 1000) / 1000)
+            let delay = TimeInterval(Double(arc4random() % 1000) / 1000)
             testDelay(delay, withSemaphore: semaphore)
         }
 
         var lastCompleted: Int?
         semaphore.lock()
         while completed < IterationsForDelayedTests {
-            semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1))
+            semaphore.wait(until: Date().addingTimeInterval(1.1))
             if let last = lastCompleted {
                 XCTAssertTrue(completed > last)
             }
@@ -90,13 +90,13 @@ class AsyncTests: XCTestCase
         var inBarrierStageCompleted = 0
         var postBarrierStageCompleted = 0
 
-        func testBarrierWithSemaphore(semaphore: NSCondition)
+        func testBarrierWithSemaphore(_ semaphore: Condition)
         {
-            XCTAssertTrue(NSThread.isMainThread())  // we expect tests to run on the main thread
+            XCTAssertTrue(Thread.isMainThread())  // we expect tests to run on the main thread
 
             for _ in 0..<IterationsPerBarrierStage {
                 async {
-                    XCTAssertTrue(!NSThread.isMainThread())
+                    XCTAssertTrue(!Thread.isMainThread())
 
                     semaphore.lock()
 
@@ -112,7 +112,7 @@ class AsyncTests: XCTestCase
 
             for _ in 0..<IterationsPerBarrierStage {
                 asyncBarrier {
-                    XCTAssertTrue(!NSThread.isMainThread())
+                    XCTAssertTrue(!Thread.isMainThread())
 
                     semaphore.lock()
 
@@ -128,7 +128,7 @@ class AsyncTests: XCTestCase
 
             for _ in 0..<IterationsPerBarrierStage {
                 async {
-                    XCTAssertTrue(!NSThread.isMainThread())
+                    XCTAssertTrue(!Thread.isMainThread())
 
                     semaphore.lock()
 
@@ -144,7 +144,7 @@ class AsyncTests: XCTestCase
         }
 
         for _ in 0..<IterationsOfBarrierTest {
-            let semaphore = NSCondition()
+            let semaphore = Condition()
 
             testBarrierWithSemaphore(semaphore)
 
@@ -154,7 +154,7 @@ class AsyncTests: XCTestCase
             var lastCompleted: Int?
             semaphore.lock()
             while completed < waitingFor {
-                semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1))
+                semaphore.wait(until: Date().addingTimeInterval(1.1))
                 completed = preBarrierStageCompleted + inBarrierStageCompleted + postBarrierStageCompleted
                 if let last = lastCompleted {
                     XCTAssertTrue(completed > last)

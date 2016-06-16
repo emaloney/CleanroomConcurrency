@@ -14,12 +14,12 @@ private var remainingThreads = 0
 
 class ThreadLocalValueTests: XCTestCase
 {
-    class TestThread: NSThread
+    class TestThread: Thread
     {
         let lock: ReadWriteCoordinator
-        let signal: NSCondition
+        let signal: Condition
 
-        init(lock: ReadWriteCoordinator, signal: NSCondition)
+        init(lock: ReadWriteCoordinator, signal: Condition)
         {
             self.lock = lock
             self.signal = signal
@@ -34,7 +34,7 @@ class ThreadLocalValueTests: XCTestCase
             }
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }
@@ -45,7 +45,7 @@ class ThreadLocalValueTests: XCTestCase
         let NumberOfThreads = 100
 
         let lock = ReadWriteCoordinator()
-        let signal = NSCondition()
+        let signal = Condition()
 
         remainingThreads = NumberOfThreads
         for _ in 0..<NumberOfThreads {
@@ -107,12 +107,12 @@ class ThreadLocalValueTests: XCTestCase
     {
         let NumberOfThreads = 100
 
-        class TestThread: NSThread
+        class TestThread: Thread
         {
             let resultStorage: NSMutableDictionary
-            let signal: NSCondition
+            let signal: Condition
 
-            init(threadNumber: Int, resultStorage: NSMutableDictionary, signal: NSCondition)
+            init(threadNumber: Int, resultStorage: NSMutableDictionary, signal: Condition)
             {
                 self.resultStorage = resultStorage
                 self.signal = signal
@@ -123,24 +123,24 @@ class ThreadLocalValueTests: XCTestCase
             override func main()
             {
                 let tlv = ThreadLocalValue<NSString>(key: "threadName") { _ in
-                    return NSThread.currentThread().name
+                    return Thread.current().name
                 }
 
                 var result = false
-                let threadName = NSThread.currentThread().name!
+                let threadName = Thread.current().name!
                 if let value = tlv.value() as? String {
                     result = value == threadName
                 }
 
                 self.signal.lock()
-                self.resultStorage[threadName] = NSNumber(bool: result)
+                self.resultStorage[threadName] = NSNumber(value: result)
                 self.signal.signal()
                 self.signal.unlock()
             }
         }
 
         let results = NSMutableDictionary()
-        let signal = NSCondition()
+        let signal = Condition()
 
         for i in 0..<NumberOfThreads {
             TestThread(threadNumber: i, resultStorage: results, signal: signal).start()
@@ -165,10 +165,10 @@ class ThreadLocalValueTests: XCTestCase
             return "I'm not taciturn, I'm just laconic."
         }
 
-        XCTAssertTrue(NSThread.currentThread().threadDictionary["lazy"] == nil)
+        XCTAssertTrue(Thread.current().threadDictionary["lazy"] == nil)
         XCTAssertTrue(tlv.cachedValue() == nil)
         XCTAssertTrue(tlv.value() == "I'm not taciturn, I'm just laconic.")
         XCTAssertTrue(tlv.cachedValue() == "I'm not taciturn, I'm just laconic.")
-        XCTAssertTrue(NSThread.currentThread().threadDictionary["lazy"] as? String == "I'm not taciturn, I'm just laconic.")
+        XCTAssertTrue(Thread.current().threadDictionary["lazy"] as? String == "I'm not taciturn, I'm just laconic.")
     }
 }

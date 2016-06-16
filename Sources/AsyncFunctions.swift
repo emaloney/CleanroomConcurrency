@@ -13,9 +13,9 @@ Asynchronously executes the passed-in function on a concurrent GCD queue.
 
 :param:     fn The function to execute asynchronously.
 */
-public func async(fn: () -> Void)
+public func async(_ fn: () -> Void)
 {
-    dispatch_async(AsyncQueue.instance.queue) {
+    AsyncQueue.instance.queue.async {
         fn()
     }
 }
@@ -31,10 +31,10 @@ concurrent GCD queue.
 
 :param:     fn The function to execute asynchronously.
 */
-public func async(delay delay: NSTimeInterval, _ fn: () -> Void)
+public func async(delay: TimeInterval, _ fn: () -> Void)
 {
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * NSTimeInterval(NSEC_PER_SEC)))
-    dispatch_after(time, AsyncQueue.instance.queue)  {
+    let time = DispatchTime.now() + Double(Int64(delay * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+    AsyncQueue.instance.queue.after(when: time)  {
         fn()
     }
 }
@@ -48,9 +48,9 @@ executed.
 
 :param:     fn The function to execute asynchronously.
 */
-public func asyncBarrier(fn: () -> Void)
+public func asyncBarrier(_ fn: () -> Void)
 {
-    dispatch_barrier_async(AsyncQueue.instance.queue)  {
+    AsyncQueue.instance.queue.async  {
         fn()
     }
 }
@@ -60,9 +60,9 @@ Asynchronously executes the specified function on the main thread.
 
 :param:     fn The function to execute on the main thread.
 */
-public func mainThread(fn: () -> Void)
+public func mainThread(_ fn: () -> Void)
 {
-    dispatch_async(dispatch_get_main_queue()) {
+    DispatchQueue.main.async {
         fn()
     }
 }
@@ -77,10 +77,10 @@ Asynchronously executes the specified function on the main thread.
 
 :param:     fn The function to execute on the main thread.
 */
-public func mainThread(delay delay: NSTimeInterval, _ fn: () -> Void)
+public func mainThread(delay: TimeInterval, _ fn: () -> Void)
 {
-    let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * NSTimeInterval(NSEC_PER_SEC)))
-    dispatch_after(time, dispatch_get_main_queue())  {
+    let time = DispatchTime.now() + Double(Int64(delay * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.after(when: time)  {
         fn()
     }
 }
@@ -89,10 +89,10 @@ private struct AsyncQueue
 {
     static let instance = AsyncQueue()
 
-    let queue: dispatch_queue_t
+    let queue: DispatchQueue
 
     init()
     {
-        queue = dispatch_queue_create("CleanroomConcurrency.AsyncQueue", DISPATCH_QUEUE_CONCURRENT)
+        queue = DispatchQueue(label: "CleanroomConcurrency.AsyncQueue", attributes: DispatchQueueAttributes.concurrent)
     }
 }

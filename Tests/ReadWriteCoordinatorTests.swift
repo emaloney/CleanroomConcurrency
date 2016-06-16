@@ -14,12 +14,12 @@ private var remainingThreads = 0    // used with an NSCondition signal to keep t
 
 class ReadWriteCoordinatorTests: XCTestCase
 {
-    class TestThread: NSThread
+    class TestThread: Thread
     {
         let lock: ReadWriteCoordinator
-        let signal: NSCondition
+        let signal: Condition
 
-        init(lock: ReadWriteCoordinator, signal: NSCondition)
+        init(lock: ReadWriteCoordinator, signal: Condition)
         {
             self.lock = lock
             self.signal = signal
@@ -34,7 +34,7 @@ class ReadWriteCoordinatorTests: XCTestCase
             }
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }
@@ -45,7 +45,7 @@ class ReadWriteCoordinatorTests: XCTestCase
         let NumberOfThreads = 100
 
         let lock = ReadWriteCoordinator()
-        let signal = NSCondition()
+        let signal = Condition()
 
         signal.lock()
 

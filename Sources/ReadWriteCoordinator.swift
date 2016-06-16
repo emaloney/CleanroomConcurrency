@@ -26,14 +26,14 @@ following properties:
 public struct ReadWriteCoordinator
 {
     /// The dispatch queue used by the receiver.
-    let queue: dispatch_queue_t
+    let queue: DispatchQueue
 
     /** 
     Initializes a new `ReadWriteCoordinator` instance.
     */
     public init()
     {
-        queue = dispatch_queue_create("CleanroomBase.ConcurrentReadWriteCoordinatorQueue", DISPATCH_QUEUE_CONCURRENT)
+        queue = DispatchQueue(label: "CleanroomBase.ConcurrentReadWriteCoordinatorQueue", attributes: DispatchQueueAttributes.concurrent)
     }
 
     /**
@@ -44,7 +44,7 @@ public struct ReadWriteCoordinator
     */
     public init(queueName: String)
     {
-        queue = dispatch_queue_create(queueName, DISPATCH_QUEUE_CONCURRENT)
+        queue = DispatchQueue(label: queueName, attributes: DispatchQueueAttributes.concurrent)
     }
 
     /**
@@ -53,9 +53,9 @@ public struct ReadWriteCoordinator
     :param:     fn A no-argument function that will be called when the read
                 lock is held.
     */
-    public func read(fn: () -> Void)
+    public func read(_ fn: () -> Void)
     {
-        dispatch_sync(queue) {
+        queue.sync {
             fn()
         }
     }
@@ -67,9 +67,9 @@ public struct ReadWriteCoordinator
     :param:     fn A no-argument function that will be called when the write
                 lock is held.
     */
-    public func enqueueWrite(fn: () -> Void)
+    public func enqueueWrite(_ fn: () -> Void)
     {
-        dispatch_barrier_async(queue) {
+        queue.async {
             fn()
         }
     }
@@ -81,9 +81,9 @@ public struct ReadWriteCoordinator
     :param:     fn A no-argument function that will be called when the write
                 lock is held.
     */
-    public func blockingWrite(fn: () -> Void)
+    public func blockingWrite(_ fn: () -> Void)
     {
-        dispatch_barrier_sync(queue) {
+        queue.sync {
             fn()
         }
     }

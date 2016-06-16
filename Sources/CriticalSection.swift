@@ -20,7 +20,7 @@ import Foundation
  */
 public struct CriticalSection
 {
-    private let lock = NSRecursiveLock()
+    private let lock = RecursiveLock()
 
     /**
      Initializer.
@@ -35,7 +35,7 @@ public struct CriticalSection
      - parameter fn: The function to execute once exclusive access to the
      critical section has been acquired.
      */
-    public func execute(fn: () -> Void)
+    public func execute(_ fn: () -> Void)
     {
         lock.lock()
         fn()
@@ -58,10 +58,10 @@ public struct CriticalSection
      and `fn` was executed. `false` if `timeout` expired and `fn` was not
      executed.
      */
-    public func executeWithTimeout(timeout: NSTimeInterval, _ fn: () -> Void)
+    public func executeWithTimeout(_ timeout: TimeInterval, _ fn: () -> Void)
         -> Bool
     {
-        if lock.lockBeforeDate(NSDate().dateByAddingTimeInterval(timeout)) {
+        if lock.lock(before: Date().addingTimeInterval(timeout)) {
             fn()
             lock.unlock()
             return true

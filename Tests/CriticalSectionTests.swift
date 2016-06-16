@@ -13,19 +13,19 @@ private var protect = 0             // a global value to protect with a ReadWrit
 private var remainingThreads = 0    // used with an NSCondition signal to keep track of our threads
 private var executions = 0          // count the number of times the
 
-private let ShortWaitTimeout        = NSTimeInterval(1.0)
-private let LongWaitTimeout         = NSTimeInterval(100.0)
+private let ShortWaitTimeout        = TimeInterval(1.0)
+private let LongWaitTimeout         = TimeInterval(100.0)
 private let TestThreadIterations    = 1000
 
 class CriticalSectionTests: XCTestCase
 {
-    class ExpectedSuccessTestThread: NSThread
+    class ExpectedSuccessTestThread: Thread
     {
-        let signal: NSCondition
+        let signal: Condition
         let lock: CriticalSection
-        let lockTimeout: NSTimeInterval?
+        let lockTimeout: TimeInterval?
 
-        init(signal: NSCondition, lock: CriticalSection, lockTimeout: NSTimeInterval? = nil)
+        init(signal: Condition, lock: CriticalSection, lockTimeout: TimeInterval? = nil)
         {
             self.signal = signal
             self.lock = lock
@@ -55,11 +55,11 @@ class CriticalSectionTests: XCTestCase
                 else {
                     lock.execute(fn)
                 }
-                NSThread.sleepForTimeInterval(0.0)
+                Thread.sleep(forTimeInterval: 0.0)
             }
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }
@@ -70,7 +70,7 @@ class CriticalSectionTests: XCTestCase
         let NumberOfThreads = 100
 
         let lock = CriticalSection()
-        let signal = NSCondition()
+        let signal = Condition()
 
         signal.lock()
 
@@ -80,7 +80,7 @@ class CriticalSectionTests: XCTestCase
         }
 
         while remainingThreads > 0 {
-            signal.waitUntilDate(NSDate().dateByAddingTimeInterval(LongWaitTimeout))
+            signal.wait(until: Date().addingTimeInterval(LongWaitTimeout))
         }
         signal.unlock()
 
@@ -89,12 +89,12 @@ class CriticalSectionTests: XCTestCase
         XCTAssert(remainingThreads == 0)
     }
 
-    class ExpectedTimeoutTestThread: NSThread
+    class ExpectedTimeoutTestThread: Thread
     {
-        let signal: NSCondition
+        let signal: Condition
         let lock: CriticalSection
 
-        init(signal: NSCondition, lock: CriticalSection)
+        init(signal: Condition, lock: CriticalSection)
         {
             self.signal = signal
             self.lock = lock
@@ -109,7 +109,7 @@ class CriticalSectionTests: XCTestCase
             XCTAssertFalse(gotLock)
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }
@@ -120,7 +120,7 @@ class CriticalSectionTests: XCTestCase
         let NumberOfThreads = 25
 
         let lock = CriticalSection()
-        let signal = NSCondition()
+        let signal = Condition()
 
         lock.execute {
             signal.lock()
@@ -131,7 +131,7 @@ class CriticalSectionTests: XCTestCase
             }
 
             while remainingThreads > 0 {
-                signal.waitUntilDate(NSDate().dateByAddingTimeInterval(LongWaitTimeout))
+                signal.wait(until: Date().addingTimeInterval(LongWaitTimeout))
             }
             signal.unlock()
         }
