@@ -127,7 +127,7 @@ class ThreadLocalValueTests: XCTestCase
                 }
 
                 var result = false
-                let threadName = Thread.current().name!
+                let threadName = Thread.current.name!
                 if let value = tlv.value() as? String {
                     result = value == threadName
                 }
@@ -165,10 +165,10 @@ class ThreadLocalValueTests: XCTestCase
             return "I'm not taciturn, I'm just laconic."
         }
 
-        XCTAssertTrue(Thread.current().threadDictionary["lazy"] == nil)
+        XCTAssertTrue(Thread.current.threadDictionary["lazy"] == nil)
         XCTAssertTrue(tlv.cachedValue() == nil)
         XCTAssertTrue(tlv.value() == "I'm not taciturn, I'm just laconic.")
         XCTAssertTrue(tlv.cachedValue() == "I'm not taciturn, I'm just laconic.")
-        XCTAssertTrue(Thread.current().threadDictionary["lazy"] as? String == "I'm not taciturn, I'm just laconic.")
+        XCTAssertTrue(Thread.current.threadDictionary["lazy"] as? String == "I'm not taciturn, I'm just laconic.")
     }
 }

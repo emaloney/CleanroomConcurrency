@@ -17,7 +17,7 @@ class AsyncTests: XCTestCase
 
     func testAsyncFunction()
     {
-        XCTAssertTrue(Thread.isMainThread())  // we expect tests to run on the main thread
+        XCTAssertTrue(Thread.isMainThread)  // we expect tests to run on the main thread
 
         let semaphore = Condition()
         var completed = false
@@ -46,7 +46,7 @@ class AsyncTests: XCTestCase
 
         func testDelay(_ delay: TimeInterval, withSemaphore semaphore: Condition)
         {
-            XCTAssertTrue(Thread.isMainThread())  // we expect tests to run on the main thread
+            XCTAssertTrue(Thread.isMainThread)  // we expect tests to run on the main thread
 
             let endTime = Date().addingTimeInterval(delay)
 
@@ -92,7 +92,7 @@ class AsyncTests: XCTestCase
 
         func testBarrierWithSemaphore(_ semaphore: Condition)
         {
-            XCTAssertTrue(Thread.isMainThread())  // we expect tests to run on the main thread
+            XCTAssertTrue(Thread.isMainThread)  // we expect tests to run on the main thread
 
             for _ in 0..<IterationsPerBarrierStage {
                 async {

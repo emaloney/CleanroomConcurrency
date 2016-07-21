@@ -115,7 +115,7 @@ public struct ThreadLocalValue<ValueType: AnyObject>
     public func cachedValue()
         -> ValueType?
     {
-        return Thread.current().threadDictionary[fullKey] as? ValueType
+        return Thread.current.threadDictionary[fullKey] as? ValueType
     }
 
     /**
@@ -126,7 +126,7 @@ public struct ThreadLocalValue<ValueType: AnyObject>
     */
     public func setValue(_ newValue: ValueType?)
     {
-        Thread.current().threadDictionary[fullKey] = newValue
+        Thread.current.threadDictionary[fullKey] = newValue
     }
 }
 
