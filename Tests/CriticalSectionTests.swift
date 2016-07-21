@@ -37,12 +37,12 @@ class CriticalSectionTests: XCTestCase
             let fn = { () -> Void in
                 // this also tests re-entrancy
                 let gotLock = self.lock.executeWithTimeout(LongWaitTimeout) {
-                    executions++
+                    executions += 1
 
                     XCTAssertTrue(protect == 0)
-                    protect++
+                    protect += 1
                     XCTAssertTrue(protect == 1)
-                    protect--
+                    protect -= 1
                     XCTAssertTrue(protect == 0)
                 }
                 XCTAssertTrue(gotLock)
@@ -59,7 +59,7 @@ class CriticalSectionTests: XCTestCase
             }
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }
@@ -109,7 +109,7 @@ class CriticalSectionTests: XCTestCase
             XCTAssertFalse(gotLock)
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }

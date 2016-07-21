@@ -29,12 +29,12 @@ class ThreadLocalValueTests: XCTestCase
         {
             lock.enqueueWrite {
                 var curVal = counter
-                curVal++
+                curVal += 1
                 counter = curVal
             }
 
             signal.lock()
-            remainingThreads--
+            remainingThreads -= 1
             signal.signal()
             signal.unlock()
         }
