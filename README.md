@@ -21,9 +21,9 @@ The [`master`](https://github.com/emaloney/CleanroomConcurrency) branch of this 
 
 Branch|Build status
 --------|------------------------
-`master`|[![Build status: master branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=master)](https://travis-ci.org/emaloney/CleanroomConcurrency)
-`swift2.3`|[![Build status: swift2.3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift2.3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
-`swift3`|[![Build status: swift3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+[`master`](https://github.com/emaloney/CleanroomConcurrency)|[![Build status: master branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=master)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+[`swift2.3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift2.3)|[![Build status: swift2.3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift2.3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+[`swift3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift3)|[![Build status: swift3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
 
 
 ### License
