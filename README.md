@@ -7,10 +7,24 @@ CleanroomConcurrency provides utilities for simplifying asynchronous code execut
 CleanroomConcurrency is part of [the Cleanroom Project](https://github.com/gilt/Cleanroom) from [Gilt Tech](http://tech.gilt.com).
 
 
+### Swift compatibility
 
-### Swift 2.2 compatibility
+The [`master`](https://github.com/emaloney/CleanroomConcurrency) branch of this project is **Swift 2.2 compliant** and therefore **requires Xcode 7.3 or higher** to compile.
 
-The `master` branch of this project is **Swift 2.2 compliant** and therefore **requires Xcode 7.3 or higher** to compile.
+2 other branches are also available:
+
+ - The [`swift2.3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift2.3) branch uses **Swift 2.3**, requiring Xcode 8.0
+ - The [`swift3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift3) branch uses **Swift 3.0**, requiring Xcode 8.0
+
+
+#### Current status
+
+Branch|Build status
+--------|------------------------
+`master`|[![Build status: master branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=master)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+`swift2.3`|[![Build status: swift2.3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift2.3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+`swift3`|[![Build status: swift3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+
 
 ### License
 
