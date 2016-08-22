@@ -24,9 +24,11 @@ if [[ "$COPYRIGHT_YEAR" != "$CURRENT_YEAR" ]]; then
 	COPYRIGHT_YEAR="${COPYRIGHT_YEAR}-${CURRENT_YEAR}"
 fi
 
+rm -rf Documentation/API	# clear out any old docs; they may have remnant files
+
 "$JAZZY_EXECUTABLE" -o Documentation/API \
 	-m "$MODULE_NAME" \
-	--swift-version 2.2 \
+	--swift-version 2.3 \
 	--readme Sources/README.md \
 	--github_url "$PUBLIC_GITHUB_URL" \
 	--author "Evan Maloney, Gilt Groupe" \
