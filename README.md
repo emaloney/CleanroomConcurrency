@@ -28,7 +28,7 @@ Branch|Build status
 
 ### License
 
-CleanroomConcurrency is distributed under [the MIT license](/blob/master/LICENSE).
+CleanroomConcurrency is distributed under [the MIT license](https://github.com/emaloney/CleanroomConcurrency/blob/master/LICENSE).
 
 CleanroomConcurrency is provided for your use—free-of-charge—on an as-is basis. We make no guarantees, promises or apologies. *Caveat developer.*
 
