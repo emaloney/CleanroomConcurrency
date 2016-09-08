@@ -9,20 +9,15 @@ CleanroomConcurrency is part of [the Cleanroom Project](https://github.com/gilt/
 
 ### Swift compatibility
 
-This is the `master` branch. It uses **Swift 2.2** and **requires Xcode 7.3** (or higher) to compile.
+This is the `master` branch. It uses **Swift 2.3** and **requires Xcode 8.0** to compile.
 
-2 other branches are also available:
-
-- The [`swift2.3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift2.3) branch uses **Swift 2.3**, requiring Xcode 8.0 beta 6
-- The [`swift3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift3) branch uses **Swift 3.0**, requiring Xcode 8.0 beta 6
-
+If you need Swift 3.0 compatibility, a [`swift3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift3) branch is also available. It requires Xcode 8.0.
 
 #### Current status
 
 Branch|Build status
 --------|------------------------
 [`master`](https://github.com/emaloney/CleanroomConcurrency)|[![Build status: master branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=master)](https://travis-ci.org/emaloney/CleanroomConcurrency)
-[`swift2.3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift2.3)|[![Build status: swift2.3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift2.3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
 [`swift3`](https://github.com/emaloney/CleanroomConcurrency/tree/swift3)|[![Build status: swift3 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=swift3)](https://travis-ci.org/emaloney/CleanroomConcurrency)
 
 

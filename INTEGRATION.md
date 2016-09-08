@@ -10,12 +10,12 @@ CleanroomConcurrency is built as a *Swift framework*, and as such, it has the fo
 
 Platform|Latest supported OS|Oldest supported OS
 --------|-------------------|-------------------
-iPhone/iPad|iOS 9.3|iOS 8.0
-Macintosh|macOS 10.11|macOS 10.10
-Apple TV|tvOS 9.2|tvOS 9.0
-Apple Watch|watchOS 2.2|watchOS 2.0
+iPhone/iPad|iOS 10.0|iOS 8.0
+Macintosh|macOS 10.12|macOS 10.10
+Apple TV|tvOS 10.0|tvOS 9.0
+Apple Watch|watchOS 3.0|watchOS 2.0
 
-CleanroomConcurrency uses **Swift 2.2** and **requires Xcode 7.3** (or higher) to compile.
+CleanroomConcurrency uses **Swift 2.3** and **requires Xcode 8.0** (or higher) to compile.
 
 ### Contents
 
@@ -27,7 +27,7 @@ CleanroomConcurrency uses **Swift 2.2** and **requires Xcode 7.3** (or higher) t
 
 Some familiarity with the Terminal application, the bash command line, and the `git` command is assumed.
 
-The steps below have been tested with **git 2.7.4 (Apple Git-66)**, although they should be compatible with a wide range of recent git versions.
+The steps below have been tested with **git 2.7.4 (Apple Git-73)**, although they should be compatible with a wide range of recent git versions.
 
 
 ### Of Frameworks and Simulators
