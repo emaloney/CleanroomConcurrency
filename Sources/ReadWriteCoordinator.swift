@@ -33,7 +33,7 @@ public struct ReadWriteCoordinator
     */
     public init()
     {
-        queue = DispatchQueue(label: "CleanroomBase.ConcurrentReadWriteCoordinatorQueue", attributes: DispatchQueueAttributes.concurrent)
+        queue = DispatchQueue(label: "CleanroomBase.ConcurrentReadWriteCoordinatorQueue", attributes: .concurrent)
     }
 
     /**
@@ -44,7 +44,7 @@ public struct ReadWriteCoordinator
     */
     public init(queueName: String)
     {
-        queue = DispatchQueue(label: queueName, attributes: DispatchQueueAttributes.concurrent)
+        queue = DispatchQueue(label: queueName, attributes: .concurrent)
     }
 
     /**
@@ -67,7 +67,7 @@ public struct ReadWriteCoordinator
     :param:     fn A no-argument function that will be called when the write
                 lock is held.
     */
-    public func enqueueWrite(_ fn: () -> Void)
+    public func enqueueWrite(_ fn: @escaping () -> Void)
     {
         queue.async {
             fn()

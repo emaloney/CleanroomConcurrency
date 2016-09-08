@@ -13,7 +13,7 @@ Asynchronously executes the passed-in function on a concurrent GCD queue.
 
 :param:     fn The function to execute asynchronously.
 */
-public func async(_ fn: () -> Void)
+public func async(_ fn: @escaping () -> Void)
 {
     AsyncQueue.instance.queue.async {
         fn()
@@ -31,10 +31,10 @@ concurrent GCD queue.
 
 :param:     fn The function to execute asynchronously.
 */
-public func async(delay: TimeInterval, _ fn: () -> Void)
+public func async(delay: TimeInterval, _ fn: @escaping () -> Void)
 {
     let time = DispatchTime.now() + Double(Int64(delay * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-    AsyncQueue.instance.queue.after(when: time)  {
+    AsyncQueue.instance.queue.asyncAfter(deadline: time)  {
         fn()
     }
 }
@@ -48,7 +48,7 @@ executed.
 
 :param:     fn The function to execute asynchronously.
 */
-public func asyncBarrier(_ fn: () -> Void)
+public func asyncBarrier(_ fn: @escaping () -> Void)
 {
     AsyncQueue.instance.queue.async  {
         fn()
@@ -60,7 +60,7 @@ Asynchronously executes the specified function on the main thread.
 
 :param:     fn The function to execute on the main thread.
 */
-public func mainThread(_ fn: () -> Void)
+public func mainThread(_ fn: @escaping () -> Void)
 {
     DispatchQueue.main.async {
         fn()
@@ -77,10 +77,10 @@ Asynchronously executes the specified function on the main thread.
 
 :param:     fn The function to execute on the main thread.
 */
-public func mainThread(delay: TimeInterval, _ fn: () -> Void)
+public func mainThread(delay: TimeInterval, _ fn: @escaping () -> Void)
 {
     let time = DispatchTime.now() + Double(Int64(delay * TimeInterval(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-    DispatchQueue.main.after(when: time)  {
+    DispatchQueue.main.asyncAfter(deadline: time)  {
         fn()
     }
 }
@@ -93,6 +93,6 @@ private struct AsyncQueue
 
     init()
     {
-        queue = DispatchQueue(label: "CleanroomConcurrency.AsyncQueue", attributes: DispatchQueueAttributes.concurrent)
+        queue = DispatchQueue(label: "CleanroomConcurrency.AsyncQueue", attributes: .concurrent)
     }
 }

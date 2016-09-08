@@ -20,7 +20,7 @@ import Foundation
  */
 public struct CriticalSection
 {
-    private let lock = RecursiveLock()
+    private let lock = NSRecursiveLock()
 
     /**
      Initializer.
