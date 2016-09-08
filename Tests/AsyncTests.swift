@@ -57,7 +57,7 @@ class AsyncTests: XCTestCase
                 XCTAssertTrue(endTime.laterDate(now) == now)
 
                 semaphore.lock()
-                completed++
+                completed += 1
                 semaphore.signal()
                 semaphore.unlock()
             }
@@ -103,7 +103,7 @@ class AsyncTests: XCTestCase
                     XCTAssertTrue(inBarrierStageCompleted == 0)
                     XCTAssertTrue(postBarrierStageCompleted == 0)
 
-                    preBarrierStageCompleted++
+                    preBarrierStageCompleted += 1
 
                     semaphore.signal()
                     semaphore.unlock()
@@ -119,7 +119,7 @@ class AsyncTests: XCTestCase
                     XCTAssertTrue(preBarrierStageCompleted == self.IterationsPerBarrierStage)
                     XCTAssertTrue(postBarrierStageCompleted == 0)
 
-                    inBarrierStageCompleted++
+                    inBarrierStageCompleted += 1
 
                     semaphore.signal()
                     semaphore.unlock()
@@ -135,7 +135,7 @@ class AsyncTests: XCTestCase
                     XCTAssertTrue(preBarrierStageCompleted == self.IterationsPerBarrierStage)
                     XCTAssertTrue(inBarrierStageCompleted == self.IterationsPerBarrierStage)
 
-                    postBarrierStageCompleted++
+                    postBarrierStageCompleted += 1
 
                     semaphore.signal()
                     semaphore.unlock()
