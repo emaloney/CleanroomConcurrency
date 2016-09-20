@@ -50,7 +50,7 @@ executed.
 */
 public func asyncBarrier(_ fn: @escaping () -> Void)
 {
-    AsyncQueue.instance.queue.async  {
+    AsyncQueue.instance.queue.async(flags: .barrier)  {
         fn()
     }
 }
