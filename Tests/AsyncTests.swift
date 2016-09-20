@@ -154,12 +154,13 @@ class AsyncTests: XCTestCase
             var lastCompleted: Int?
             semaphore.lock()
             while completed < waitingFor {
-                semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1))
-                completed = preBarrierStageCompleted + inBarrierStageCompleted + postBarrierStageCompleted
-                if let last = lastCompleted {
-                    XCTAssertTrue(completed > last)
+                if semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1)) {
+                    completed = preBarrierStageCompleted + inBarrierStageCompleted + postBarrierStageCompleted
+                    if let last = lastCompleted {
+                        XCTAssertTrue(completed > last)
+                    }
+                    lastCompleted = completed
                 }
-                lastCompleted = completed
             }
             semaphore.unlock()
 
