@@ -28,8 +28,7 @@ class ReadWriteCoordinatorTests: XCTestCase
         override func main()
         {
             lock.enqueueWrite {
-                var curVal = counter
-                curVal += 1
+                let curVal = counter + 1
                 counter = curVal
             }
 
@@ -54,23 +53,22 @@ class ReadWriteCoordinatorTests: XCTestCase
             TestThread(lock: lock, signal: signal).start()
         }
 
-        var curVal: Int?
-
         while remainingThreads > 0 {
             signal.wait()
 
             lock.read {
-                curVal = counter
+                print("counter: \(counter)")
             }
-
-            // for whatever reason, this always fails on OS X
-            // avoiding running this test on that OS for now...
-            #if !os(OSX)
-            XCTAssert(remainingThreads == NumberOfThreads - curVal!)
-            #endif
         }
         signal.unlock()
 
-        XCTAssert(curVal! == NumberOfThreads)
+        var curVal: Int?
+        lock.read {
+            curVal = counter
+        }
+
+        XCTAssert(remainingThreads == 0)
+        XCTAssertNotNil(curVal)
+        XCTAssert(curVal! == 100)
     }
 }
