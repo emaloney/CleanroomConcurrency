@@ -13,7 +13,7 @@ install:
   gem install xcpretty
 
 script:
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 7' clean test | xcpretty && sleep 10
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-OSX -destination 'platform=macOS' clean test | xcpretty && sleep 10
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' clean test | xcpretty && sleep 10
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' clean build | xcpretty && sleep 10
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 7' clean test
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-OSX -destination 'platform=macOS' clean test
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' clean test
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -scheme CleanroomConcurrency-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' clean build
