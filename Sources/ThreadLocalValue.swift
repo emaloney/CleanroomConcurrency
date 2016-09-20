@@ -15,7 +15,7 @@ Provides a mechanism for accessing thread-local values stored in the
 As the class name implies, values set using `ThreadLocalValue` are only visible
 to the thread that set those values.
 */
-public struct ThreadLocalValue<ValueType: AnyObject>
+public struct ThreadLocalValue<ValueType: Any>
 {
     /// If the receiver was instantiated with a `namespace`, this property
     /// will contain that value.

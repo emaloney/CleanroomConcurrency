@@ -29,7 +29,7 @@ class ThreadLocalValueTests: XCTestCase
         {
             lock.enqueueWrite {
                 var curVal = counter
-                curVal++
+                curVal += 1
                 counter = curVal
             }
 
@@ -122,13 +122,13 @@ class ThreadLocalValueTests: XCTestCase
 
             override func main()
             {
-                let tlv = ThreadLocalValue<NSString>(key: "threadName") { _ in
-                    return Thread.current().name
+                let tlv = ThreadLocalValue<String>(key: "threadName") { _ in
+                    return Thread.current.name
                 }
 
                 var result = false
                 let threadName = Thread.current.name!
-                if let value = tlv.value() as? String {
+                if let value = tlv.value() {
                     result = value == threadName
                 }
 

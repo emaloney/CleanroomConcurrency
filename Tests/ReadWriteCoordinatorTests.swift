@@ -29,7 +29,7 @@ class ReadWriteCoordinatorTests: XCTestCase
         {
             lock.enqueueWrite {
                 var curVal = counter
-                curVal++
+                curVal += 1
                 counter = curVal
             }
 

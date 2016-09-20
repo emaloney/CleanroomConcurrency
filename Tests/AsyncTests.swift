@@ -23,7 +23,7 @@ class AsyncTests: XCTestCase
         var completed = false
 
         async {
-            XCTAssertTrue(!Thread.isMainThread())
+            XCTAssertTrue(!Thread.isMainThread)
 
             semaphore.lock()
             completed = true
@@ -51,13 +51,13 @@ class AsyncTests: XCTestCase
             let endTime = Date().addingTimeInterval(delay)
 
             async(delay: delay) {
-                XCTAssertTrue(!Thread.isMainThread())
+                XCTAssertTrue(!Thread.isMainThread)
 
                 let now = Date()
                 XCTAssertTrue((endTime as NSDate).laterDate(now) == now)
 
                 semaphore.lock()
-                completed++
+                completed += 1
                 semaphore.signal()
                 semaphore.unlock()
             }
@@ -96,14 +96,14 @@ class AsyncTests: XCTestCase
 
             for _ in 0..<IterationsPerBarrierStage {
                 async {
-                    XCTAssertTrue(!Thread.isMainThread())
+                    XCTAssertTrue(!Thread.isMainThread)
 
                     semaphore.lock()
 
                     XCTAssertTrue(inBarrierStageCompleted == 0)
                     XCTAssertTrue(postBarrierStageCompleted == 0)
 
-                    preBarrierStageCompleted++
+                    preBarrierStageCompleted += 1
 
                     semaphore.signal()
                     semaphore.unlock()
@@ -112,14 +112,14 @@ class AsyncTests: XCTestCase
 
             for _ in 0..<IterationsPerBarrierStage {
                 asyncBarrier {
-                    XCTAssertTrue(!Thread.isMainThread())
+                    XCTAssertTrue(!Thread.isMainThread)
 
                     semaphore.lock()
 
                     XCTAssertTrue(preBarrierStageCompleted == self.IterationsPerBarrierStage)
                     XCTAssertTrue(postBarrierStageCompleted == 0)
 
-                    inBarrierStageCompleted++
+                    inBarrierStageCompleted += 1
 
                     semaphore.signal()
                     semaphore.unlock()
@@ -128,14 +128,14 @@ class AsyncTests: XCTestCase
 
             for _ in 0..<IterationsPerBarrierStage {
                 async {
-                    XCTAssertTrue(!Thread.isMainThread())
+                    XCTAssertTrue(!Thread.isMainThread)
 
                     semaphore.lock()
 
                     XCTAssertTrue(preBarrierStageCompleted == self.IterationsPerBarrierStage)
                     XCTAssertTrue(inBarrierStageCompleted == self.IterationsPerBarrierStage)
 
-                    postBarrierStageCompleted++
+                    postBarrierStageCompleted += 1
 
                     semaphore.signal()
                     semaphore.unlock()

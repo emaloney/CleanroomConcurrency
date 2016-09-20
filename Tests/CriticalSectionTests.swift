@@ -37,12 +37,12 @@ class CriticalSectionTests: XCTestCase
             let fn = { () -> Void in
                 // this also tests re-entrancy
                 let gotLock = self.lock.executeWithTimeout(LongWaitTimeout) {
-                    executions++
+                    executions += 1
 
                     XCTAssertTrue(protect == 0)
-                    protect++
+                    protect += 1
                     XCTAssertTrue(protect == 1)
-                    protect--
+                    protect -= 1
                     XCTAssertTrue(protect == 0)
                 }
                 XCTAssertTrue(gotLock)
