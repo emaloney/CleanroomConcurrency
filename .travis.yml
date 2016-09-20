@@ -7,7 +7,7 @@ git:
   submodules: false
 
 before_install:
-  - git submodule update --init
+  - git submodule update --init 
 
 install:
   - gem install xcpretty
