@@ -50,7 +50,8 @@ class CriticalSectionTests: XCTestCase
 
             for _ in 0..<TestThreadIterations {
                 if let timeout = lockTimeout {
-                    lock.executeWithTimeout(timeout, fn)
+                    let executed = lock.executeWithTimeout(timeout, fn)
+                    XCTAssertTrue(executed)
                 }
                 else {
                     lock.execute(fn)
