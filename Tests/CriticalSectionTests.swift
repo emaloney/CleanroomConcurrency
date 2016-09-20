@@ -21,11 +21,11 @@ class CriticalSectionTests: XCTestCase
 {
     class ExpectedSuccessTestThread: Thread
     {
-        let signal: Condition
+        let signal: NSCondition
         let lock: CriticalSection
         let lockTimeout: TimeInterval?
 
-        init(signal: Condition, lock: CriticalSection, lockTimeout: TimeInterval? = nil)
+        init(signal: NSCondition, lock: CriticalSection, lockTimeout: TimeInterval? = nil)
         {
             self.signal = signal
             self.lock = lock
@@ -70,7 +70,7 @@ class CriticalSectionTests: XCTestCase
         let NumberOfThreads = 100
 
         let lock = CriticalSection()
-        let signal = Condition()
+        let signal = NSCondition()
 
         signal.lock()
 
@@ -91,10 +91,10 @@ class CriticalSectionTests: XCTestCase
 
     class ExpectedTimeoutTestThread: Thread
     {
-        let signal: Condition
+        let signal: NSCondition
         let lock: CriticalSection
 
-        init(signal: Condition, lock: CriticalSection)
+        init(signal: NSCondition, lock: CriticalSection)
         {
             self.signal = signal
             self.lock = lock
@@ -120,7 +120,7 @@ class CriticalSectionTests: XCTestCase
         let NumberOfThreads = 25
 
         let lock = CriticalSection()
-        let signal = Condition()
+        let signal = NSCondition()
 
         lock.execute {
             signal.lock()

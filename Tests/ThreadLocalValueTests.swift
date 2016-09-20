@@ -17,9 +17,9 @@ class ThreadLocalValueTests: XCTestCase
     class TestThread: Thread
     {
         let lock: ReadWriteCoordinator
-        let signal: Condition
+        let signal: NSCondition
 
-        init(lock: ReadWriteCoordinator, signal: Condition)
+        init(lock: ReadWriteCoordinator, signal: NSCondition)
         {
             self.lock = lock
             self.signal = signal
@@ -45,7 +45,7 @@ class ThreadLocalValueTests: XCTestCase
         let NumberOfThreads = 100
 
         let lock = ReadWriteCoordinator()
-        let signal = Condition()
+        let signal = NSCondition()
 
         remainingThreads = NumberOfThreads
         for _ in 0..<NumberOfThreads {
@@ -110,9 +110,9 @@ class ThreadLocalValueTests: XCTestCase
         class TestThread: Thread
         {
             let resultStorage: NSMutableDictionary
-            let signal: Condition
+            let signal: NSCondition
 
-            init(threadNumber: Int, resultStorage: NSMutableDictionary, signal: Condition)
+            init(threadNumber: Int, resultStorage: NSMutableDictionary, signal: NSCondition)
             {
                 self.resultStorage = resultStorage
                 self.signal = signal
@@ -140,7 +140,7 @@ class ThreadLocalValueTests: XCTestCase
         }
 
         let results = NSMutableDictionary()
-        let signal = Condition()
+        let signal = NSCondition()
 
         for i in 0..<NumberOfThreads {
             TestThread(threadNumber: i, resultStorage: results, signal: signal).start()

@@ -17,9 +17,9 @@ class ReadWriteCoordinatorTests: XCTestCase
     class TestThread: Thread
     {
         let lock: ReadWriteCoordinator
-        let signal: Condition
+        let signal: NSCondition
 
-        init(lock: ReadWriteCoordinator, signal: Condition)
+        init(lock: ReadWriteCoordinator, signal: NSCondition)
         {
             self.lock = lock
             self.signal = signal
@@ -45,7 +45,7 @@ class ReadWriteCoordinatorTests: XCTestCase
         let NumberOfThreads = 100
 
         let lock = ReadWriteCoordinator()
-        let signal = Condition()
+        let signal = NSCondition()
 
         signal.lock()
 
