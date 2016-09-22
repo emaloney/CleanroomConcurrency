@@ -13,28 +13,20 @@ install:
   - gem install xcpretty
 
 script:
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 clean build | tee "CleanroomConcurrency-iOS-build.log" | xcpretty
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 test | tee "CleanroomConcurrency-iOS-test.log" | xcpretty
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-OSX -destination 'platform=macOS' -destination-timeout 300 clean build | tee "CleanroomConcurrency-macOS-build.log" | xcpretty
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-OSX -destination 'platform=macOS' -destination-timeout 300 test | tee "CleanroomConcurrency-macOS-test.log" | xcpretty
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 300 clean build | tee "CleanroomConcurrency-tvOS-build.log" | xcpretty
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 300 test | tee "CleanroomConcurrency-tvOS-test.log" | xcpretty
-- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' -destination-timeout 300 clean build | tee "CleanroomConcurrency-watchOS-build.log" | xcpretty
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 clean build | tee "CleanroomConcurrency-iOS-build.log" | xcpretty && rm "CleanroomConcurrency-iOS-build.log"
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 test | tee "CleanroomConcurrency-iOS-test.log" | xcpretty && rm "CleanroomConcurrency-iOS-test.log"
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-OSX -destination 'platform=macOS' -destination-timeout 300 clean build | tee "CleanroomConcurrency-macOS-build.log" | xcpretty && rm "CleanroomConcurrency-macOS-build.log"
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-OSX -destination 'platform=macOS' -destination-timeout 300 test | tee "CleanroomConcurrency-macOS-test.log" | xcpretty && rm "CleanroomConcurrency-macOS-test.log"
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 300 clean build | tee "CleanroomConcurrency-tvOS-build.log" | xcpretty && rm "CleanroomConcurrency-tvOS-build.log"
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-tvOS -destination 'platform=tvOS Simulator,OS=10.0,name=Apple TV 1080p' -destination-timeout 300 test | tee "CleanroomConcurrency-tvOS-test.log" | xcpretty && rm "CleanroomConcurrency-tvOS-test.log"
+- set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-watchOS -destination 'platform=watchOS Simulator,OS=3.0,name=Apple Watch - 42mm' -destination-timeout 300 clean build | tee "CleanroomConcurrency-watchOS-build.log" | xcpretty && rm "CleanroomConcurrency-watchOS-build.log"
 
 after_failure:
-- echo "Travis test result is $TRAVIS_TEST_RESULT"
-- printf "\niOS build log:\n"
-- cat "CleanroomConcurrency-iOS-build.log"
-- printf "\niOS test log:\n"
-- cat "CleanroomConcurrency-iOS-test.log"
-- printf "\nmacOS build log:\n"
-- cat "CleanroomConcurrency-macOS-build.log"
-- printf "\nmacOS test log:\n"
-- cat "CleanroomConcurrency-macOS-test.log"
-- printf "\ntvOS build log:\n"
-- cat "CleanroomConcurrency-tvOS-build.log"
-- printf "\ntvOS test log:\n"
-- cat "CleanroomConcurrency-tvOS-test.log"
-- printf "\nwatchOS build log:\n"
-- cat "CleanroomConcurrency-watchOS-build.log"
+- test -f "CleanroomConcurrency-iOS-build.log" && cat "CleanroomConcurrency-iOS-build.log"
+- test -f "CleanroomConcurrency-iOS-test.log" && cat "CleanroomConcurrency-iOS-test.log"
+- test -f "CleanroomConcurrency-macOS-build.log" && cat "CleanroomConcurrency-macOS-build.log"
+- test -f "CleanroomConcurrency-macOS-test.log" && cat "CleanroomConcurrency-macOS-test.log"
+- test -f "CleanroomConcurrency-tvOS-build.log" && cat "CleanroomConcurrency-tvOS-build.log"
+- test -f "CleanroomConcurrency-tvOS-test.log" && cat "CleanroomConcurrency-tvOS-test.log"
+- test -f "CleanroomConcurrency-watchOS-build.log" && cat "CleanroomConcurrency-watchOS-build.log"
 
