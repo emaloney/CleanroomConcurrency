@@ -88,21 +88,34 @@ class AsyncTests: XCTestCase
     {
         print("testAsyncBarrierFunction() @ \(#line) -- entering function")
 
+        var startAsyncWork = false
         var preBarrierStageCompleted = 0
         var inBarrierStageCompleted = 0
         var postBarrierStageCompleted = 0
 
-        func testBarrierWithSemaphore(semaphore: NSCondition)
+        func testBarrier(with semaphore: NSCondition, startingGun: NSCondition)
         {
             XCTAssertTrue(NSThread.isMainThread())  // we expect tests to run on the main thread
 
-            print("testBarrierWithSemaphore() @ \(#line)")
+            print("testBarrierWithSemaphore() @ \(#line) -- entering function")
 
             for i in 0..<IterationsPerBarrierStage {
                 print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v enter async {} -- preBarrierStage")
 
                 async {
                     XCTAssertTrue(!NSThread.isMainThread())
+
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.lock() -- preBarrierStage")
+                    startingGun.lock()
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.lock() -- preBarrierStage")
+                    while !startAsyncWork {
+                        print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.wait() -- preBarrierStage")
+                        startingGun.wait()
+                        print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.wait() -- preBarrierStage")
+                    }
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.unlock() -- preBarrierStage")
+                    startingGun.unlock()
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.unlock() -- preBarrierStage")
 
                     print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v semaphore.lock() -- preBarrierStage")
                     semaphore.lock()
@@ -133,6 +146,18 @@ class AsyncTests: XCTestCase
                 asyncBarrier {
                     XCTAssertTrue(!NSThread.isMainThread())
 
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.lock() -- inBarrierStage")
+                    startingGun.lock()
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.lock() -- inBarrierStage")
+                    while !startAsyncWork {
+                        print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.wait() -- inBarrierStage")
+                        startingGun.wait()
+                        print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.wait() -- inBarrierStage")
+                    }
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.unlock() -- inBarrierStage")
+                    startingGun.unlock()
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.unlock() -- inBarrierStage")
+
                     print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v semaphore.lock() -- inBarrierStage")
                     semaphore.lock()
                     print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ semaphore.lock() -- inBarrierStage")
@@ -162,10 +187,21 @@ class AsyncTests: XCTestCase
                 async {
                     XCTAssertTrue(!NSThread.isMainThread())
 
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.lock() -- postBarrierStage")
+                    startingGun.lock()
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.lock() -- postBarrierStage")
+                    while !startAsyncWork {
+                        print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.wait() -- postBarrierStage")
+                        startingGun.wait()
+                        print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.wait() -- postBarrierStage")
+                    }
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v startingGun.unlock() -- postBarrierStage")
+                    startingGun.unlock()
+                    print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ startingGun.unlock() -- postBarrierStage")
+
                     print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v semaphore.lock() -- postBarrierStage")
                     semaphore.lock()
                     print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ semaphore.lock() -- postBarrierStage")
-
 
                     XCTAssertTrue(preBarrierStageCompleted == self.IterationsPerBarrierStage)
                     XCTAssertTrue(inBarrierStageCompleted == self.IterationsPerBarrierStage)
@@ -184,7 +220,7 @@ class AsyncTests: XCTestCase
                 print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): ^ leave async {} -- postBarrierStage")
             }
 
-            print("testBarrierWithSemaphore() @ \(#line)")
+            print("testBarrierWithSemaphore() @ \(#line) -- leaving function")
         }
 
         print("testAsyncBarrierFunction() @ \(#line): v enter main test loop (will execute \(IterationsOfBarrierTest) times)")
@@ -193,9 +229,10 @@ class AsyncTests: XCTestCase
             print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): creating semaphore")
 
             let semaphore = NSCondition()
+            let startingGun = NSCondition()
 
             print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): v testBarrierWithSemaphore()")
-            testBarrierWithSemaphore(semaphore)
+            testBarrier(with: semaphore, startingGun: startingGun)
             print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): ^ testBarrierWithSemaphore()")
 
             let waitingFor = IterationsPerBarrierStage * 3  // because there are 3 test stages
@@ -205,6 +242,18 @@ class AsyncTests: XCTestCase
             print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): v semaphore.lock()")
             semaphore.lock()
             print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): ^ semaphore.lock()")
+
+            print("testAsyncBarrierFunction() @ \(#line): v startingGun.lock()")
+            startingGun.lock()
+            print("testAsyncBarrierFunction() @ \(#line): ^ startingGun.lock()")
+            startAsyncWork = true
+            print("testAsyncBarrierFunction() @ \(#line): v startingGun.broadcast()")
+            startingGun.broadcast()
+            print("testAsyncBarrierFunction() @ \(#line): ^ startingGun.broadcast()")
+            print("testAsyncBarrierFunction() @ \(#line): v startingGun.unlock()")
+            startingGun.unlock()
+            print("testBarrierWithSemaphore() @ \(#line): ^ startingGun.unlock()")
+
             while completed < waitingFor {
                 print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): v semaphore.waitUntilDate()")
                 let result = semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1))
