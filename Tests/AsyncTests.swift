@@ -99,7 +99,7 @@ class AsyncTests: XCTestCase
 
 //            print("testBarrierWithSemaphore() @ \(#line) -- entering function")
 
-            for i in 0..<IterationsPerBarrierStage {
+            for _ in 0..<IterationsPerBarrierStage {
 //                print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v enter async {} -- preBarrierStage")
 
                 async {
@@ -140,7 +140,7 @@ class AsyncTests: XCTestCase
 
 //            print("testBarrierWithSemaphore() @ \(#line)")
 
-            for i in 0..<IterationsPerBarrierStage {
+            for _ in 0..<IterationsPerBarrierStage {
 //                print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v enter asyncBarrier {} -- inBarrierStage")
 
                 asyncBarrier {
@@ -181,7 +181,7 @@ class AsyncTests: XCTestCase
 
 //            print("testBarrierWithSemaphore() @ \(#line)")
 
-            for i in 0..<IterationsPerBarrierStage {
+            for _ in 0..<IterationsPerBarrierStage {
 //                print("testBarrierWithSemaphore() @ \(#line) (\(i+1)/\(self.IterationsPerBarrierStage)): v enter async {} -- postBarrierStage")
 
                 async {
@@ -225,7 +225,7 @@ class AsyncTests: XCTestCase
 
 //        print("testAsyncBarrierFunction() @ \(#line): v enter main test loop (will execute \(IterationsOfBarrierTest) times)")
 
-        for i in 0..<IterationsOfBarrierTest {
+        for _ in 0..<IterationsOfBarrierTest {
 //            print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): creating semaphore")
 
             let semaphore = NSCondition()
