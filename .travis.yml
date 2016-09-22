@@ -10,7 +10,8 @@ before_install:
   - git submodule update --init
 
 install:
-  - gem install xcpretty
+  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - gem install xcpretty-travis-formatter --no-rdoc --no-ri --no-document --quiet
 
 script:
 - set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-iOS -destination 'platform=iOS Simulator,OS=10.0,name=iPhone 6s Plus' -destination-timeout 300 clean build | tee "CleanroomConcurrency-iOS-build.log" | xcpretty && rm "CleanroomConcurrency-iOS-build.log"
