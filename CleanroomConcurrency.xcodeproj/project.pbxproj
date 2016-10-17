@@ -10,7 +10,6 @@
 		3B90590D1DAECB5200B4EEC0 /* CleanroomConcurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9059031DAECB5200B4EEC0 /* CleanroomConcurrency.framework */; };
 		3BD302691DB458CC00BEB111 /* AsyncFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302641DB458CC00BEB111 /* AsyncFunctions.swift */; };
 		3BD3026A1DB458CC00BEB111 /* CriticalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302651DB458CC00BEB111 /* CriticalSection.swift */; };
-		3BD3026B1DB458CC00BEB111 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302661DB458CC00BEB111 /* README.md */; };
 		3BD3026C1DB458CC00BEB111 /* ReadWriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */; };
 		3BD3026D1DB458CC00BEB111 /* ThreadLocalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302681DB458CC00BEB111 /* ThreadLocalValue.swift */; };
 		3BD302731DB458D800BEB111 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3026F1DB458D800BEB111 /* AsyncTests.swift */; };
@@ -41,7 +40,6 @@
 		3B90592C1DAECD9800B4EEC0 /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
 		3BD302641DB458CC00BEB111 /* AsyncFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncFunctions.swift; sourceTree = "<group>"; };
 		3BD302651DB458CC00BEB111 /* CriticalSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalSection.swift; sourceTree = "<group>"; };
-		3BD302661DB458CC00BEB111 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteCoordinator.swift; sourceTree = "<group>"; };
 		3BD302681DB458CC00BEB111 /* ThreadLocalValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadLocalValue.swift; sourceTree = "<group>"; };
 		3BD3026F1DB458D800BEB111 /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 			children = (
 				3BD302641DB458CC00BEB111 /* AsyncFunctions.swift */,
 				3BD302651DB458CC00BEB111 /* CriticalSection.swift */,
-				3BD302661DB458CC00BEB111 /* README.md */,
 				3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */,
 				3BD302681DB458CC00BEB111 /* ThreadLocalValue.swift */,
 			);
@@ -246,7 +243,6 @@
 			files = (
 				3BD3026D1DB458CC00BEB111 /* ThreadLocalValue.swift in Sources */,
 				3BD3026C1DB458CC00BEB111 /* ReadWriteCoordinator.swift in Sources */,
-				3BD3026B1DB458CC00BEB111 /* README.md in Sources */,
 				3BD3026A1DB458CC00BEB111 /* CriticalSection.swift in Sources */,
 				3BD302691DB458CC00BEB111 /* AsyncFunctions.swift in Sources */,
 			);
