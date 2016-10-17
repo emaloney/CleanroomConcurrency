@@ -62,7 +62,7 @@ while [[ $THIS_TRY < $MAXIMUM_TRIES ]]; do
 		echo "Attempt $THIS_TRY of $MAXIMUM_TRIES..."
 	fi
 	
-	( set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Release ONLY_ACTIVE_ARCH=YES -scheme CleanroomConcurrency-$PLATFORM -destination "$DESTINATION" -destination-timeout 300 $XCODE_ACTION 2>&1 | tee "CleanroomConcurrency-$PLATFORM-$OPERATION.log" | xcpretty )
+	( set -o pipefail && xcodebuild -project CleanroomConcurrency.xcodeproj -configuration Debug -scheme CleanroomConcurrency-$PLATFORM -destination "$DESTINATION" -destination-timeout 300 $XCODE_ACTION 2>&1 | tee "CleanroomConcurrency-$PLATFORM-$OPERATION.log" | xcpretty )
 	XCODE_RESULT="${PIPESTATUS[0]}"
 	if [[ "$XCODE_RESULT" == "0" ]]; then
 		rm "CleanroomConcurrency-$PLATFORM-$OPERATION.log"
