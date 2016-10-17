@@ -67,7 +67,7 @@
         <section>
           <section class="section">
             
-            <a href='#using-cleanroomconcurrency' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='using-cleanroomconcurrency'>Using CleanroomConcurrency</h2>
+            <a href='#using_cleanroomconcurrency' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='using_cleanroomconcurrency'>Using CleanroomConcurrency</h2>
 
 <p>CleanroomConcurrency provides:</p>
 
@@ -87,13 +87,13 @@
 <p>The <code>async</code> function provides a simple notation for specifying that a block of code should be executed asynchronously.</p>
 
 <p><code>async</code> takes as a parameter a no-argument function returning <code>Void</code>, and is typically invoked with a closure:</p>
-<pre class="highlight swift"><code><span class="n">async</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="k">as</span><span class="n">ync</span> <span class="p">{</span>
     <span class="nf">println</span><span class="p">(</span><span class="s">"This will execute asynchronously"</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
 
 <p>The operation specified by the closure—the <code>println()</code> call above—will be executed asynchronously.</p>
-<a href='#async-with-delay' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='async-with-delay'>async with delay</h4>
+<a href='#async_with_delay' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='async_with_delay'>async with delay</h4>
 
 <p>A variation on the <code>async</code> function takes a <code>delay</code> parameter, an <code>NSTimeInterval</code> value specifying the <em>minimum</em> number of seconds to wait before asynchronously executing the closure:</p>
 <pre class="highlight swift"><code><span class="nf">async</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">)</span> <span class="p">{</span>
@@ -115,7 +115,7 @@
 </code></pre>
 
 <p>The notation above ensures that the <code>rootViewController</code> is changed only on the main thread.</p>
-<a href='#mainthread-with-delay' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='mainthread-with-delay'>mainThread with delay</h4>
+<a href='#mainthread_with_delay' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='mainthread_with_delay'>mainThread with delay</h4>
 
 <p>As with the <code>async</code> function, a variation of the <code>mainThread</code> function takes a <code>delay</code> parameter:</p>
 <pre class="highlight swift"><code><span class="nf">mainThread</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">)</span> <span class="p">{</span>
@@ -139,7 +139,7 @@
 </ul>
 
 <p>Barrier operations are submitted for eventual execution using the notation:</p>
-<pre class="highlight swift"><code><span class="n">asyncBarrier</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="k">as</span><span class="n">yncBarrier</span> <span class="p">{</span>
     <span class="nf">println</span><span class="p">(</span><span class="s">"When this executes, no other operations will be executing"</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
@@ -154,7 +154,7 @@
 <p><code>CriticalSection</code>s are a form of a <em>mutex</em> (or <em>mutual exclusion</em>) lock: when one thread is executing code within a given critical section, it is guaranteed that no other thread will be executing within the same instance.</p>
 
 <p>In this way, <code>CriticalSection</code>s are similar to <code>@synchronized</code> blocks in Objective-C.</p>
-<a href='#using-a-criticalsection' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='using-a-criticalsection'>Using a CriticalSection</h4>
+<a href='#using_a_criticalsection' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='using_a_criticalsection'>Using a CriticalSection</h4>
 
 <p>With a <code>CriticalSection</code>, any code inside the <code>execute</code> closure (shown below as the <q>`// code to execute`</q> comment) is executed only after exclusive access to the critical section has been acquired by the calling thread.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">cs</span> <span class="o">=</span> <span class="kt">CriticalSection</span><span class="p">()</span>
@@ -185,7 +185,7 @@
 <p>If exclusive access to the critical section <code>cs</code> can&rsquo;t be acquired within <code>1.0</code> seconds, nothing will be executed and <code>executeWithTimeout()</code> will return <code>false</code>.</p>
 
 <p><strong>Note:</strong> It is best to design your implementation to avoid the potential for a deadlock. However, sometimes this is not possible, which is why the <code>executeWithTimeout()</code> function is provided.</p>
-<a href='#implementation-details' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='implementation-details'>Implementation Details</h4>
+<a href='#implementation_details' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='implementation_details'>Implementation Details</h4>
 
 <p>The <code>CriticalSection</code> implementation uses an <code>NSRecursiveLock</code> internally, which enables <code>CriticalSection</code>s to be re-entrant. This means that a thread can&rsquo;t deadlock on a <code>CriticalSection</code> it already holds.</p>
 
@@ -285,7 +285,7 @@
 <blockquote>
 <p>Regardless of whether a <code>ThreadLocalValue</code> uses a namespace, the key used to access the <code>threadDictionary</code> is always available via the <code>fullKey</code> property.</p>
 </blockquote>
-<a href='#thread-local-caching' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='thread-local-caching'>Thread-local caching</h4>
+<a href='#thread_local_caching' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='thread_local_caching'>Thread-local caching</h4>
 
 <p><code>ThreadLocalValue</code> instances can also be used to treat thread-local storage as a lockless cache.</p>
 
@@ -317,7 +317,7 @@
         </section>
         <section id="footer">
           <p>© 2015-2016 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a></p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

@@ -76,6 +76,45 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:V20CleanroomConcurrency15CriticalSection"></a>
+                    <a name="//apple_ref/swift/Struct/CriticalSection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:V20CleanroomConcurrency15CriticalSection">CriticalSection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>CriticalSection</code>s can be used to ensure exclusive access to a given resource.</p>
+
+<p>By protecting a resource with a <code>CriticalSection</code>, you ensure that only one
+one thread can be executing code using that critical section at any given time.</p>
+
+<p><code>CriticalSection</code>s are re-entrant, meaning that code already holding access
+to the critical section may re-enter the critical section without causing
+a deadlock. (The <code>NSRecursiveLock</code> class is used under the hood.)</p>
+
+                        <a href="Structs/CriticalSection.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CriticalSection</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:V20CleanroomConcurrency16ThreadLocalValue"></a>
                     <a name="//apple_ref/swift/Struct/ThreadLocalValue" class="dashAnchor"></a>
                     <a class="token" href="#/s:V20CleanroomConcurrency16ThreadLocalValue">ThreadLocalValue</a>
@@ -98,7 +137,7 @@ to the thread that set those values.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="p">:</span> <span class="kt">Any</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -152,50 +191,11 @@ following properties:</p>
                 </li>
               </ul>
             </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:V20CleanroomConcurrency15CriticalSection"></a>
-                    <a name="//apple_ref/swift/Struct/CriticalSection" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V20CleanroomConcurrency15CriticalSection">CriticalSection</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p><code>CriticalSection</code>s can be used to ensure exclusive access to a given resource.</p>
-
-<p>By protecting a resource with a <code>CriticalSection</code>, you ensure that only one
-one thread can be executing code using that critical section at any given time.</p>
-
-<p><code>CriticalSection</code>s are re-entrant, meaning that code already holding access
-to the critical section may re-enter the critical section without causing
-a deadlock. (The <code>NSRecursiveLock</code> class is used under the hood.)</p>
-
-                        <a href="Structs/CriticalSection.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CriticalSection</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
           </section>
         </section>
         <section id="footer">
           <p>© 2015-2016 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a></p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
