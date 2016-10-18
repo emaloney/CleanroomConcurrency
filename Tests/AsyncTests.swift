@@ -32,8 +32,10 @@ class AsyncTests: XCTestCase
         }
 
         semaphore.lock()
-        if !completed {
-            semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.0))
+        var tries = 0
+        while !semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.0)) && !completed && tries < 10 {
+            NSRunLoop.currentRunLoop().runMode(NSRunLoopCommonModes, beforeDate: NSDate().dateByAddingTimeInterval(1.0))
+            tries += 1
         }
         semaphore.unlock()
 
@@ -73,11 +75,15 @@ class AsyncTests: XCTestCase
         var lastCompleted: Int?
         semaphore.lock()
         while completed < IterationsForDelayedTests {
-            semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1))
-            if let last = lastCompleted {
-                XCTAssertTrue(completed > last)
+            if !semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.0)) {
+                NSRunLoop.currentRunLoop().runMode(NSRunLoopCommonModes, beforeDate: NSDate().dateByAddingTimeInterval(1.0))
             }
-            lastCompleted = completed
+            else {
+                if let last = lastCompleted {
+                    XCTAssertTrue(completed > last)
+                }
+                lastCompleted = completed
+            }
         }
         semaphore.unlock()
 
@@ -259,6 +265,10 @@ class AsyncTests: XCTestCase
                 let result = semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.1))
 //                print("testAsyncBarrierFunction() @ \(#line) (\(i+1)/\(IterationsOfBarrierTest)): ^ semaphore.waitUntilDate()")
                 if result {
+                if !semaphore.waitUntilDate(NSDate().dateByAddingTimeInterval(1.0)) {
+                    NSRunLoop.currentRunLoop().runMode(NSRunLoopCommonModes, beforeDate: NSDate().dateByAddingTimeInterval(1.0))
+                }
+                else {
                     completed = preBarrierStageCompleted + inBarrierStageCompleted + postBarrierStageCompleted
                     if let last = lastCompleted {
                         XCTAssertTrue(completed > last)
