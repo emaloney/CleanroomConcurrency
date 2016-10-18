@@ -68,7 +68,7 @@ class AsyncTests: XCTestCase
         let semaphore = NSCondition()
 
         for _ in 0..<IterationsForDelayedTests {
-            let delay = NSTimeInterval(Double(arc4random() % 1000) / 1000)
+            let delay = NSTimeInterval(Double(arc4random() % 1000) / 1000) + 0.01
             testDelay(delay, withSemaphore: semaphore)
         }
 
