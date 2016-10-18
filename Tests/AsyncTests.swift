@@ -12,9 +12,8 @@ import CleanroomConcurrency
 class AsyncTests: XCTestCase
 {
     let iterationsForDelayedTests   = 10
-    let iterationsPerBarrierStage   = 5
+    let iterationsPerBarrierStage   = 10
     let iterationsOfBarrierTest     = 10
-    let maxTriesToWaitForCompletion = 10
 
     func testAsyncFunction()
     {
@@ -34,8 +33,8 @@ class AsyncTests: XCTestCase
 
         semaphore.lock()
         var tries = 0
-        while !semaphore.wait(until: Date().addingTimeInterval(1.0)) && !completed && tries < maxTriesToWaitForCompletion {
-            RunLoop.current.run(mode: .commonModes, before: Date().addingTimeInterval(1.0))
+        while !semaphore.wait(until: Date().addingTimeInterval(1.0)) && !completed && tries < 10 {
+            RunLoop.current.run(mode: .defaultRunLoopMode, before: Date().addingTimeInterval(1.0))
             tries += 1
         }
         semaphore.unlock()
@@ -69,7 +68,7 @@ class AsyncTests: XCTestCase
         let semaphore = NSCondition()
 
         for _ in 0..<iterationsForDelayedTests {
-            let delay = TimeInterval(Double(arc4random() % 1000) / 1000)
+            let delay = TimeInterval(Double(arc4random() % 1000) / 1000) + 0.01
             testDelay(delay, withSemaphore: semaphore)
         }
 
@@ -77,13 +76,14 @@ class AsyncTests: XCTestCase
         semaphore.lock()
         while completed < iterationsForDelayedTests {
             if !semaphore.wait(until: Date().addingTimeInterval(1.0)) {
-                RunLoop.current.run(mode: .commonModes, before: Date().addingTimeInterval(1.0))
+                RunLoop.current.run(mode: .defaultRunLoopMode, before: Date().addingTimeInterval(1.0))
             }
-
-            if let last = lastCompleted {
-                XCTAssertTrue(completed > last)
+            else {
+                if let last = lastCompleted {
+                    XCTAssertTrue(completed > last)
+                }
+                lastCompleted = completed
             }
-            lastCompleted = completed
         }
         semaphore.unlock()
 
@@ -106,11 +106,12 @@ class AsyncTests: XCTestCase
                     XCTAssertTrue(!Thread.isMainThread)
                     startingGun.lock()
                     while !startAsyncWork {
-                        startingGun.wait()
+                        if !startingGun.wait(until: Date().addingTimeInterval(1.0)) {
+                            RunLoop.current.run(mode: .defaultRunLoopMode, before: Date().addingTimeInterval(1.0))
+                        }
                     }
                     startingGun.unlock()
                     semaphore.lock()
-
                     XCTAssertTrue(inBarrierStageCompleted == 0)
                     XCTAssertTrue(postBarrierStageCompleted == 0)
 
@@ -125,29 +126,21 @@ class AsyncTests: XCTestCase
                 asyncBarrier {
                     XCTAssertTrue(!Thread.isMainThread)
 
-                    startingGun.lock()
-                    while !startAsyncWork {
-                        startingGun.wait()
-                    }
-                    startingGun.unlock()
                     semaphore.lock()
 
                     XCTAssertTrue(preBarrierStageCompleted == self.iterationsPerBarrierStage)
                     XCTAssertTrue(postBarrierStageCompleted == 0)
 
                     inBarrierStageCompleted += 1
+
                     semaphore.signal()
                     semaphore.unlock()
                 }
             }
+
             for _ in 0..<iterationsPerBarrierStage {
                 async {
                     XCTAssertTrue(!Thread.isMainThread)
-                    startingGun.lock()
-                    while !startAsyncWork {
-                        startingGun.wait()
-                    }
-                    startingGun.unlock()
 
                     semaphore.lock()
 
@@ -155,6 +148,7 @@ class AsyncTests: XCTestCase
                     XCTAssertTrue(inBarrierStageCompleted == self.iterationsPerBarrierStage)
 
                     postBarrierStageCompleted += 1
+
                     semaphore.signal()
                     semaphore.unlock()
                 }
@@ -165,32 +159,21 @@ class AsyncTests: XCTestCase
             let semaphore = NSCondition()
             let startingGun = NSCondition()
             testBarrier(with: semaphore, startingGun: startingGun)
-
             let waitingFor = iterationsPerBarrierStage * 3  // because there are 3 test stages
 
             var completed = 0
-            var lastCompleted: Int?
             semaphore.lock()
-
             startingGun.lock()
             startAsyncWork = true
             startingGun.broadcast()
             startingGun.unlock()
-
             while completed < waitingFor {
                 if !semaphore.wait(until: Date().addingTimeInterval(1.0)) {
-                    RunLoop.current.run(mode: .commonModes, before: Date().addingTimeInterval(1.0))
+                    RunLoop.current.run(mode: .defaultRunLoopMode, before: Date().addingTimeInterval(1.0))
                 }
-                else {
-                    completed = preBarrierStageCompleted + inBarrierStageCompleted + postBarrierStageCompleted
-                    if let last = lastCompleted {
-                        XCTAssertTrue(completed > last)
-                    }
-                    lastCompleted = completed
-                }
+                completed = preBarrierStageCompleted + inBarrierStageCompleted + postBarrierStageCompleted
             }
             semaphore.unlock()
-
             XCTAssertTrue(completed == waitingFor)
 
             // reset vars for next run
