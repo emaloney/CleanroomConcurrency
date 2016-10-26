@@ -69,7 +69,7 @@ public struct ReadWriteCoordinator
     */
     public func enqueueWrite(_ fn: @escaping () -> Void)
     {
-        queue.async {
+        queue.async(flags: .barrier) {
             fn()
         }
     }
@@ -83,7 +83,7 @@ public struct ReadWriteCoordinator
     */
     public func blockingWrite(_ fn: () -> Void)
     {
-        queue.sync {
+        queue.sync(flags: .barrier) {
             fn()
         }
     }
