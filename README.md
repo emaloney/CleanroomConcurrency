@@ -1,4 +1,4 @@
-![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/xcode-8.1/Assets/gilt-tech-logo.png)
+![Gilt Tech logo](https://raw.githubusercontent.com/gilt/Cleanroom/master/Assets/gilt-tech-logo.png)
 
 # CleanroomConcurrency
 
@@ -9,12 +9,7 @@ CleanroomConcurrency is part of [the Cleanroom Project](https://github.com/gilt/
 
 ### Swift compatibility
 
-**Important:** This is the `xcode-8.1` branch. It uses **Swift 3.0.1** and **requires Xcode 8.1** to compile.
-
-2 other branches are also available:
-
-- The [`master`](https://github.com/emaloney/CleanroomConcurrency) branch uses **Swift 3.0**, requiring Xcode 8.0
-- The [`xcode-8.2`](https://github.com/emaloney/CleanroomConcurrency/tree/xcode-8.2) branch uses **Swift 3.0.2**, requiring Xcode 8.2
+This is the `master` branch. It uses **Swift 3.0.2** and **requires Xcode 8.2** to compile.
 
 
 #### Current status
@@ -22,12 +17,11 @@ CleanroomConcurrency is part of [the Cleanroom Project](https://github.com/gilt/
 Branch|Build status
 --------|------------------------
 [`master`](https://github.com/emaloney/CleanroomConcurrency)|[![Build status: master branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=master)](https://travis-ci.org/emaloney/CleanroomConcurrency)
-[`xcode-8.1`](https://github.com/emaloney/CleanroomConcurrency/tree/xcode-8.1)|[![Build status: xcode-8.1 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=xcode-8.1)](https://travis-ci.org/emaloney/CleanroomConcurrency)
-[`xcode-8.2`](https://github.com/emaloney/CleanroomConcurrency/tree/xcode-8.2)|[![Build status: xcode-8.2 branch](https://travis-ci.org/emaloney/CleanroomConcurrency.svg?branch=xcode-8.2)](https://travis-ci.org/emaloney/CleanroomConcurrency)
+
 
 ### License
 
-CleanroomConcurrency is distributed under [the MIT license](https://github.com/emaloney/CleanroomConcurrency/blob/xcode-8.1/LICENSE).
+CleanroomConcurrency is distributed under [the MIT license](https://github.com/emaloney/CleanroomConcurrency/blob/master/LICENSE).
 
 CleanroomConcurrency is provided for your use—free-of-charge—on an as-is basis. We make no guarantees, promises or apologies. *Caveat developer.*
 
@@ -46,7 +40,7 @@ github "emaloney/CleanroomConcurrency" ~> 1.0.0
 
 Then, use the `carthage` command to [update your dependencies](https://github.com/Carthage/Carthage#upgrading-frameworks).
 
-Finally, you’ll need to [integrate CleanroomConcurrency into your project](https://github.com/emaloney/CleanroomConcurrency/blob/xcode-8.1/INTEGRATION.md) in order to use [the API](https://rawgit.com/emaloney/CleanroomConcurrency/xcode-8.1/Documentation/API/index.html) it provides.
+Finally, you’ll need to [integrate CleanroomConcurrency into your project](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md) in order to use [the API](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/API/index.html) it provides.
 
 Once successfully integrated, just add the following `import` statement to any Swift file where you want to use CleanroomConcurrency:
 
@@ -54,7 +48,7 @@ Once successfully integrated, just add the following `import` statement to any S
 import CleanroomConcurrency
 ```
 
-See [the Integration document](https://github.com/emaloney/CleanroomConcurrency/blob/xcode-8.1/INTEGRATION.md) for additional details on integrating CleanroomConcurrency into your project.
+See [the Integration document](https://github.com/emaloney/CleanroomConcurrency/blob/master/INTEGRATION.md) for additional details on integrating CleanroomConcurrency into your project.
 
 ## Using CleanroomConcurrency
 
@@ -350,7 +344,7 @@ Using thread-local storage as a cheap cache is best suited for cases where the l
 
 ### API documentation
 
-For detailed information on using CleanroomConcurrency, [API documentation](https://rawgit.com/emaloney/CleanroomConcurrency/xcode-8.1/Documentation/API/index.html) is available.
+For detailed information on using CleanroomConcurrency, [API documentation](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/API/index.html) is available.
 
 
 ## About
@@ -373,5 +367,5 @@ If you’d like to contribute to this or any other Cleanroom Project repo, pleas
 
 ### Acknowledgements
 
-[API documentation for CleanroomConcurrency](https://rawgit.com/emaloney/CleanroomConcurrency/xcode-8.1/Documentation/API/index.html) is generated using [Realm](http://realm.io)’s [jazzy](https://github.com/realm/jazzy/) project, maintained by [JP Simard](https://github.com/jpsim) and [Samuel E. Giddins](https://github.com/segiddins).
+[API documentation for CleanroomConcurrency](https://rawgit.com/emaloney/CleanroomConcurrency/master/Documentation/API/index.html) is generated using [Realm](http://realm.io)’s [jazzy](https://github.com/realm/jazzy/) project, maintained by [JP Simard](https://github.com/jpsim) and [Samuel E. Giddins](https://github.com/segiddins).
 
