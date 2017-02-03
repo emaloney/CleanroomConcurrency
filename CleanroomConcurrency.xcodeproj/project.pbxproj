@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B03C07D1E4438F9007E8196 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03C0791E4438F9007E8196 /* AsyncTests.swift */; };
+		3B03C07E1E4438F9007E8196 /* CriticalSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03C07A1E4438F9007E8196 /* CriticalSectionTests.swift */; };
+		3B03C07F1E4438F9007E8196 /* ReadWriteCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03C07B1E4438F9007E8196 /* ReadWriteCoordinatorTests.swift */; };
+		3B03C0801E4438F9007E8196 /* ThreadLocalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B03C07C1E4438F9007E8196 /* ThreadLocalValueTests.swift */; };
 		3B90590D1DAECB5200B4EEC0 /* CleanroomConcurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9059031DAECB5200B4EEC0 /* CleanroomConcurrency.framework */; };
 		3BD302691DB458CC00BEB111 /* AsyncFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302641DB458CC00BEB111 /* AsyncFunctions.swift */; };
 		3BD3026A1DB458CC00BEB111 /* CriticalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302651DB458CC00BEB111 /* CriticalSection.swift */; };
 		3BD3026C1DB458CC00BEB111 /* ReadWriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */; };
 		3BD3026D1DB458CC00BEB111 /* ThreadLocalValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302681DB458CC00BEB111 /* ThreadLocalValue.swift */; };
-		3BD302731DB458D800BEB111 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD3026F1DB458D800BEB111 /* AsyncTests.swift */; };
-		3BD302741DB458D800BEB111 /* CriticalSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302701DB458D800BEB111 /* CriticalSectionTests.swift */; };
-		3BD302751DB458D800BEB111 /* ReadWriteCoordinatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302711DB458D800BEB111 /* ReadWriteCoordinatorTests.swift */; };
-		3BD302761DB458D800BEB111 /* ThreadLocalValueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302721DB458D800BEB111 /* ThreadLocalValueTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B03C0791E4438F9007E8196 /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AsyncTests.swift; path = CleanroomConcurrencyTests/AsyncTests.swift; sourceTree = "<group>"; };
+		3B03C07A1E4438F9007E8196 /* CriticalSectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CriticalSectionTests.swift; path = CleanroomConcurrencyTests/CriticalSectionTests.swift; sourceTree = "<group>"; };
+		3B03C07B1E4438F9007E8196 /* ReadWriteCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReadWriteCoordinatorTests.swift; path = CleanroomConcurrencyTests/ReadWriteCoordinatorTests.swift; sourceTree = "<group>"; };
+		3B03C07C1E4438F9007E8196 /* ThreadLocalValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThreadLocalValueTests.swift; path = CleanroomConcurrencyTests/ThreadLocalValueTests.swift; sourceTree = "<group>"; };
 		3B9059031DAECB5200B4EEC0 /* CleanroomConcurrency.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CleanroomConcurrency.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B90590C1DAECB5200B4EEC0 /* CleanroomConcurrencyUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CleanroomConcurrencyUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B9059251DAECB9E00B4EEC0 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
@@ -42,10 +46,6 @@
 		3BD302651DB458CC00BEB111 /* CriticalSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalSection.swift; sourceTree = "<group>"; };
 		3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteCoordinator.swift; sourceTree = "<group>"; };
 		3BD302681DB458CC00BEB111 /* ThreadLocalValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadLocalValue.swift; sourceTree = "<group>"; };
-		3BD3026F1DB458D800BEB111 /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
-		3BD302701DB458D800BEB111 /* CriticalSectionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalSectionTests.swift; sourceTree = "<group>"; };
-		3BD302711DB458D800BEB111 /* ReadWriteCoordinatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteCoordinatorTests.swift; sourceTree = "<group>"; };
-		3BD302721DB458D800BEB111 /* ThreadLocalValueTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThreadLocalValueTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,10 +122,10 @@
 		3BD3026E1DB458D800BEB111 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				3BD3026F1DB458D800BEB111 /* AsyncTests.swift */,
-				3BD302701DB458D800BEB111 /* CriticalSectionTests.swift */,
-				3BD302711DB458D800BEB111 /* ReadWriteCoordinatorTests.swift */,
-				3BD302721DB458D800BEB111 /* ThreadLocalValueTests.swift */,
+				3B03C0791E4438F9007E8196 /* AsyncTests.swift */,
+				3B03C07A1E4438F9007E8196 /* CriticalSectionTests.swift */,
+				3B03C07B1E4438F9007E8196 /* ReadWriteCoordinatorTests.swift */,
+				3B03C07C1E4438F9007E8196 /* ThreadLocalValueTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -252,10 +252,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BD302741DB458D800BEB111 /* CriticalSectionTests.swift in Sources */,
-				3BD302761DB458D800BEB111 /* ThreadLocalValueTests.swift in Sources */,
-				3BD302751DB458D800BEB111 /* ReadWriteCoordinatorTests.swift in Sources */,
-				3BD302731DB458D800BEB111 /* AsyncTests.swift in Sources */,
+				3B03C07E1E4438F9007E8196 /* CriticalSectionTests.swift in Sources */,
+				3B03C0801E4438F9007E8196 /* ThreadLocalValueTests.swift in Sources */,
+				3B03C07F1E4438F9007E8196 /* ReadWriteCoordinatorTests.swift in Sources */,
+				3B03C07D1E4438F9007E8196 /* AsyncTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
