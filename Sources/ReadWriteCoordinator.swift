@@ -9,82 +9,91 @@
 import Foundation
 
 /**
-`ReadWriteCoordinator` instances can be used to coordinate access to a mutable
-resource shared across multiple threads.
+ `ReadWriteCoordinator` instances can be used to coordinate access to a mutable
+ resource shared across multiple threads.
 
-You can think of the `ReadWriteCoordinator` as a read/write lock having the
-following properties:
+ You can think of the `ReadWriteCoordinator` as a read/write lock having the
+ following properties:
 
-    - The *read lock* allows any number of *readers* to execute concurrently.
+ - The *read lock* allows any number of *readers* to execute concurrently.
 
-    - The *write lock* allows one and only one *writer* to execute at a time.
+ - The *write lock* allows one and only one *writer* to execute at a time.
 
-    - As long as there is at least one reader executing, the write lock cannot be acquired.
+ - As long as there is at least one reader executing, the write lock cannot be acquired.
 
-    - As long as the write lock is held, no readers can execute.
-*/
-public struct ReadWriteCoordinator
+ - As long as the write lock is held, no readers can execute.
+ */
+public final class ReadWriteCoordinator
 {
-    /// The dispatch queue used by the receiver.
-    let queue: DispatchQueue
+    private let queue: DispatchQueue
 
-    /** 
-    Initializes a new `ReadWriteCoordinator` instance.
-    */
+    /**
+     Initializes a new `ReadWriteCoordinator` instance.
+     */
     public init()
     {
-        queue = DispatchQueue(label: "CleanroomBase.ConcurrentReadWriteCoordinatorQueue", attributes: .concurrent)
+        queue = DispatchQueue(label: "CleanroomConcurrency.ReadWriteCoordinator", attributes: .concurrent)
     }
 
     /**
-    Initializes a new `ReadWriteCoordinator` instance.
-    
-    :param:     queueName The name for the Grand Central Dispatch queue that 
-                will be created for the new `ReadWriteCoordinator`.
-    */
-    public init(queueName: String)
+     Initializes a new `ReadWriteCoordinator` instance.
+
+     - parameter label: The value to assign as the `label` for the Grand Central
+     Dispatch queue that will be created for the new `ReadWriteCoordinator`.
+     */
+    public init(queueLabel label: String)
     {
-        queue = DispatchQueue(label: queueName, attributes: .concurrent)
+        queue = DispatchQueue(label: label, attributes: .concurrent)
     }
 
     /**
-    Synchronously acquires the read lock and executes the passed-in function.
-    
-    :param:     fn A no-argument function that will be called when the read
-                lock is held.
+     Attempts to acquire a read lock, blocking if necessary. Once a read
+     lock has been acquired, the passed-in function will be executed.
+
+     - parameter function: A no-argument function that will be called while the
+     lock is held.
     */
-    public func read(_ fn: () -> Void)
+    public func read(_ function: () -> Void)
     {
         queue.sync {
-            fn()
+            function()
         }
     }
 
     /**
-    Enqueues an asynchronous request for the write lock and returns immediately.
-    When the write lock is acquired, the passed-in function is executed.
+     Enqueues an asynchronous request for the write lock and returns to the
+     caller immediately. When the write lock is eventually acquired, the
+     passed-in function will be executed.
 
-    :param:     fn A no-argument function that will be called when the write
-                lock is held.
+     This provides additional efficiency for callers that do not immediately 
+     depend on the results of the operation being performed.
+     
+     - parameter function: A no-argument function that will be called while the
+     lock is held.
     */
-    public func enqueueWrite(_ fn: @escaping () -> Void)
+    public func enqueueWrite(_ function: @escaping () -> Void)
     {
         queue.async(flags: .barrier) {
-            fn()
+            function()
         }
     }
 
     /**
-    Synchronously attempts to acquire the write lock, blocking if necessary. 
-    When the write lock is acquired, the passed-in function is executed.
+     Attempts to acquire the write lock, blocking if necessary. Once the write
+     lock has been acquired, the passed-in function will be executed.
 
-    :param:     fn A no-argument function that will be called when the write
-                lock is held.
+     Unlike with `enqueueWrite()`, this function will block the calling thread
+     if necessary while waiting to acquire the write lock. This function should
+     only be used in cases where the results of the write operation need to
+     be available to the caller immediately upon return of this function.
+
+     - parameter function: A no-argument function that will be called while the
+     lock is held.
     */
-    public func blockingWrite(_ fn: () -> Void)
+    public func blockingWrite(_ function: () -> Void)
     {
         queue.sync(flags: .barrier) {
-            fn()
+            function()
         }
     }
 }
