@@ -36,7 +36,7 @@ class CriticalSectionTests: XCTestCase
         {
             let fn = { () -> Void in
                 // this also tests re-entrancy
-                let gotLock = self.lock.executeWithTimeout(LongWaitTimeout) {
+                let gotLock = self.lock.execute(timeout: LongWaitTimeout) {
                     executions += 1
 
                     XCTAssertTrue(protect == 0)
@@ -50,7 +50,7 @@ class CriticalSectionTests: XCTestCase
 
             for _ in 0..<TestThreadIterations {
                 if let timeout = lockTimeout {
-                    let executed = lock.executeWithTimeout(timeout, fn)
+                    let executed = lock.execute(timeout: timeout, fn)
                     XCTAssertTrue(executed)
                 }
                 else {
@@ -103,7 +103,7 @@ class CriticalSectionTests: XCTestCase
 
         override func main()
         {
-            let gotLock = lock.executeWithTimeout(ShortWaitTimeout) {
+            let gotLock = lock.execute(timeout: ShortWaitTimeout) {
                 XCTAssertTrue(false, "we weren't expecting to be able to grab this lock")
             }
 
