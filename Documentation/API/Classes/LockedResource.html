@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CriticalSection Struct Reference</title>
+    <title>LockedResource Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/CriticalSection" class="dashAnchor"></a>
-    <a title="CriticalSection Struct Reference"></a>
+    <a name="//apple_ref/swift/Class/LockedResource" class="dashAnchor"></a>
+    <a title="LockedResource Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">CleanroomConcurrency Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">CleanroomConcurrency Reference</a>
         <img id="carat" src="../img/carat.png" />
-        CriticalSection Struct Reference
+        LockedResource Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -97,21 +97,19 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>CriticalSection</h1>
+            <h1>LockedResource</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CriticalSection</span></code></pre>
+                  <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">LockedResource</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p><code>CriticalSection</code>s can be used to ensure exclusive access to a given resource.</p>
+            <p>A generic class that protects a resource of type <code>T</code> with a <code><a href="../Protocols/Lock.html">Lock</a></code>.</p>
 
-<p>By protecting a resource with a <code>CriticalSection</code>, you ensure that only one
-one thread can be executing code using that critical section at any given time.</p>
-
-<p><code>CriticalSection</code>s are re-entrant, meaning that code already holding access
-to the critical section may re-enter the critical section without causing
-a deadlock. (The <code>NSRecursiveLock</code> class is used under the hood.)</p>
+<p>The user of a <code>LockedResource</code> accesses the resource via a read or write
+function. The resource itself is available only within the scope of the
+passed-in function, during which time the appropriate lock is guaranteed
+to be held.</p>
 
           </section>
           <section class="section task-group-section">
@@ -120,9 +118,9 @@ a deadlock. (The <code>NSRecursiveLock</code> class is used under the hood.)</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV20CleanroomConcurrency15CriticalSectioncFT_S0_"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV20CleanroomConcurrency15CriticalSectioncFT_S0_">init()</a>
+                    <a name="/s:FC20CleanroomConcurrency14LockedResourcecFT8resourcex4lockOS_13LockMechanism_GS0_x_"></a>
+                    <a name="//apple_ref/swift/Method/init(resource:lock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC20CleanroomConcurrency14LockedResourcecFT8resourcex4lockOS_13LockMechanism_GS0_x_">init(resource:lock:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -130,43 +128,15 @@ a deadlock. (The <code>NSRecursiveLock</code> class is used under the hood.)</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initializer.</p>
+                        <p>Initializes a new <code>LockedResource</code> to protect the given resource 
+using the specified <code><a href="../Enums/LockMechanism.html">LockMechanism</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FV20CleanroomConcurrency15CriticalSection7executeFFT_T_T_"></a>
-                    <a name="//apple_ref/swift/Method/execute(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV20CleanroomConcurrency15CriticalSection7executeFFT_T_T_">execute(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Attempts to acquire exclusive access to the critical section before
-executing the passed-in function. The calling thread will block
-indefinitely until it is able to acquire the critical section.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">resource</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">lock</span> <span class="nv">mechanism</span><span class="p">:</span> <span class="kt"><a href="../Enums/LockMechanism.html">LockMechanism</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -177,12 +147,25 @@ indefinitely until it is able to acquire the critical section.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>fn</em>
+                                <em>resource</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The function to execute once exclusive access to the critical section has been acquired.</p>
+                                  <p>The resource to be protected with a lock.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mechanism</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>LockMechanism</code> value specifying the type of lock that will be used to protect <code>resource</code>.</p>
 
                                 </div>
                               </td>
@@ -196,9 +179,9 @@ indefinitely until it is able to acquire the critical section.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV20CleanroomConcurrency15CriticalSection7executeFT7timeoutSdFT_T__Sb"></a>
-                    <a name="//apple_ref/swift/Method/execute(timeout:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV20CleanroomConcurrency15CriticalSection7executeFT7timeoutSdFT_T__Sb">execute(timeout:_:)</a>
+                    <a name="/s:FC20CleanroomConcurrency14LockedResource4readFFxT_T_"></a>
+                    <a name="//apple_ref/swift/Method/read(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC20CleanroomConcurrency14LockedResource4readFFxT_T_">read(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -206,18 +189,14 @@ indefinitely until it is able to acquire the critical section.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Attempts to acquire exclusive access to the critical section before
-executing the passed-in function. The calling thread will block for at most
-<code>timeout</code> seconds while waiting to enter the critical section before giving
-up.</p>
+                        <p>Performs an operation with the read lock held.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="nv">timeout</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">,</span> <span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span>
-        <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">read</span><span class="p">(</span><span class="n">_</span> <span class="nv">operation</span><span class="p">:</span> <span class="p">(</span><span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -228,25 +207,12 @@ up.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>timeout</em>
+                                <em>operation</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The maximum time to wait while attempting to acquire exclusive access to the critical section.</p>
-
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>fn</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The function to execute once exclusive access to the critical section has been acquired.</p>
+                                  <p>A function that will be executed with the read lock held. The protected resource is passed as a parameter to <code>operation</code>, which may use it for reading only.</p>
 
                                 </div>
                               </td>
@@ -254,10 +220,60 @@ up.</p>
                           </tbody>
                         </table>
                       </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p><code>true</code> if exclusive access to the critical section was acquired and <code>fn</code> was executed. <code>false</code> if <code>timeout</code> expired and <code>fn</code> was not executed.</p>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC20CleanroomConcurrency14LockedResource5writeFFRxT_T_"></a>
+                    <a name="//apple_ref/swift/Method/write(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC20CleanroomConcurrency14LockedResource5writeFFRxT_T_">write(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs an operation with the write lock held.</p>
 
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>Whether or not <code>operation</code> is an escaping function depends upon 
+the underlying lock mechanism. Because it <em>may</em> escape in <em>some</em> 
+implementations, it has to be declared <code>@escaping</code> here to cover all cases.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="n">_</span> <span class="nv">operation</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="k">inout</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>operation</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A function that will be executed with the write lock held. The protected resource is passed as an <code>inout</code> parameter to <code>operation</code> so that it may be mutated.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

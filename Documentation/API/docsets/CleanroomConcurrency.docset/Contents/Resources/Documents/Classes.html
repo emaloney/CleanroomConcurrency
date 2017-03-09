@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Structs  Reference</title>
+    <title>Classes  Reference</title>
     <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,7 +10,7 @@
     
   </head>
   <body>
-    <a title="Structs  Reference"></a>
+    <a title="Classes  Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">CleanroomConcurrency Docs</a> (100% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="index.html">CleanroomConcurrency Reference</a>
         <img id="carat" src="img/carat.png" />
-        Structs  Reference
+        Classes  Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -96,8 +96,8 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Structs</h1>
-            <p>The following structs are available globally.</p>
+            <h1>Classes</h1>
+            <p>The following classes are available globally.</p>
 
           </section>
           <section class="section task-group-section">
@@ -106,9 +106,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:V20CleanroomConcurrency16ThreadLocalValue"></a>
-                    <a name="//apple_ref/swift/Struct/ThreadLocalValue" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V20CleanroomConcurrency16ThreadLocalValue">ThreadLocalValue</a>
+                    <a name="/s:C20CleanroomConcurrency14LockedResource"></a>
+                    <a name="//apple_ref/swift/Class/LockedResource" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C20CleanroomConcurrency14LockedResource">LockedResource</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -116,19 +116,20 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Provides a mechanism for accessing thread-local values stored in the
-<code>threadDictionary</code> associated with the <code>NSThread</code> of the caller.</p>
+                        <p>A generic class that protects a resource of type <code>T</code> with a <code><a href="Protocols/Lock.html">Lock</a></code>.</p>
 
-<p>As the class name implies, values set using <code>ThreadLocalValue</code> are only visible
-to the thread that set those values.</p>
+<p>The user of a <code>LockedResource</code> accesses the resource via a read or write
+function. The resource itself is available only within the scope of the
+passed-in function, during which time the appropriate lock is guaranteed
+to be held.</p>
 
-                        <a href="Structs/ThreadLocalValue.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/LockedResource.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ThreadLocalValue</span><span class="o">&lt;</span><span class="kt">ValueType</span><span class="p">:</span> <span class="kt">Any</span><span class="o">&gt;</span></code></pre>
+                          <pre class="highlight"><code><span class="n">open</span> <span class="kd">class</span> <span class="kt">LockedResource</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -142,9 +143,9 @@ to the thread that set those values.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:V20CleanroomConcurrency15CriticalSection"></a>
-                    <a name="//apple_ref/swift/Struct/CriticalSection" class="dashAnchor"></a>
-                    <a class="token" href="#/s:V20CleanroomConcurrency15CriticalSection">CriticalSection</a>
+                    <a name="/s:C20CleanroomConcurrency8Registry"></a>
+                    <a name="//apple_ref/swift/Class/Registry" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C20CleanroomConcurrency8Registry">Registry</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -152,22 +153,67 @@ to the thread that set those values.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><code>CriticalSection</code>s can be used to ensure exclusive access to a given resource.</p>
+                        <p><code>Registry</code> is a generic class designed to keep track of items (of type <code>T</code>)
+in a thread-safe way.</p>
 
-<p>By protecting a resource with a <code>CriticalSection</code>, you ensure that only one
-one thread can be executing code using that critical section at any given time.</p>
+<p>The lifetime of an item in the registry is determined by the <code><a href="Protocols/Receipt.html">Receipt</a></code> that
+was returned when the item was registered.</p>
 
-<p><code>CriticalSection</code>s are re-entrant, meaning that code already holding access
-to the critical section may re-enter the critical section without causing
-a deadlock. (The <code>NSRecursiveLock</code> class is used under the hood.)</p>
+<p>You must maintain at least one strong reference to the returned <code><a href="Protocols/Receipt.html">Receipt</a></code> for
+the duration of the time that you want the item it represents to remain
+registered. Once the <code><a href="Protocols/Receipt.html">Receipt</a></code> deallocates, the associated item is removed
+from the registry.</p>
 
-                        <a href="Structs/CriticalSection.html" class="slightly-smaller">See more</a>
+                        <a href="Classes/Registry.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">CriticalSection</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Registry</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:C20CleanroomConcurrency20ReadWriteCoordinator"></a>
+                    <a name="//apple_ref/swift/Class/ReadWriteCoordinator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C20CleanroomConcurrency20ReadWriteCoordinator">ReadWriteCoordinator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p><code>ReadWriteCoordinator</code> instances can be used to coordinate access to a mutable
+resource shared across multiple threads.</p>
+
+<p>You can think of the <code>ReadWriteCoordinator</code> as a read/write lock having the
+following properties:</p>
+
+<ul>
+<li><p>The <em>read lock</em> allows any number of <em>readers</em> to execute concurrently.</p></li>
+<li><p>The <em>write lock</em> allows one and only one <em>writer</em> to execute at a time.</p></li>
+<li><p>As long as there is at least one reader executing, the write lock cannot be acquired.</p></li>
+<li><p>As long as the write lock is held, no readers can execute.</p></li>
+</ul>
+
+                        <a href="Classes/ReadWriteCoordinator.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">ReadWriteCoordinator</span></code></pre>
 
                         </div>
                       </div>

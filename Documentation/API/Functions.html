@@ -28,6 +28,28 @@
       <nav class="sidebar">
         <ul class="nav-groups">
           <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/LockedResource.html">LockedResource</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ReadWriteCoordinator.html">ReadWriteCoordinator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Registry.html">Registry</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/LockMechanism.html">LockMechanism</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Functions.html">Functions</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -48,13 +70,21 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/Lock.html">Lock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/Receipt.html">Receipt</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a href="Structs.html">Structs</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Structs/CriticalSection.html">CriticalSection</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/ReadWriteCoordinator.html">ReadWriteCoordinator</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/ThreadLocalValue.html">ThreadLocalValue</a>
@@ -88,8 +118,6 @@
                       <div class="abstract">
                         <p>Asynchronously executes the passed-in function on a concurrent GCD queue.</p>
 
-<p>:param:     fn The function to execute asynchronously.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -98,6 +126,26 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">async</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The function to execute asynchronously.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -118,13 +166,6 @@
                         <p>After a specified delay, asynchronously executes the passed-in function on a
 concurrent GCD queue.</p>
 
-<p>:param:     delay The number of seconds to wait before executing <code>fn</code>
-            asynchronously. This is not real-time scheduling, so the function is
-            guaranteed to execute after <em>at least</em> this amount of time, not 
-            after <em>exactly</em> this amount of time.</p>
-
-<p>:param:     fn The function to execute asynchronously.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -133,6 +174,39 @@ concurrent GCD queue.</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">async</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">,</span> <span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>delay</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The number of seconds to wait before executing <code>fn</code> asynchronously. This is not real-time scheduling, so the function is guaranteed to execute after  this amount of time, not after  this amount of time.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The function to execute asynchronously.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -156,8 +230,6 @@ are guaranteed to execute before the barrier, while functions submitted after
 the barrier are guaranteed to execute after the passed-in function has
 executed.</p>
 
-<p>:param:     fn The function to execute asynchronously.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -166,6 +238,26 @@ executed.</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">asyncBarrier</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The function to execute asynchronously.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -185,8 +277,6 @@ executed.</p>
                       <div class="abstract">
                         <p>Asynchronously executes the specified function on the main thread.</p>
 
-<p>:param:     fn The function to execute on the main thread.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -195,6 +285,26 @@ executed.</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mainThread</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The function to execute on the main thread.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -214,13 +324,6 @@ executed.</p>
                       <div class="abstract">
                         <p>Asynchronously executes the specified function on the main thread.</p>
 
-<p>:param:     delay The number of seconds to wait before executing <code>fn</code>
-            asynchronously. This is not real-time scheduling, so the function is
-            guaranteed to execute after <em>at least</em> this amount of time, not 
-            after <em>exactly</em> this amount of time.</p>
-
-<p>:param:     fn The function to execute on the main thread.</p>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -229,6 +332,39 @@ executed.</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mainThread</span><span class="p">(</span><span class="nv">delay</span><span class="p">:</span> <span class="kt">TimeInterval</span><span class="p">,</span> <span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>delay</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The number of seconds to wait before executing <code>fn</code> asynchronously. This is not real-time scheduling, so the function is guaranteed to execute after  this amount of time, not after  this amount of time.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fn</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The function to execute on the main thread.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -239,7 +375,7 @@ executed.</p>
         </section>
         <section id="footer">
           <p>© 2015-2017 <a class="link" href="http://tech.gilt.com/" target="_blank" rel="external">Gilt Groupe</a></p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.3</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.7.4</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
