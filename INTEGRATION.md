@@ -9,8 +9,8 @@ CleanroomConcurrency is designed as a *universal Swift framework* with support f
 
 Platform|Latest supported OS|Oldest supported OS
 --------|-------------------|-------------------
-iPhone/iPad|iOS 10.2|iOS 8.0
-Macintosh|macOS 10.12|macOS 10.10
+iPhone/iPad|iOS 10.2|iOS 9.0
+Macintosh|macOS 10.12|macOS 10.11
 Apple TV|tvOS 10.1|tvOS 9.0
 Apple Watch|watchOS 3.1|watchOS 2.0
 
