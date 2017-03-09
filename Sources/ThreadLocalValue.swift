@@ -9,12 +9,12 @@
 import Foundation
 
 /**
-Provides a mechanism for accessing thread-local values stored in the
-`threadDictionary` associated with the `NSThread` of the caller.
+ Provides a mechanism for accessing thread-local values stored in the
+ `threadDictionary` associated with the `NSThread` of the caller.
 
-As the class name implies, values set using `ThreadLocalValue` are only visible
-to the thread that set those values.
-*/
+ As the class name implies, values set using `ThreadLocalValue` are only visible
+ to the thread that set those values.
+ */
 public struct ThreadLocalValue<ValueType: Any>
 {
     /// If the receiver was instantiated with a `namespace`, this property
@@ -34,16 +34,16 @@ public struct ThreadLocalValue<ValueType: Any>
     private let instantiator: ((ThreadLocalValue) -> ValueType?)?
 
     /**
-    Initializes a new instance referencing the thread-local value associated
-    with the specified key.
-    
-    :param:     key The key used to access the value associated with the 
-                receiver in the `threadDictionary`.
-    
-    :param:     instantiator An optional function that will be called to provide
-                a value when the underlying `threadDictionary` does not
-                contain a value.
-    */
+     Initializes a new instance referencing the thread-local value associated
+     with the specified key.
+
+     - parameter key: The key used to access the value associated with the
+     receiver in the `threadDictionary`.
+
+     - parameter instantiator: An optional function that will be called to
+     provide a value when the underlying `threadDictionary` does not
+     contain a value.
+     */
     public init(key: String, instantiator: ((ThreadLocalValue) -> ValueType?)? = nil)
     {
         self.namespace = nil
@@ -53,19 +53,19 @@ public struct ThreadLocalValue<ValueType: Any>
     }
 
     /**
-    Initializes a new instance referencing the thread-local value associated
-    with the specified namespace and key.
-    
-    :param:     namespace The name of the code module that will own the
-                receiver. This is used in constructing the `fullKey`.
+     Initializes a new instance referencing the thread-local value associated
+     with the specified namespace and key.
 
-    :param:     key The key within the namespace. Used to construct the
-                `fullKey` associated with the receiver.
-    
-    :param:     instantiator An optional function that will be called to provide
-                a value when the underlying `threadDictionary` does not
-                contain a value.
-    */
+     - parameter namespace: The name of the code module that will own the
+     receiver. This is used in constructing the `fullKey`.
+
+     - parameter key: The key within the namespace. Used to construct the
+     `fullKey` associated with the receiver.
+
+     - parameter instantiator: An optional function that will be called to
+     provide a value when the underlying `threadDictionary` does not
+     contain a value.
+     */
     public init(namespace: String, key: String, instantiator: ((ThreadLocalValue) -> ValueType?)? = nil)
     {
         self.namespace = namespace
@@ -75,19 +75,18 @@ public struct ThreadLocalValue<ValueType: Any>
     }
 
     /**
-    Retrieves the `threadDictionary` value currently associated with the
-    receiver's `fullKey`. If there is currently no value for `fullKey` or
-    if the underlying value is not of the type specified by `ValueType`,
-    the receiver's `instantiator` (if any) will be used to construct a new
-    value that will be associated with `fullKey` in the `threadDictionary`
-    which will then be returned.
+     Retrieves the `threadDictionary` value currently associated with the
+     receiver's `fullKey`. If there is currently no value for `fullKey` or
+     if the underlying value is not of the type specified by `ValueType`,
+     the receiver's `instantiator` (if any) will be used to construct a new
+     value that will be associated with `fullKey` in the `threadDictionary`
+     which will then be returned.
 
-    :returns:   The thread-local value. Will be `nil` if there is no
-                value associated with `fullKey`, if the underlying
-                value is not of the type specified by `ValueType`, and
-                if the receiver has no `instantiator` or if the
-                `instantiator` returned `nil`.
-    */
+     - returns: The thread-local value. Will be `nil` if there is no value
+     associated with `fullKey`, if the underlying value is not of the type
+     specified by `ValueType`, and if the receiver has no `instantiator` or
+     if the `instantiator` returned `nil`.
+     */
     public func value()
         -> ValueType?
     {
@@ -105,13 +104,13 @@ public struct ThreadLocalValue<ValueType: Any>
     }
 
     /**
-    Retrieves the `threadDictionary` value currently associated with the
-    receiver's `fullKey`.
-    
-    :returns:   The thread-local value. Will be `nil` if there is no
-                value associated with `fullKey` or if the underlying
-                value is not of the type specified by `ValueType`.
-    */
+     Retrieves the `threadDictionary` value currently associated with the
+     receiver's `fullKey`.
+
+     - returns: The thread-local value. Will be `nil` if there is no value
+     associated with `fullKey` or if the underlying value is not of the type
+     specified by `ValueType`.
+     */
     public func cachedValue()
         -> ValueType?
     {
@@ -119,11 +118,11 @@ public struct ThreadLocalValue<ValueType: Any>
     }
 
     /**
-    Sets a new value in the calling thread's `threadDictionary` for the key
-    specified by the receiver's `fullKey` property.
-    
-    :param:     newValue The new thread-local value.
-    */
+     Sets a new value in the calling thread's `threadDictionary` for the key
+     specified by the receiver's `fullKey` property.
+
+     - parameter newValue: The new thread-local value.
+     */
     public func setValue(_ newValue: ValueType?)
     {
         Thread.current.threadDictionary[fullKey] = newValue

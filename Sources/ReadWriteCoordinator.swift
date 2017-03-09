@@ -6,7 +6,7 @@
 //  Copyright © 2015 Gilt Groupe. All rights reserved.
 //
 
-import Foundation
+import Dispatch
 
 /**
  `ReadWriteCoordinator` instances can be used to coordinate access to a mutable

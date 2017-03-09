@@ -38,8 +38,11 @@ public struct CriticalSection
     public func execute(_ fn: () -> Void)
     {
         lock.lock()
+        defer {
+            lock.unlock()
+        }
+
         fn()
-        lock.unlock()
     }
 
     /**
@@ -58,12 +61,14 @@ public struct CriticalSection
      and `fn` was executed. `false` if `timeout` expired and `fn` was not
      executed.
      */
-    public func executeWithTimeout(_ timeout: TimeInterval, _ fn: () -> Void)
+    public func execute(timeout: TimeInterval, _ fn: () -> Void)
         -> Bool
     {
         if lock.lock(before: Date().addingTimeInterval(timeout)) {
+            defer {
+                lock.unlock()
+            }
             fn()
-            lock.unlock()
             return true
         }
 
