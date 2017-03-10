@@ -104,8 +104,8 @@
 
                 </div>
               </div>
-            <p>A generic interface describing a lock that can be acquired for reading
-or writing.</p>
+            <p>A generic interface describing a lock that can be acquired for synchronous
+(blocking) reading or writing.</p>
 
           </section>
           <section class="section task-group-section">
@@ -206,20 +206,12 @@ releases the lock it acquired.</p>
 <p>The implementation acquires the write lock, executes <code>fn</code>, and then
 releases the lock it acquired.</p>
 
-<div class="aside aside-note">
-    <p class="aside-title">Note</p>
-    <p>Whether or not <code>fn</code> is an escaping function depends upon
-the underlying lock mechanism. Because it <em>may</em> escape in <em>some</em>
-implementations, it has to be declared <code>@escaping</code> here to cover all cases.</p>
-
-</div>
-
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

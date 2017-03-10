@@ -148,9 +148,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO20CleanroomConcurrency13LockMechanism15criticalSectionFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/criticalSection" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism15criticalSectionFMS0_S0_">criticalSection</a>
+                    <a name="/s:FO20CleanroomConcurrency13LockMechanism5mutexFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/mutex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism5mutexFMS0_S0_">mutex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,7 +166,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">criticalSection</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">mutex</span></code></pre>
 
                         </div>
                       </div>
@@ -180,9 +180,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO20CleanroomConcurrency13LockMechanism17readAndAsyncWriteFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/readAndAsyncWrite" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism17readAndAsyncWriteFMS0_S0_">readAndAsyncWrite</a>
+                    <a name="/s:FO20CleanroomConcurrency13LockMechanism9readWriteFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/readWrite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism9readWriteFMS0_S0_">readWrite</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -191,48 +191,14 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A lock mechanism that relies on a <code><a href="../Classes/ReadWriteCoordinator.html">ReadWriteCoordinator</a></code> for a
- many-reader/single-writer read/write lock that performs asynchronous
- writes.</p>
+ many-reader/single-writer read/write lock.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">readAndAsyncWrite</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FO20CleanroomConcurrency13LockMechanism20readAndBlockingWriteFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/readAndBlockingWrite" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism20readAndBlockingWriteFMS0_S0_">readAndBlockingWrite</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A lock mechanism that relies on a <code><a href="../Classes/ReadWriteCoordinator.html">ReadWriteCoordinator</a></code> for a
- many-reader/single-writer read/write lock that performs blocking
- (synchronous) writes.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">readAndBlockingWrite</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">readWrite</span></code></pre>
 
                         </div>
                       </div>
