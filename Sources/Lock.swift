@@ -7,8 +7,8 @@
 //
 
 /**
- A generic interface describing a lock that can be acquired for reading
- or writing.
+ A generic interface describing a lock that can be acquired for synchronous
+ (blocking) reading or writing.
  */
 public protocol Lock
 {
@@ -31,11 +31,7 @@ public protocol Lock
      The implementation acquires the write lock, executes `fn`, and then
      releases the lock it acquired.
 
-     - note: Whether or not `fn` is an escaping function depends upon
-     the underlying lock mechanism. Because it *may* escape in *some*
-     implementations, it has to be declared `@escaping` here to cover all cases.
-
      - parameter fn: A function to perform while the write lock is held.
      */
-    func write(_ fn: @escaping () -> Void)
+    func write(_ fn: () -> Void)
 }

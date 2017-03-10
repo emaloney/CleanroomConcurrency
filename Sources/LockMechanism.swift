@@ -21,17 +21,11 @@ public enum LockMechanism
 
     /** A mechanism that relies on a `CriticalSection` for a re-entrant
      mutual exclusion lock. */
-    case criticalSection
+    case mutex
 
     /** A lock mechanism that relies on a `ReadWriteCoordinator` for a
-     many-reader/single-writer read/write lock that performs asynchronous
-     writes. */
-    case readAndAsyncWrite
-
-    /** A lock mechanism that relies on a `ReadWriteCoordinator` for a
-     many-reader/single-writer read/write lock that performs blocking
-     (synchronous) writes. */
-    case readAndBlockingWrite
+     many-reader/single-writer read/write lock. */
+    case readWrite
 }
 
 extension LockMechanism
@@ -46,10 +40,9 @@ extension LockMechanism
         -> Lock
     {
         switch self {
-        case .none:                 return NoLock()
-        case .criticalSection:      return CriticalSectionLock()
-        case .readAndAsyncWrite:    return ReadWriteCoordinatorLock(synchronousWrites: false)
-        case .readAndBlockingWrite: return ReadWriteCoordinatorLock(synchronousWrites: true)
+        case .none:         return NoLock()
+        case .mutex:        return MutexLock()
+        case .readWrite:    return ReadWriteLock()
         }
     }
 }

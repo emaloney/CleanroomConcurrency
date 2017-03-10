@@ -17,15 +17,15 @@ internal class NoLock: Lock
         fn()
     }
 
-    public func write(_ fn: @escaping () -> Void)
+    public func write(_ fn: () -> Void)
     {
         fn()
     }
 }
 
-internal class CriticalSectionLock: Lock
+internal class MutexLock: Lock
 {
-    public let mechanism = LockMechanism.criticalSection
+    public let mechanism = LockMechanism.mutex
     private let cs = CriticalSection()
 
     public init() {}
@@ -35,34 +35,26 @@ internal class CriticalSectionLock: Lock
         cs.execute(fn)
     }
 
-    public func write(_ fn: @escaping () -> Void)
+    public func write(_ fn: () -> Void)
     {
         cs.execute(fn)
     }
 }
 
-internal class ReadWriteCoordinatorLock: Lock
+internal class ReadWriteLock: Lock
 {
-    public let mechanism: LockMechanism
-    private let synchronousWrites: Bool
-    private let coordinator: ReadWriteCoordinator
+    public let mechanism = LockMechanism.readWrite
+    private let coordinator = ReadWriteCoordinator()
 
-    public init(synchronousWrites: Bool = false)
-    {
-        self.coordinator = ReadWriteCoordinator()
-        self.mechanism = synchronousWrites ? .readAndBlockingWrite : .readAndAsyncWrite
-        self.synchronousWrites = synchronousWrites
-    }
+    public init() {}
 
     public func read(_ fn: () -> Void)
     {
         coordinator.read(fn)
     }
 
-    public func write(_ fn: @escaping () -> Void)
+    public func write(_ fn: () -> Void)
     {
-        synchronousWrites
-            ? coordinator.blockingWrite(fn)
-            : coordinator.enqueueWrite(fn)
+        coordinator.blockingWrite(fn)
     }
 }

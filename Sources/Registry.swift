@@ -37,7 +37,7 @@ public class Registry<T>
      - parameter mechanism: A `LockMechanism` value that governs the type of
      lock used for protecting concurrent access to the registry.
      */
-    public init(lock mechanism: LockMechanism = .readAndAsyncWrite)
+    public init(lock mechanism: LockMechanism = .readWrite)
     {
         idsToRegistrants = LockedResource(resource: [ObjectIdentifier: T](), lock: mechanism)
     }
@@ -65,14 +65,8 @@ public class Registry<T>
         return receipt
     }
 
-    /**
-     Returns the items currently in the `Registry`.
-
-     - returns: The items registered with the receiver.
-     */
-    public func registrants()
-        -> [T]
-    {
+    /** The items currently in the `Registry`. */
+    public var registrants: [T] {
         var objects: [T]?
         idsToRegistrants.read {
             objects = [T]($0.values)
@@ -88,8 +82,8 @@ public class Registry<T>
      */
     public func withEachRegistrant(perform function: (T) -> Void)
     {
-        for item in registrants() {
-            function(item)
+        registrants.forEach {
+            function($0)
         }
     }
 

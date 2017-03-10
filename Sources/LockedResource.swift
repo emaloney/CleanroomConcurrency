@@ -61,7 +61,7 @@ open class LockedResource<T>
      lock held. The protected resource is passed as an `inout` parameter to
      `operation` so that it may be mutated.
      */
-    open func write(_ operation: @escaping (inout T) -> Void)
+    open func write(_ operation: (inout T) -> Void)
     {
         lock.write {
             operation(&self.resource)
