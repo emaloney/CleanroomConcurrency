@@ -9,29 +9,33 @@
 import Foundation
 
 /**
- Provides a mechanism for accessing thread-local values stored in the
- `threadDictionary` associated with the `NSThread` of the caller.
+ Provides a type-safe mechanism for accessing thread-local values (of type `T`)
+ stored in the `threadDictionary` associated with the calling thread.
 
  As the class name implies, values set using `ThreadLocalValue` are only visible
  to the thread that set those values.
  */
-public struct ThreadLocalValue<ValueType: Any>
+public struct ThreadLocalValue<T: Any>
 {
-    /// If the receiver was instantiated with a `namespace`, this property
-    /// will contain that value.
+    /** If the receiver was initialized with a `namespace`, this property
+     will contain that value. */
     public let namespace: String?
 
-    /// The `key` that was originally passed to the receiver's constructor.
-    /// If the receiver was constructed with a `namespace`, this value
-    /// will not include the namespace; `fullKey` will include the namespace.
+    /** The `key` that was originally passed to the receiver's initializer.
+     If the receiver was initialized with a `namespace`, this value *will not*
+     include the namespace; `fullKey` will include the namespace. */
     public let key: String
 
-    /// Contains the key that will be used to access the underlying
-    /// `threadDictionary`. Unless the receiver was constructed with a
-    /// `namespace`, this value will be the same as `key`.
+    /** Contains the key that will be used to access the underlying
+     `threadDictionary`. Unless the receiver was initialized with a
+     `namespace`, this value will be the same as `key`. */
     public let fullKey: String
 
-    private let instantiator: ((ThreadLocalValue) -> ValueType?)?
+    /** The signature of a function to be used for providing values when
+     none exist in the `current` thread's `threadDictionary`. */
+    public typealias ValueProvider = (ThreadLocalValue) -> T?
+
+    private let valueProvider: ValueProvider
 
     /**
      Initializes a new instance referencing the thread-local value associated
@@ -40,16 +44,15 @@ public struct ThreadLocalValue<ValueType: Any>
      - parameter key: The key used to access the value associated with the
      receiver in the `threadDictionary`.
 
-     - parameter instantiator: An optional function that will be called to
-     provide a value when the underlying `threadDictionary` does not
-     contain a value.
+     - parameter valueProvider: A `ValueProvider` function used to provide a
+     value when the underlying `threadDictionary` does not contain a value.
      */
-    public init(key: String, instantiator: ((ThreadLocalValue) -> ValueType?)? = nil)
+    public init(key: String, valueProvider: @escaping ValueProvider = { _ in return nil })
     {
         self.namespace = nil
         self.key = key
         self.fullKey = key
-        self.instantiator = instantiator
+        self.valueProvider = valueProvider
     }
 
     /**
@@ -62,68 +65,48 @@ public struct ThreadLocalValue<ValueType: Any>
      - parameter key: The key within the namespace. Used to construct the
      `fullKey` associated with the receiver.
 
-     - parameter instantiator: An optional function that will be called to
-     provide a value when the underlying `threadDictionary` does not
-     contain a value.
+     - parameter valueProvider: A `ValueProvider` function used to provide a
+     value when the underlying `threadDictionary` does not contain a value.
      */
-    public init(namespace: String, key: String, instantiator: ((ThreadLocalValue) -> ValueType?)? = nil)
+    public init(namespace: String, key: String, valueProvider: @escaping ValueProvider = { _ in return nil })
     {
         self.namespace = namespace
         self.key = key
         self.fullKey = "\(namespace).\(key)"
-        self.instantiator = instantiator
+        self.valueProvider = valueProvider
     }
 
-    /**
-     Retrieves the `threadDictionary` value currently associated with the
-     receiver's `fullKey`. If there is currently no value for `fullKey` or
-     if the underlying value is not of the type specified by `ValueType`,
-     the receiver's `instantiator` (if any) will be used to construct a new
-     value that will be associated with `fullKey` in the `threadDictionary`
-     which will then be returned.
-
-     - returns: The thread-local value. Will be `nil` if there is no value
-     associated with `fullKey`, if the underlying value is not of the type
-     specified by `ValueType`, and if the receiver has no `instantiator` or
-     if the `instantiator` returned `nil`.
-     */
-    public func value()
-        -> ValueType?
-    {
-        if let value = cachedValue() {
+    /** Retrieves the `current` thread's `threadDictionary` value associated
+     with the receiver's `fullKey`. If the value is `nil` or if it is not of
+     type `T`, the receiver's `valueProvider` will be consulted to provide a
+     value, which will be stored in the `threadDictionary` using the key
+     `fullKey`. `nil` will be returned if no value was provided. */
+    public var value: T? {
+        if let value = cachedValue {
             return value
         }
 
-        if let instantiator = instantiator {
-            if let value = instantiator(self) {
-                setValue(value)
-                return value
-            }
+        if let value = valueProvider(self) {
+            set(value)
+            return value
         }
         return nil
     }
 
-    /**
-     Retrieves the `threadDictionary` value currently associated with the
-     receiver's `fullKey`.
-
-     - returns: The thread-local value. Will be `nil` if there is no value
-     associated with `fullKey` or if the underlying value is not of the type
-     specified by `ValueType`.
-     */
-    public func cachedValue()
-        -> ValueType?
-    {
-        return Thread.current.threadDictionary[fullKey] as? ValueType
+    /** Retrieves the `threadDictionary` value currently associated with the
+     receiver's `fullKey`. Will be `nil` if there is no value associated with
+     `fullKey` or if the underlying value is not of type `T`. */
+    public var cachedValue: T? {
+        return Thread.current.threadDictionary[fullKey] as? T
     }
 
     /**
-     Sets a new value in the calling thread's `threadDictionary` for the key
+     Sets a new value in the `current` thread's `threadDictionary` for the key
      specified by the receiver's `fullKey` property.
 
      - parameter newValue: The new thread-local value.
      */
-    public func setValue(_ newValue: ValueType?)
+    public func set(_ newValue: T?)
     {
         Thread.current.threadDictionary[fullKey] = newValue
     }
