@@ -23,8 +23,8 @@ public enum LockMechanism
      mutual exclusion lock. */
     case mutex
 
-    /** A lock mechanism that relies on a `ReadWriteCoordinator` for a
-     many-reader/single-writer read/write lock. */
+    /** A read/write lock mechanism that relies on a `ReadWriteCoordinator` 
+     for a many-reader/single-writer. */
     case readWrite
 }
 

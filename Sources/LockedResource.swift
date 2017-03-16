@@ -22,17 +22,32 @@ open class LockedResource<T>
     private var resource: T
 
     /**
-     Initializes a new `LockedResource` to protect the given resource 
+     Initializes a new `LockedResource` to protect the given resource
      using the specified `LockMechanism`.
-     
+
      - parameter resource: The resource to be protected with a lock.
-     
+
      - parameter mechanism: A `LockMechanism` value specifying the type of
      lock that will be used to protect `resource`.
      */
     public init(resource: T, lock mechanism: LockMechanism)
     {
         self.lock = mechanism.createLock()
+        self.resource = resource
+    }
+
+    /**
+     Initializes a new `LockedResource` to protect the given resource
+     using the specified `Lock`.
+
+     - parameter resource: The resource to be protected with `lock`.
+
+     - parameter lock: The `Lock` instance that will be used to protect
+     `resource`.
+     */
+    public init(resource: T, lock: Lock)
+    {
+        self.lock = lock
         self.resource = resource
     }
 

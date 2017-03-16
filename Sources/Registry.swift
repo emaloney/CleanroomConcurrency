@@ -43,6 +43,17 @@ public class Registry<T>
     }
 
     /**
+     Creates a new `Registry` using the specified `Lock`.
+
+     - parameter lock: The `Lock` instance that will be used for protecting
+     concurrent access to the registry.
+     */
+    public init(lock: Lock)
+    {
+        idsToRegistrants = LockedResource(resource: [ObjectIdentifier: T](), lock: lock)
+    }
+
+    /**
      Adds an item to the registry.
      
      You must maintain a reference to the returned `Receipt` for as long as
