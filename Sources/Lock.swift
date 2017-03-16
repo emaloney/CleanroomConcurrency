@@ -16,17 +16,21 @@ public protocol Lock
     var mechanism: LockMechanism { get }
 
     /**
-     Performs the given function with a read lock held.
-     
-     The implementation acquires a read lock, executes `fn`, and then
-     releases the lock it acquired.
+     Executes the given function with a read lock held, returning its
+     result.
+
+     The implementation acquires a read lock, executes `fn` and records its
+     result, releases the lock, and returns the result of executing `fn`.
 
      - parameter fn: A function to perform while a read lock is held.
+
+     - returns: The result of calling `fn()`.
      */
-    func read(_ fn: () -> Void)
+    func read<T>(_ fn: () -> T)
+        -> T
 
     /**
-     Performs the given function with the write lock held.
+     Executes the given function with the write lock held.
 
      The implementation acquires the write lock, executes `fn`, and then
      releases the lock it acquired.

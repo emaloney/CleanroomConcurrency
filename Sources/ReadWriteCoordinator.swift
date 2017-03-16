@@ -47,17 +47,21 @@ public final class ReadWriteCoordinator
     }
 
     /**
-     Attempts to acquire a read lock, blocking if necessary. Once a read
-     lock has been acquired, the passed-in function will be executed.
+     Executes the given function with a read lock held, returning its
+     result.
 
-     - parameter function: A no-argument function that will be called while the
-     lock is held.
+     - parameter fn: A function to perform while a read lock is held.
+
+     - returns: The result of calling `fn()`.
     */
-    public func read(_ function: () -> Void)
+    public func read<T>(_ function: () -> T)
+        -> T
     {
+        var result: T?
         queue.sync {
-            function()
+            result = function()
         }
+        return result!
     }
 
     /**

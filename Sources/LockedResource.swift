@@ -52,16 +52,20 @@ open class LockedResource<T>
     }
 
     /**
-     Performs an operation with the read lock held.
-     
+     Performs the given operation with a read lock held, returning its
+     result.
+
      - parameter operation: A function that will be executed with the read
      lock held. The protected resource is passed as a parameter to `operation`,
      which may use it for reading only.
+     
+     - returns: The result of calling `operation()`.
      */
-    open func read(_ operation: (T) -> Void)
+    open func read<R>(_ operation: (T) -> R)
+        -> R
     {
-        lock.read {
-            operation(self.resource)
+        return lock.read {
+            return operation(self.resource)
         }
     }
 

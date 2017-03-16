@@ -35,14 +35,15 @@ public struct CriticalSection
      - parameter fn: The function to execute once exclusive access to the
      critical section has been acquired.
      */
-    public func execute(_ fn: () -> Void)
+    public func execute<T>(_ fn: () -> T)
+        -> T
     {
         lock.lock()
         defer {
             lock.unlock()
         }
 
-        fn()
+        return fn()
     }
 
     /**

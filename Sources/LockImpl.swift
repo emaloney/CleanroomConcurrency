@@ -19,9 +19,10 @@ internal class AsyncLockFacade: AsyncLock
         lock = wrapping
     }
 
-    public func read(_ fn: () -> Void)
+    public func read<T>(_ fn: () -> T)
+        -> T
     {
-        lock.read(fn)
+        return lock.read(fn)
     }
 
     public func write(_ fn: @escaping () -> Void)
@@ -36,9 +37,10 @@ internal class NoLock: Lock
 
     public init() {}
 
-    public func read(_ fn: () -> Void)
+    public func read<T>(_ fn: () -> T)
+        -> T
     {
-        fn()
+        return fn()
     }
 
     public func write(_ fn: () -> Void)
@@ -53,6 +55,12 @@ internal class MutexLock: Lock
     private let cs = CriticalSection()
 
     public init() {}
+
+    public func read<T>(_ fn: () -> T)
+        -> T
+    {
+        return fn()
+    }
 
     public func read(_ fn: () -> Void)
     {
@@ -72,9 +80,10 @@ internal class ReadWriteLock: Lock
 
     public init() {}
 
-    public func read(_ fn: () -> Void)
+    public func read<T>(_ fn: () -> T)
+        -> T
     {
-        coordinator.read(fn)
+        return coordinator.read(fn)
     }
 
     public func write(_ fn: () -> Void)
@@ -90,11 +99,12 @@ internal class ReadAsyncWriteLock: AsyncLock
 
     public init() {}
 
-    public func read(_ fn: () -> Void)
+    public func read<T>(_ fn: () -> T)
+        -> T
     {
-        coordinator.read(fn)
+        return coordinator.read(fn)
     }
-    
+
     public func write(_ fn: @escaping () -> Void)
     {
         coordinator.enqueueWrite(fn)
