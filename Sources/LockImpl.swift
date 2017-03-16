@@ -6,6 +6,30 @@
 //  Copyright © 2017 Gilt Groupe. All rights reserved.
 //
 
+internal class AsyncLockFacade: AsyncLock
+{
+    public var mechanism: LockMechanism {
+        return lock.mechanism
+    }
+
+    private let lock: Lock
+
+    public init(wrapping: Lock)
+    {
+        lock = wrapping
+    }
+
+    public func read(_ fn: () -> Void)
+    {
+        lock.read(fn)
+    }
+
+    public func write(_ fn: @escaping () -> Void)
+    {
+        lock.write(fn)
+    }
+}
+
 internal class NoLock: Lock
 {
     public let mechanism = LockMechanism.none
@@ -56,5 +80,23 @@ internal class ReadWriteLock: Lock
     public func write(_ fn: () -> Void)
     {
         coordinator.blockingWrite(fn)
+    }
+}
+
+internal class ReadAsyncWriteLock: AsyncLock
+{
+    public let mechanism = LockMechanism.readWrite
+    private let coordinator = ReadWriteCoordinator()
+
+    public init() {}
+
+    public func read(_ fn: () -> Void)
+    {
+        coordinator.read(fn)
+    }
+    
+    public func write(_ fn: @escaping () -> Void)
+    {
+        coordinator.enqueueWrite(fn)
     }
 }

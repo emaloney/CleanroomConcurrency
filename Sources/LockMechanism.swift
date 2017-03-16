@@ -33,7 +33,7 @@ extension LockMechanism
     /**
      Creates a new `Lock` instance that uses the locking mechanism specified
      by the value of the receiver.
-     
+
      - returns: The new `Lock`.
      */
     public func createLock()
@@ -43,6 +43,22 @@ extension LockMechanism
         case .none:         return NoLock()
         case .mutex:        return MutexLock()
         case .readWrite:    return ReadWriteLock()
+        }
+    }
+
+    /**
+     Creates a new `AsyncLock` instance that uses the locking mechanism 
+     specified by the value of the receiver.
+
+     - returns: The new `AsyncLock`.
+     */
+    public func createAsyncLock()
+        -> AsyncLock
+    {
+        switch self {
+        case .none:         return AsyncLockFacade(wrapping: NoLock())
+        case .mutex:        return AsyncLockFacade(wrapping: MutexLock())
+        case .readWrite:    return ReadAsyncWriteLock()
         }
     }
 }
