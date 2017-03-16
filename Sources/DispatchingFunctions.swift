@@ -1,5 +1,5 @@
 //
-//  AsyncFunctions.swift
+//  DispatchingFunctions.swift
 //  Cleanroom Project
 //
 //  Created by Evan Maloney on 3/17/15.
