@@ -63,9 +63,10 @@ internal class MutexLock: Lock
         return cs.execute(fn)
     }
 
-    public func write(_ fn: () -> Void)
+    public func write<R>(_ fn: () -> R)
+        -> R
     {
-        cs.execute(fn)
+        return cs.execute(fn)
     }
 }
 
@@ -82,9 +83,10 @@ internal class ReadWriteLock: Lock
         return coordinator.read(fn)
     }
 
-    public func write(_ fn: () -> Void)
+    public func write<R>(_ fn: () -> R)
+        -> R
     {
-        coordinator.blockingWrite(fn)
+        return coordinator.blockingWrite(fn)
     }
 }
 

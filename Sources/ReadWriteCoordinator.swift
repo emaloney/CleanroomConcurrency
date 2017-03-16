@@ -91,13 +91,17 @@ public final class ReadWriteCoordinator
      only be used in cases where the results of the write operation need to
      be available to the caller immediately upon return of this function.
 
-     - parameter function: A no-argument function that will be called while the
-     lock is held.
+     - parameter fn: A function to perform while the write lock is held.
+     
+     - returns: The result of calling `fn()`.
     */
-    public func blockingWrite(_ function: () -> Void)
+    public func blockingWrite<R>(_ fn: () -> R)
+        -> R
     {
+        var result: R?
         queue.sync(flags: .barrier) {
-            function()
+            result = fn()
         }
+        return result!
     }
 }
