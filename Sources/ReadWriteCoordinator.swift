@@ -54,12 +54,12 @@ public final class ReadWriteCoordinator
 
      - returns: The result of calling `fn()`.
     */
-    public func read<T>(_ function: () -> T)
-        -> T
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
-        var result: T?
+        var result: R?
         queue.sync {
-            result = function()
+            result = fn()
         }
         return result!
     }

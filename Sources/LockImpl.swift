@@ -19,8 +19,8 @@ internal class AsyncLockFacade: AsyncLock
         lock = wrapping
     }
 
-    public func read<T>(_ fn: () -> T)
-        -> T
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
         return lock.read(fn)
     }
@@ -37,15 +37,16 @@ internal class NoLock: Lock
 
     public init() {}
 
-    public func read<T>(_ fn: () -> T)
-        -> T
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
         return fn()
     }
 
-    public func write(_ fn: () -> Void)
+    public func write<R>(_ fn: () -> R)
+        -> R
     {
-        fn()
+        return fn()
     }
 }
 
@@ -56,15 +57,10 @@ internal class MutexLock: Lock
 
     public init() {}
 
-    public func read<T>(_ fn: () -> T)
-        -> T
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
-        return fn()
-    }
-
-    public func read(_ fn: () -> Void)
-    {
-        cs.execute(fn)
+        return cs.execute(fn)
     }
 
     public func write(_ fn: () -> Void)
@@ -80,8 +76,8 @@ internal class ReadWriteLock: Lock
 
     public init() {}
 
-    public func read<T>(_ fn: () -> T)
-        -> T
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
         return coordinator.read(fn)
     }
@@ -99,8 +95,8 @@ internal class ReadAsyncWriteLock: AsyncLock
 
     public init() {}
 
-    public func read<T>(_ fn: () -> T)
-        -> T
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
         return coordinator.read(fn)
     }

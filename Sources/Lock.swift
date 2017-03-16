@@ -26,8 +26,8 @@ public protocol Lock
 
      - returns: The result of calling `fn()`.
      */
-    func read<T>(_ fn: () -> T)
-        -> T
+    func read<R>(_ fn: () -> R)
+        -> R
 
     /**
      Executes the given function with the write lock held.
