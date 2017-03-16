@@ -36,6 +36,7 @@ public protocol FastWriteLock
 
      - returns: The result of calling `fn()`.
      */
+    @discardableResult
     func read<T>(_ fn: () -> T)
         -> T
 

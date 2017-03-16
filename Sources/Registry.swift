@@ -24,11 +24,7 @@ public class Registry<T>
 
     /** The number of registered items. */
     public var count: Int {
-        var count = 0
-        idsToRegistrants.read {
-            count = $0.count
-        }
-        return count
+        return idsToRegistrants.read { return $0.count }
     }
 
     /** 
@@ -78,11 +74,7 @@ public class Registry<T>
 
     /** The items currently in the `Registry`. */
     public var registrants: [T] {
-        var objects: [T]?
-        idsToRegistrants.read {
-            objects = [T]($0.values)
-        }
-        return objects!
+        return idsToRegistrants.read { [T]($0.values) }
     }
 
     /**

@@ -52,25 +52,25 @@ open class LockedResource<T>
     }
 
     /**
-     Performs the given operation with a read lock held, returning its
-     result.
+     Executes the given function with a read lock held, returning its result.
 
-     - parameter operation: A function that will be executed with the read
+     - parameter fn: A function that will be executed with the read
      lock held. The protected resource is passed as a parameter to `operation`,
      which may use it for reading only.
      
-     - returns: The result of calling `operation()`.
+     - returns: The result of calling `fn()`.
      */
-    open func read<R>(_ operation: (T) -> R)
+    @discardableResult
+    open func read<R>(_ fn: (T) -> R)
         -> R
     {
         return lock.read {
-            return operation(self.resource)
+            return fn(self.resource)
         }
     }
 
     /**
-     Performs an operation with the write lock held.
+     Executes the given function with the write lock held, returning its result.
 
      - note: Whether or not `operation` is an escaping function depends upon 
      the underlying lock mechanism. Because it *may* escape in *some* 
@@ -79,11 +79,15 @@ open class LockedResource<T>
      - parameter operation: A function that will be executed with the write
      lock held. The protected resource is passed as an `inout` parameter to
      `operation` so that it may be mutated.
+
+     - returns: The result of calling `fn()`.
      */
-    open func write(_ operation: (inout T) -> Void)
+    @discardableResult
+    open func write<R>(_ fn: (inout T) -> R)
+        -> R
     {
-        lock.write {
-            operation(&self.resource)
+        return lock.write {
+            return fn(&self.resource)
         }
     }
 }

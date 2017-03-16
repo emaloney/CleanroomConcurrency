@@ -19,23 +19,23 @@ public protocol Lock
      Executes the given function with a read lock held, returning its
      result.
 
-     The implementation acquires a read lock, executes `fn` and records its
-     result, releases the lock, and returns the result of executing `fn`.
-
      - parameter fn: A function to perform while a read lock is held.
 
      - returns: The result of calling `fn()`.
      */
+    @discardableResult
     func read<R>(_ fn: () -> R)
         -> R
 
     /**
-     Executes the given function with the write lock held.
-
-     The implementation acquires the write lock, executes `fn`, and then
-     releases the lock it acquired.
+     Executes the given function with the write lock held, returning its
+     result.
 
      - parameter fn: A function to perform while the write lock is held.
+
+     - returns: The result of calling `fn()`.
      */
-    func write(_ fn: () -> Void)
+    @discardableResult
+    func write<R>(_ fn: () -> R)
+        -> R
 }
