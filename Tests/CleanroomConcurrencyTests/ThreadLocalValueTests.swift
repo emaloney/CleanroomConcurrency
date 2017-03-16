@@ -62,14 +62,10 @@ class ThreadLocalValueTests: XCTestCase
         }
         signal.unlock()
 
-        var curVal: Int?
-        lock.read {
-            curVal = counter
-        }
+        let curVal = lock.read { counter }
 
         XCTAssert(remainingThreads == 0)
-        XCTAssertNotNil(curVal)
-        XCTAssert(curVal! == 100)
+        XCTAssert(curVal == 100)
     }
 
     func testNamespacing()
