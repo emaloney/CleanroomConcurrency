@@ -1,5 +1,5 @@
 //
-//  AsyncLock.swift
+//  FastWriteLock.swift
 //  Cleanroom Project
 //
 //  Created by Evan Maloney on 3/16/17.
@@ -8,16 +8,19 @@
 
 /**
  A generic interface describing a lock that can be acquired for synchronous
- (blocking) reading or (potentially) asynchronous writing.
+ (blocking) reading or potentially asynchronous writing.
  
- `AsyncLock` differs from `Lock` by virtue of the fact that, in the case of
- the former, write operations _may_ (but are not _guaranteed_ to) be
- asynchronous, a trait that depends on the underlying implementation.
+ Because the write operations of a `FastWriteLock` _may_ be (but are not
+ _guaranteed_ to be) performed asynchronously, unlike with the completely
+ synchronous `Lock` protocol:
 
- Because of this possibility, the `write()` function accepts an escaping
- function.
+ - Write operations require an `@escaping` closure
+ - A value cannot be returned from a write operation
+
+ The underlying `FastWriteLock` implementation determines whether and when
+ write operations are performed asynchronously.
  */
-public protocol AsyncLock
+public protocol FastWriteLock
 {
     /** Describes the underlying locking mechanism used by the receiver. */
     var mechanism: LockMechanism { get }

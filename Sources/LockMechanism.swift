@@ -24,7 +24,8 @@ public enum LockMechanism
     case mutex
 
     /** A read/write lock mechanism that relies on a `ReadWriteCoordinator` 
-     for a many-reader/single-writer. */
+     for a many-reader/single-writer that can provide optimized `FastWriteLock`
+     performance. */
     case readWrite
 }
 
@@ -47,18 +48,18 @@ extension LockMechanism
     }
 
     /**
-     Creates a new `AsyncLock` instance that uses the locking mechanism 
+     Creates a new `FastWriteLock` instance that uses the locking mechanism 
      specified by the value of the receiver.
 
-     - returns: The new `AsyncLock`.
+     - returns: The new `FastWriteLock`.
      */
-    public func createAsyncLock()
-        -> AsyncLock
+    public func createFastWriteLock()
+        -> FastWriteLock
     {
         switch self {
-        case .none:         return AsyncLockFacade(wrapping: NoLock())
-        case .mutex:        return AsyncLockFacade(wrapping: MutexLock())
-        case .readWrite:    return ReadAsyncWriteLock()
+        case .none:         return FastWriteFacade(wrapping: NoLock())
+        case .mutex:        return FastWriteFacade(wrapping: MutexLock())
+        case .readWrite:    return FastWriteLockImpl()
         }
     }
 }

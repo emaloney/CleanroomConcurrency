@@ -6,7 +6,7 @@
 //  Copyright © 2017 Gilt Groupe. All rights reserved.
 //
 
-internal class AsyncLockFacade: AsyncLock
+internal class FastWriteFacade: FastWriteLock
 {
     public var mechanism: LockMechanism {
         return lock.mechanism
@@ -90,7 +90,7 @@ internal class ReadWriteLock: Lock
     }
 }
 
-internal class ReadAsyncWriteLock: AsyncLock
+internal class FastWriteLockImpl: FastWriteLock
 {
     public let mechanism = LockMechanism.readWrite
     private let coordinator = ReadWriteCoordinator()

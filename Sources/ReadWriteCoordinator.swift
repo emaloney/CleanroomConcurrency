@@ -72,13 +72,12 @@ public final class ReadWriteCoordinator
      This provides additional efficiency for callers that do not immediately 
      depend on the results of the operation being performed.
      
-     - parameter function: A no-argument function that will be called while the
-     lock is held.
+     - parameter fn: A function to perform while the write lock is held.
     */
-    public func enqueueWrite(_ function: @escaping () -> Void)
+    public func enqueueWrite(_ fn: @escaping () -> Void)
     {
         queue.async(flags: .barrier) {
-            function()
+            fn()
         }
     }
 
