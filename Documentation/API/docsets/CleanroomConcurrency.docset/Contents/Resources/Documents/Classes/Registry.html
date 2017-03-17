@@ -74,6 +74,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/FastWriteLock.html">FastWriteLock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/Lock.html">Lock</a>
               </li>
               <li class="nav-group-task">
@@ -122,6 +125,34 @@ from the registry.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:C20CleanroomConcurrency8Registry26DeregistrationHookFunction"></a>
+                    <a name="//apple_ref/swift/Alias/DeregistrationHookFunction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C20CleanroomConcurrency8Registry26DeregistrationHookFunction">DeregistrationHookFunction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The signature of a function to be called when a registrant is being
+ de-registered.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">DeregistrationHookFunction</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">registry</span><span class="p">:</span> <span class="kt">Registry</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">_</span> <span class="nv">registrant</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">_</span> <span class="nv">receipt</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Receipt.html">Receipt</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:vC20CleanroomConcurrency8Registry5countSi"></a>
                     <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
                     <a class="token" href="#/s:vC20CleanroomConcurrency8Registry5countSi">count</a>
@@ -140,6 +171,34 @@ from the registry.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC20CleanroomConcurrency8Registry18deregistrationHookGSqFTGS0_x_xPS_7Receipt__T__"></a>
+                    <a name="//apple_ref/swift/Property/deregistrationHook" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC20CleanroomConcurrency8Registry18deregistrationHookGSqFTGS0_x_xPS_7Receipt__T__">deregistrationHook</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An optional <code><a href="../Classes/Registry.html#/s:C20CleanroomConcurrency8Registry26DeregistrationHookFunction">DeregistrationHookFunction</a></code> which, if set, will be called 
+ when an item is being de-registered.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">deregistrationHook</span><span class="p">:</span> <span class="kt"><a href="../Classes/Registry.html#/s:C20CleanroomConcurrency8Registry26DeregistrationHookFunction">DeregistrationHookFunction</a></span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -169,6 +228,73 @@ from the registry.</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">lock</span> <span class="nv">mechanism</span><span class="p">:</span> <span class="kt"><a href="../Enums/LockMechanism.html">LockMechanism</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">readWrite</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mechanism</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>LockMechanism</code> value that governs the type of lock used for protecting concurrent access to the registry.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC20CleanroomConcurrency8RegistrycFT4lockPS_4Lock__GS0_x_"></a>
+                    <a name="//apple_ref/swift/Method/init(lock:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC20CleanroomConcurrency8RegistrycFT4lockPS_4Lock__GS0_x_">init(lock:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code>Registry</code> using the specified <code><a href="../Protocols/Lock.html">Lock</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">lock</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Lock.html">Lock</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>lock</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>Lock</code> instance that will be used for protecting concurrent access to the registry.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>

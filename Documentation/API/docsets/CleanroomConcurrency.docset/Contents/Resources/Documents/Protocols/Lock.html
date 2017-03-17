@@ -74,6 +74,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/FastWriteLock.html">FastWriteLock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/Lock.html">Lock</a>
               </li>
               <li class="nav-group-task">
@@ -141,9 +144,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP20CleanroomConcurrency4Lock4readFFT_T_T_"></a>
+                    <a name="/s:FP20CleanroomConcurrency4Lock4readurFFT_qd__qd__"></a>
                     <a name="//apple_ref/swift/Method/read(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP20CleanroomConcurrency4Lock4readFFT_T_T_">read(_:)</a>
+                    <a class="token" href="#/s:FP20CleanroomConcurrency4Lock4readurFFT_qd__qd__">read(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -151,17 +154,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Performs the given function with a read lock held.</p>
-
-<p>The implementation acquires a read lock, executes <code>fn</code>, and then
-releases the lock it acquired.</p>
+                        <p>Executes the given function with a read lock held, returning its
+result.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">read</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="n">read</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">R</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -185,15 +186,20 @@ releases the lock it acquired.</p>
                           </tbody>
                         </table>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The result of calling <code>fn()</code>.</p>
+
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FP20CleanroomConcurrency4Lock5writeFFT_T_T_"></a>
+                    <a name="/s:FP20CleanroomConcurrency4Lock5writeurFFT_qd__qd__"></a>
                     <a name="//apple_ref/swift/Method/write(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FP20CleanroomConcurrency4Lock5writeFFT_T_T_">write(_:)</a>
+                    <a class="token" href="#/s:FP20CleanroomConcurrency4Lock5writeurFFT_qd__qd__">write(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -201,17 +207,15 @@ releases the lock it acquired.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Performs the given function with the write lock held.</p>
-
-<p>The implementation acquires the write lock, executes <code>fn</code>, and then
-releases the lock it acquired.</p>
+                        <p>Executes the given function with the write lock held, returning its
+result.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="n">write</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">R</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -234,6 +238,11 @@ releases the lock it acquired.</p>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The result of calling <code>fn()</code>.</p>
+
                       </div>
                     </section>
                   </div>
