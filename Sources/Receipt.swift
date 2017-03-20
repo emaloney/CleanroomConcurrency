@@ -18,6 +18,9 @@
  */
 public protocol Receipt: class
 {
+    /** A unique identifier for the `Receipt` instance. */
+    var id: ObjectIdentifier { get }
+
     /**
      Removes the item represented by this `Receipt` from the `Registry`
      to which it is registered.

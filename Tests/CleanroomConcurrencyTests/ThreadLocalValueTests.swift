@@ -62,14 +62,10 @@ class ThreadLocalValueTests: XCTestCase
         }
         signal.unlock()
 
-        var curVal: Int?
-        lock.read {
-            curVal = counter
-        }
+        let curVal = lock.read { counter }
 
         XCTAssert(remainingThreads == 0)
-        XCTAssertNotNil(curVal)
-        XCTAssert(curVal! == 100)
+        XCTAssert(curVal == 100)
     }
 
     func testNamespacing()
@@ -82,11 +78,11 @@ class ThreadLocalValueTests: XCTestCase
         XCTAssertTrue(tlv2.fullKey.hasPrefix("space2"))
         XCTAssertTrue(tlv2.fullKey.hasSuffix("key"))
 
-        tlv1.setValue("tlv1 value")
-        tlv2.setValue("tlv2 value")
+        tlv1.set("tlv1 value")
+        tlv2.set("tlv2 value")
 
-        XCTAssertTrue(tlv1.value() == "tlv1 value")
-        XCTAssertTrue(tlv2.value() == "tlv2 value")
+        XCTAssertTrue(tlv1.value == "tlv1 value")
+        XCTAssertTrue(tlv2.value == "tlv2 value")
     }
 
     func testValueStorage()
@@ -97,9 +93,9 @@ class ThreadLocalValueTests: XCTestCase
         let tlv2 = ThreadLocalValue<NSString>(key: "key")
         XCTAssertTrue(tlv2.fullKey == "key")
 
-        tlv1.setValue("foo")
+        tlv1.set("foo")
 
-        XCTAssertTrue(tlv2.cachedValue() == "foo")
+        XCTAssertTrue(tlv2.cachedValue == "foo")
     }
 
     func testInstantiator()
@@ -127,7 +123,7 @@ class ThreadLocalValueTests: XCTestCase
 
                 var result = false
                 let threadName = Thread.current.name!
-                if let value = tlv.value() {
+                if let value = tlv.value {
                     result = value == threadName
                 }
 
@@ -165,9 +161,9 @@ class ThreadLocalValueTests: XCTestCase
         }
 
         XCTAssertTrue(Thread.current.threadDictionary["lazy"] == nil)
-        XCTAssertTrue(tlv.cachedValue() == nil)
-        XCTAssertTrue(tlv.value() == "I'm not taciturn, I'm just laconic.")
-        XCTAssertTrue(tlv.cachedValue() == "I'm not taciturn, I'm just laconic.")
+        XCTAssertTrue(tlv.cachedValue == nil)
+        XCTAssertTrue(tlv.value == "I'm not taciturn, I'm just laconic.")
+        XCTAssertTrue(tlv.cachedValue == "I'm not taciturn, I'm just laconic.")
         XCTAssertTrue(Thread.current.threadDictionary["lazy"] as? String == "I'm not taciturn, I'm just laconic.")
     }
 }

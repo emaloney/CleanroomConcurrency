@@ -74,6 +74,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/FastWriteLock.html">FastWriteLock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/Lock.html">Lock</a>
               </li>
               <li class="nav-group-task">
@@ -198,9 +201,9 @@ following properties:</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC20CleanroomConcurrency20ReadWriteCoordinator4readFFT_T_T_"></a>
+                    <a name="/s:FC20CleanroomConcurrency20ReadWriteCoordinator4readurFFT_xx"></a>
                     <a name="//apple_ref/swift/Method/read(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC20CleanroomConcurrency20ReadWriteCoordinator4readFFT_T_T_">read(_:)</a>
+                    <a class="token" href="#/s:FC20CleanroomConcurrency20ReadWriteCoordinator4readurFFT_xx">read(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -208,15 +211,16 @@ following properties:</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Attempts to acquire a read lock, blocking if necessary. Once a read
-lock has been acquired, the passed-in function will be executed.</p>
+                        <p>Executes the given function with a read lock held, returning its
+result.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">read</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">read</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">R</span><span class="p">)</span>
+        <span class="o">-&gt;</span> <span class="kt">R</span></code></pre>
 
                         </div>
                       </div>
@@ -227,18 +231,23 @@ lock has been acquired, the passed-in function will be executed.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>function</em>
+                                <em>fn</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A no-argument function that will be called while the lock is held.</p>
+                                  <p>A function to perform while a read lock is held.</p>
 
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The result of calling <code>fn()</code>.</p>
+
                       </div>
                     </section>
                   </div>
@@ -268,7 +277,7 @@ depend on the results of the operation being performed.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">enqueueWrite</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">enqueueWrite</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -279,12 +288,12 @@ depend on the results of the operation being performed.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>function</em>
+                                <em>fn</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A no-argument function that will be called while the lock is held.</p>
+                                  <p>A function to perform while the write lock is held.</p>
 
                                 </div>
                               </td>
@@ -298,9 +307,9 @@ depend on the results of the operation being performed.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FC20CleanroomConcurrency20ReadWriteCoordinator13blockingWriteFFT_T_T_"></a>
+                    <a name="/s:FC20CleanroomConcurrency20ReadWriteCoordinator13blockingWriteurFFT_xx"></a>
                     <a name="//apple_ref/swift/Method/blockingWrite(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC20CleanroomConcurrency20ReadWriteCoordinator13blockingWriteFFT_T_T_">blockingWrite(_:)</a>
+                    <a class="token" href="#/s:FC20CleanroomConcurrency20ReadWriteCoordinator13blockingWriteurFFT_xx">blockingWrite(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -321,7 +330,8 @@ be available to the caller immediately upon return of this function.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">blockingWrite</span><span class="p">(</span><span class="n">_</span> <span class="nv">function</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">blockingWrite</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">fn</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">R</span><span class="p">)</span>
+        <span class="o">-&gt;</span> <span class="kt">R</span></code></pre>
 
                         </div>
                       </div>
@@ -332,18 +342,23 @@ be available to the caller immediately upon return of this function.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>function</em>
+                                <em>fn</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>A no-argument function that will be called while the lock is held.</p>
+                                  <p>A function to perform while the write lock is held.</p>
 
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The result of calling <code>fn()</code>.</p>
+
                       </div>
                     </section>
                   </div>

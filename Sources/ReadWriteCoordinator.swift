@@ -47,17 +47,21 @@ public final class ReadWriteCoordinator
     }
 
     /**
-     Attempts to acquire a read lock, blocking if necessary. Once a read
-     lock has been acquired, the passed-in function will be executed.
+     Executes the given function with a read lock held, returning its
+     result.
 
-     - parameter function: A no-argument function that will be called while the
-     lock is held.
+     - parameter fn: A function to perform while a read lock is held.
+
+     - returns: The result of calling `fn()`.
     */
-    public func read(_ function: () -> Void)
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
+        var result: R?
         queue.sync {
-            function()
+            result = fn()
         }
+        return result!
     }
 
     /**
@@ -68,13 +72,12 @@ public final class ReadWriteCoordinator
      This provides additional efficiency for callers that do not immediately 
      depend on the results of the operation being performed.
      
-     - parameter function: A no-argument function that will be called while the
-     lock is held.
+     - parameter fn: A function to perform while the write lock is held.
     */
-    public func enqueueWrite(_ function: @escaping () -> Void)
+    public func enqueueWrite(_ fn: @escaping () -> Void)
     {
         queue.async(flags: .barrier) {
-            function()
+            fn()
         }
     }
 
@@ -87,13 +90,17 @@ public final class ReadWriteCoordinator
      only be used in cases where the results of the write operation need to
      be available to the caller immediately upon return of this function.
 
-     - parameter function: A no-argument function that will be called while the
-     lock is held.
+     - parameter fn: A function to perform while the write lock is held.
+     
+     - returns: The result of calling `fn()`.
     */
-    public func blockingWrite(_ function: () -> Void)
+    public func blockingWrite<R>(_ fn: () -> R)
+        -> R
     {
+        var result: R?
         queue.sync(flags: .barrier) {
-            function()
+            result = fn()
         }
+        return result!
     }
 }

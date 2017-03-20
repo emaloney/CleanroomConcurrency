@@ -73,6 +73,9 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/FastWriteLock.html">FastWriteLock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/Lock.html">Lock</a>
               </li>
               <li class="nav-group-task">
@@ -116,8 +119,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A generic interface describing a lock that can be acquired for reading
-or writing.</p>
+                        <p>A generic interface describing a lock that can be acquired for synchronous
+(blocking) reading or writing.</p>
 
                         <a href="Protocols/Lock.html" class="slightly-smaller">See more</a>
                       </div>
@@ -165,6 +168,51 @@ prior to deallocation of its <code>Receipt</code>.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Receipt</span><span class="p">:</span> <span class="kd">class</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:P20CleanroomConcurrency13FastWriteLock"></a>
+                    <a name="//apple_ref/swift/Protocol/FastWriteLock" class="dashAnchor"></a>
+                    <a class="token" href="#/s:P20CleanroomConcurrency13FastWriteLock">FastWriteLock</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A generic interface describing a lock that can be acquired for synchronous
+(blocking) reading or potentially asynchronous writing.</p>
+
+<p>Because the write operations of a <code>FastWriteLock</code> <em>may</em> be (but are not
+<em>guaranteed</em> to be) performed asynchronously, unlike with the completely
+synchronous <code><a href="Protocols/Lock.html">Lock</a></code> protocol:</p>
+
+<ul>
+<li>Write operations require an <code>@escaping</code> closure</li>
+<li>A value cannot be returned from a write operation</li>
+</ul>
+
+<p>The underlying <code>FastWriteLock</code> implementation determines whether and when
+write operations are performed asynchronously.</p>
+
+                        <a href="Protocols/FastWriteLock.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">FastWriteLock</span></code></pre>
 
                         </div>
                       </div>

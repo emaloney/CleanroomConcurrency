@@ -21,17 +21,12 @@ public enum LockMechanism
 
     /** A mechanism that relies on a `CriticalSection` for a re-entrant
      mutual exclusion lock. */
-    case criticalSection
+    case mutex
 
-    /** A lock mechanism that relies on a `ReadWriteCoordinator` for a
-     many-reader/single-writer read/write lock that performs asynchronous
-     writes. */
-    case readAndAsyncWrite
-
-    /** A lock mechanism that relies on a `ReadWriteCoordinator` for a
-     many-reader/single-writer read/write lock that performs blocking
-     (synchronous) writes. */
-    case readAndBlockingWrite
+    /** A read/write lock mechanism that relies on a `ReadWriteCoordinator` 
+     for a many-reader/single-writer that can provide optimized `FastWriteLock`
+     performance. */
+    case readWrite
 }
 
 extension LockMechanism
@@ -39,17 +34,32 @@ extension LockMechanism
     /**
      Creates a new `Lock` instance that uses the locking mechanism specified
      by the value of the receiver.
-     
+
      - returns: The new `Lock`.
      */
     public func createLock()
         -> Lock
     {
         switch self {
-        case .none:                 return NoLock()
-        case .criticalSection:      return CriticalSectionLock()
-        case .readAndAsyncWrite:    return ReadWriteCoordinatorLock(synchronousWrites: false)
-        case .readAndBlockingWrite: return ReadWriteCoordinatorLock(synchronousWrites: true)
+        case .none:         return NoLock()
+        case .mutex:        return MutexLock()
+        case .readWrite:    return ReadWriteLock()
+        }
+    }
+
+    /**
+     Creates a new `FastWriteLock` instance that uses the locking mechanism 
+     specified by the value of the receiver.
+
+     - returns: The new `FastWriteLock`.
+     */
+    public func createFastWriteLock()
+        -> FastWriteLock
+    {
+        switch self {
+        case .none:         return FastWriteFacade(wrapping: NoLock())
+        case .mutex:        return FastWriteFacade(wrapping: MutexLock())
+        case .readWrite:    return FastWriteLockImpl()
         }
     }
 }

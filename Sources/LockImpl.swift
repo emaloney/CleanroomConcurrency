@@ -6,63 +6,105 @@
 //  Copyright © 2017 Gilt Groupe. All rights reserved.
 //
 
+internal class FastWriteFacade: FastWriteLock
+{
+    public var mechanism: LockMechanism {
+        return lock.mechanism
+    }
+
+    private let lock: Lock
+
+    public init(wrapping: Lock)
+    {
+        lock = wrapping
+    }
+
+    public func read<R>(_ fn: () -> R)
+        -> R
+    {
+        return lock.read(fn)
+    }
+
+    public func write(_ fn: @escaping () -> Void)
+    {
+        lock.write(fn)
+    }
+}
+
 internal class NoLock: Lock
 {
     public let mechanism = LockMechanism.none
 
     public init() {}
 
-    public func read(_ fn: () -> Void)
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
-        fn()
+        return fn()
     }
 
-    public func write(_ fn: @escaping () -> Void)
+    public func write<R>(_ fn: () -> R)
+        -> R
     {
-        fn()
+        return fn()
     }
 }
 
-internal class CriticalSectionLock: Lock
+internal class MutexLock: Lock
 {
-    public let mechanism = LockMechanism.criticalSection
+    public let mechanism = LockMechanism.mutex
     private let cs = CriticalSection()
 
     public init() {}
 
-    public func read(_ fn: () -> Void)
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
-        cs.execute(fn)
+        return cs.execute(fn)
     }
 
-    public func write(_ fn: @escaping () -> Void)
+    public func write<R>(_ fn: () -> R)
+        -> R
     {
-        cs.execute(fn)
+        return cs.execute(fn)
     }
 }
 
-internal class ReadWriteCoordinatorLock: Lock
+internal class ReadWriteLock: Lock
 {
-    public let mechanism: LockMechanism
-    private let synchronousWrites: Bool
-    private let coordinator: ReadWriteCoordinator
+    public let mechanism = LockMechanism.readWrite
+    private let coordinator = ReadWriteCoordinator()
 
-    public init(synchronousWrites: Bool = false)
+    public init() {}
+
+    public func read<R>(_ fn: () -> R)
+        -> R
     {
-        self.coordinator = ReadWriteCoordinator()
-        self.mechanism = synchronousWrites ? .readAndBlockingWrite : .readAndAsyncWrite
-        self.synchronousWrites = synchronousWrites
+        return coordinator.read(fn)
     }
 
-    public func read(_ fn: () -> Void)
+    public func write<R>(_ fn: () -> R)
+        -> R
     {
-        coordinator.read(fn)
+        return coordinator.blockingWrite(fn)
+    }
+}
+
+internal class FastWriteLockImpl: FastWriteLock
+{
+    public let mechanism = LockMechanism.readWrite
+    private let coordinator = ReadWriteCoordinator()
+
+    public init() {}
+
+    public func read<R>(_ fn: () -> R)
+        -> R
+    {
+        return coordinator.read(fn)
     }
 
     public func write(_ fn: @escaping () -> Void)
     {
-        synchronousWrites
-            ? coordinator.blockingWrite(fn)
-            : coordinator.enqueueWrite(fn)
+        coordinator.enqueueWrite(fn)
     }
 }

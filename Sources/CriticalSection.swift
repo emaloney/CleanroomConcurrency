@@ -35,14 +35,16 @@ public struct CriticalSection
      - parameter fn: The function to execute once exclusive access to the
      critical section has been acquired.
      */
-    public func execute(_ fn: () -> Void)
+    @discardableResult
+    public func execute<T>(_ fn: () -> T)
+        -> T
     {
         lock.lock()
         defer {
             lock.unlock()
         }
 
-        fn()
+        return fn()
     }
 
     /**
@@ -61,6 +63,7 @@ public struct CriticalSection
      and `fn` was executed. `false` if `timeout` expired and `fn` was not
      executed.
      */
+    @discardableResult
     public func execute(timeout: TimeInterval, _ fn: () -> Void)
         -> Bool
     {

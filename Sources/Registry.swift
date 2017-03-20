@@ -22,24 +22,39 @@ public class Registry<T>
 {
     private var idsToRegistrants: LockedResource<[ObjectIdentifier: T]>
 
+    /** The signature of a function to be called when a registrant is being
+     de-registered. */
+    public typealias DeregistrationHookFunction = (_ registry: Registry<T>, _ registrant: T, _ receipt: Receipt) -> Void
+
     /** The number of registered items. */
     public var count: Int {
-        var count = 0
-        idsToRegistrants.read {
-            count = $0.count
-        }
-        return count
+        return idsToRegistrants.read { return $0.count }
     }
 
-    /** 
+    /** An optional `DeregistrationHookFunction` which, if set, will be called 
+     when an item is being de-registered. */
+    public var deregistrationHook: DeregistrationHookFunction?
+
+    /**
      Creates a new `Registry` using the specified `LockMechanism`.
-     
+
      - parameter mechanism: A `LockMechanism` value that governs the type of
      lock used for protecting concurrent access to the registry.
      */
-    public init(lock mechanism: LockMechanism = .readAndAsyncWrite)
+    public init(lock mechanism: LockMechanism = .readWrite)
     {
         idsToRegistrants = LockedResource(resource: [ObjectIdentifier: T](), lock: mechanism)
+    }
+
+    /**
+     Creates a new `Registry` using the specified `Lock`.
+
+     - parameter lock: The `Lock` instance that will be used for protecting
+     concurrent access to the registry.
+     */
+    public init(lock: Lock)
+    {
+        idsToRegistrants = LockedResource(resource: [ObjectIdentifier: T](), lock: lock)
     }
 
     /**
@@ -65,19 +80,9 @@ public class Registry<T>
         return receipt
     }
 
-    /**
-     Returns the items currently in the `Registry`.
-
-     - returns: The items registered with the receiver.
-     */
-    public func registrants()
-        -> [T]
-    {
-        var objects: [T]?
-        idsToRegistrants.read {
-            objects = [T]($0.values)
-        }
-        return objects!
+    /** The items currently in the `Registry`. */
+    public var registrants: [T] {
+        return idsToRegistrants.read { [T]($0.values) }
     }
 
     /**
@@ -88,8 +93,8 @@ public class Registry<T>
      */
     public func withEachRegistrant(perform function: (T) -> Void)
     {
-        for item in registrants() {
-            function(item)
+        registrants.forEach {
+            function($0)
         }
     }
 
@@ -98,6 +103,13 @@ public class Registry<T>
         guard let receipt = receipt as? ReceiptImpl<T> else {
             // if it isn't a ReceiptImpl, it's not ours
             return
+        }
+
+        if let deregistrationHook = deregistrationHook {
+            let registrant = idsToRegistrants.read { $0[receipt.id] }
+            if let registrant = registrant {
+                deregistrationHook(self, registrant, receipt)
+            }
         }
 
         idsToRegistrants.write {

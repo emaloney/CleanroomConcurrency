@@ -7,8 +7,8 @@
 //
 
 /**
- A generic interface describing a lock that can be acquired for reading
- or writing.
+ A generic interface describing a lock that can be acquired for synchronous
+ (blocking) reading or writing.
  */
 public protocol Lock
 {
@@ -16,26 +16,26 @@ public protocol Lock
     var mechanism: LockMechanism { get }
 
     /**
-     Performs the given function with a read lock held.
-     
-     The implementation acquires a read lock, executes `fn`, and then
-     releases the lock it acquired.
+     Executes the given function with a read lock held, returning its
+     result.
 
      - parameter fn: A function to perform while a read lock is held.
+
+     - returns: The result of calling `fn()`.
      */
-    func read(_ fn: () -> Void)
+    @discardableResult
+    func read<R>(_ fn: () -> R)
+        -> R
 
     /**
-     Performs the given function with the write lock held.
-
-     The implementation acquires the write lock, executes `fn`, and then
-     releases the lock it acquired.
-
-     - note: Whether or not `fn` is an escaping function depends upon
-     the underlying lock mechanism. Because it *may* escape in *some*
-     implementations, it has to be declared `@escaping` here to cover all cases.
+     Executes the given function with the write lock held, returning its
+     result.
 
      - parameter fn: A function to perform while the write lock is held.
+
+     - returns: The result of calling `fn()`.
      */
-    func write(_ fn: @escaping () -> Void)
+    @discardableResult
+    func write<R>(_ fn: () -> R)
+        -> R
 }

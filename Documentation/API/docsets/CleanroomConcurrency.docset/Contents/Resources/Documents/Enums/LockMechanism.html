@@ -74,6 +74,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/FastWriteLock.html">FastWriteLock</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/Lock.html">Lock</a>
               </li>
               <li class="nav-group-task">
@@ -148,9 +151,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO20CleanroomConcurrency13LockMechanism15criticalSectionFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/criticalSection" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism15criticalSectionFMS0_S0_">criticalSection</a>
+                    <a name="/s:FO20CleanroomConcurrency13LockMechanism5mutexFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/mutex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism5mutexFMS0_S0_">mutex</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,7 +169,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">criticalSection</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">mutex</span></code></pre>
 
                         </div>
                       </div>
@@ -180,9 +183,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO20CleanroomConcurrency13LockMechanism17readAndAsyncWriteFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/readAndAsyncWrite" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism17readAndAsyncWriteFMS0_S0_">readAndAsyncWrite</a>
+                    <a name="/s:FO20CleanroomConcurrency13LockMechanism9readWriteFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/readWrite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism9readWriteFMS0_S0_">readWrite</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -190,49 +193,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A lock mechanism that relies on a <code><a href="../Classes/ReadWriteCoordinator.html">ReadWriteCoordinator</a></code> for a
- many-reader/single-writer read/write lock that performs asynchronous
- writes.</p>
+                        <p>A read/write lock mechanism that relies on a <code><a href="../Classes/ReadWriteCoordinator.html">ReadWriteCoordinator</a></code> 
+ for a many-reader/single-writer that can provide optimized <code><a href="../Protocols/FastWriteLock.html">FastWriteLock</a></code>
+ performance.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">readAndAsyncWrite</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FO20CleanroomConcurrency13LockMechanism20readAndBlockingWriteFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/readAndBlockingWrite" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism20readAndBlockingWriteFMS0_S0_">readAndBlockingWrite</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A lock mechanism that relies on a <code><a href="../Classes/ReadWriteCoordinator.html">ReadWriteCoordinator</a></code> for a
- many-reader/single-writer read/write lock that performs blocking
- (synchronous) writes.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="n">readAndBlockingWrite</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="n">readWrite</span></code></pre>
 
                         </div>
                       </div>
@@ -272,6 +242,40 @@ by the value of the receiver.</p>
                       <div>
                         <h4>Return Value</h4>
                         <p>The new <code><a href="../Protocols/Lock.html">Lock</a></code>.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FO20CleanroomConcurrency13LockMechanism19createFastWriteLockFT_PS_13FastWriteLock_"></a>
+                    <a name="//apple_ref/swift/Method/createFastWriteLock()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO20CleanroomConcurrency13LockMechanism19createFastWriteLockFT_PS_13FastWriteLock_">createFastWriteLock()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new <code><a href="../Protocols/FastWriteLock.html">FastWriteLock</a></code> instance that uses the locking mechanism 
+specified by the value of the receiver.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">createFastWriteLock</span><span class="p">()</span>
+        <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/FastWriteLock.html">FastWriteLock</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The new <code><a href="../Protocols/FastWriteLock.html">FastWriteLock</a></code>.</p>
 
                       </div>
                     </section>
