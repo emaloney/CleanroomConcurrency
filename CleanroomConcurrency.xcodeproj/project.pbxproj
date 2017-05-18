@@ -19,6 +19,7 @@
 		3B4CCC781E71B2D50063E641 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4CCC721E71B2D50063E641 /* Receipt.swift */; };
 		3B4CCC791E71B2D50063E641 /* Registry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4CCC731E71B2D50063E641 /* Registry.swift */; };
 		3B90590D1DAECB5200B4EEC0 /* CleanroomConcurrency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9059031DAECB5200B4EEC0 /* CleanroomConcurrency.framework */; };
+		3BB1ADEA1ECD3B3600F9258C /* ReceiptSpindle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB1ADE91ECD3B3600F9258C /* ReceiptSpindle.swift */; };
 		3BD302691DB458CC00BEB111 /* DispatchingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302641DB458CC00BEB111 /* DispatchingFunctions.swift */; };
 		3BD3026A1DB458CC00BEB111 /* CriticalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302651DB458CC00BEB111 /* CriticalSection.swift */; };
 		3BD3026C1DB458CC00BEB111 /* ReadWriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */; };
@@ -56,6 +57,7 @@
 		3B9059291DAECB9E00B4EEC0 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
 		3B90592B1DAECD9800B4EEC0 /* Info-Framework.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Framework.plist"; sourceTree = "<group>"; };
 		3B90592C1DAECD9800B4EEC0 /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
+		3BB1ADE91ECD3B3600F9258C /* ReceiptSpindle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptSpindle.swift; sourceTree = "<group>"; };
 		3BD302641DB458CC00BEB111 /* DispatchingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchingFunctions.swift; sourceTree = "<group>"; };
 		3BD302651DB458CC00BEB111 /* CriticalSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CriticalSection.swift; sourceTree = "<group>"; };
 		3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadWriteCoordinator.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				3B4CCC711E71B2D50063E641 /* LockMechanism.swift */,
 				3BD302671DB458CC00BEB111 /* ReadWriteCoordinator.swift */,
 				3B4CCC721E71B2D50063E641 /* Receipt.swift */,
+				3BB1ADE91ECD3B3600F9258C /* ReceiptSpindle.swift */,
 				3B4CCC731E71B2D50063E641 /* Registry.swift */,
 				3BD302681DB458CC00BEB111 /* ThreadLocalValue.swift */,
 			);
@@ -264,6 +267,7 @@
 			files = (
 				3BD3026D1DB458CC00BEB111 /* ThreadLocalValue.swift in Sources */,
 				3B4CCC751E71B2D50063E641 /* LockedResource.swift in Sources */,
+				3BB1ADEA1ECD3B3600F9258C /* ReceiptSpindle.swift in Sources */,
 				3B4CCC741E71B2D50063E641 /* Lock.swift in Sources */,
 				3B4CCC781E71B2D50063E641 /* Receipt.swift in Sources */,
 				3B4CCC761E71B2D50063E641 /* LockImpl.swift in Sources */,
