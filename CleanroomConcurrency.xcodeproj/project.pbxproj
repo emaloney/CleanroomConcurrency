@@ -55,7 +55,7 @@
 		3B9059271DAECB9E00B4EEC0 /* Project.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		3B9059281DAECB9E00B4EEC0 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		3B9059291DAECB9E00B4EEC0 /* Tests.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Tests.xcconfig; sourceTree = "<group>"; };
-		3B90592B1DAECD9800B4EEC0 /* Info-Framework.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Framework.plist"; sourceTree = "<group>"; };
+		3B90592B1DAECD9800B4EEC0 /* Info-Target.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Target.plist"; sourceTree = "<group>"; };
 		3B90592C1DAECD9800B4EEC0 /* Info-Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-Tests.plist"; sourceTree = "<group>"; };
 		3BB1ADE91ECD3B3600F9258C /* ReceiptSpindle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptSpindle.swift; sourceTree = "<group>"; };
 		3BD302641DB458CC00BEB111 /* DispatchingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchingFunctions.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				3B9059241DAECB9E00B4EEC0 /* config */,
-				3B90592B1DAECD9800B4EEC0 /* Info-Framework.plist */,
+				3B90592B1DAECD9800B4EEC0 /* Info-Target.plist */,
 				3B90592C1DAECD9800B4EEC0 /* Info-Tests.plist */,
 			);
 			path = BuildControl;
