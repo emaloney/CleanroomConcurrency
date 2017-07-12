@@ -47,9 +47,9 @@ To integrate CleanroomConcurrency in your workspace, you would start by adding t
 github "emaloney/CleanroomConcurrency" ~> 1.6.0
 ```
 
-This specifies that Carthage use the latest version of CleanroomConcurrency that is API-compatible with 1.6, i.e. any 1.6.*x* version.
+This specifies that Carthage use the latest version of CleanroomConcurrency that is API-compatible with 1.6.0, i.e. any 1.6.*x* version.
 
-**Note:** Be sure to check the [latest releases](https://github.com/emaloney/CleanroomConcurrency/releases); there may be a newer version than 1.6 that is no longer API-compatible.
+**Note:** Be sure to check the [latest releases](https://github.com/emaloney/CleanroomConcurrency/releases); there may be a newer version than 1.6.0 that is no longer API-compatible.
 
 ### 2. Download CleanroomConcurrency using Carthage
 
