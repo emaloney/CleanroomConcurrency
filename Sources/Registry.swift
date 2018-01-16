@@ -26,12 +26,18 @@ public class Registry<T>
      de-registered. */
     public typealias DeregistrationHookFunction = (_ registry: Registry<T>, _ registrant: T, _ receipt: Receipt) -> Void
 
+    /** `true` if the `Registry` contains 0 registrants; `false` if it contains
+     at lease one registrant. */
+    public var isEmpty: Bool {
+        return idsToRegistrants.read { return $0.isEmpty }
+    }
+
     /** The number of registered items. */
     public var count: Int {
         return idsToRegistrants.read { return $0.count }
     }
 
-    /** An optional `DeregistrationHookFunction` which, if set, will be called 
+    /** An optional `DeregistrationHookFunction` which, if set, will be called
      when an item is being de-registered. */
     public var deregistrationHook: DeregistrationHookFunction?
 
